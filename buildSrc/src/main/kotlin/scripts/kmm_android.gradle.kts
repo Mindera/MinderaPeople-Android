@@ -45,6 +45,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation(Dependencies.androidXAnnotation)
+                implementation(Dependencies.ktorClientOkHttp)
             }
         }
         val androidTest by getting {

@@ -24,6 +24,14 @@ kotlin {
         }
     }
 
+    sourceSets {
+        val iosMain by getting {
+            dependencies {
+                implementation(Dependencies.ktorClientDarwin)
+            }
+        }
+    }
+
     multiplatformSwiftPackage {
         packageName(moduleFrameworkName)
         swiftToolsVersion("5.3")

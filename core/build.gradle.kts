@@ -30,6 +30,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(Dependencies.kotlinCoroutinesCore)
+                implementation(Dependencies.ktorClientCore)
             }
         }
         val commonTest by getting {

@@ -3,14 +3,21 @@
  * other library modules to build.
  */
 object Dependencies {
+    // region Kotlin libraries
     const val kotlinJdk = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-
     const val kotlinCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     const val kotlinCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     const val kotlinCoroutinesNativeMt = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesMtVersion"
     const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    // endregion
 
-    // Jetpack Compose libraries
+    // region Ktor libraries
+    const val ktorClientCore = "io.ktor:ktor-client-core:$ktorVersion"
+    const val ktorClientOkHttp = "io.ktor:ktor-client-okhttp:$ktorVersion"
+    const val ktorClientDarwin = "io.ktor:ktor-client-darwin:$ktorVersion"
+    // endregion
+
+    // region Jetpack Compose libraries
     const val composeCompiler = "androidx.compose.compiler:compiler:$composeCompilerVersion"
     const val composeUI = "androidx.compose.ui:ui:$composeVersion"
     // Tooling support (Previews, etc.)
@@ -29,7 +36,9 @@ object Dependencies {
  // const val composeLiveData = "androidx.compose.runtime:runtime-livedata:$compose_version"
     // UI tests
     const val composeUITests = "androidx.compose.ui:ui-test:$composeVersion"
+    // endregion
 
+    // region AndroidX libraries
     const val androidXAppCompact = "androidx.appcompat:appcompat:1.5.0"
     const val androidXAnnotation = "androidx.annotation:annotation:1.4.0"
     const val androidXCoreKtx = "androidx.core:core-ktx:1.8.0"
@@ -38,7 +47,9 @@ object Dependencies {
     const val androidTestRunner = "androidx.test:runner:1.4.0"
     const val androidJunit = "androidx.test.ext:junit:1.1.3"
     const val androidExpressoCore = "androidx.test.espresso:espresso-core:3.4.0"
+    // endregion
 
+    // region Test libraries
     const val junit = "junit:junit:4.13.2"
     const val turbine = "app.cash.turbine:turbine:0.9.0"
     const val robolectric = "org.robolectric:robolectric:4.8.1"
@@ -50,4 +61,5 @@ object Dependencies {
     private const val mockkVersion = "1.12.5"
     const val mockk = "io.mockk:mockk:$mockkVersion"
     const val mockkAgentJvm = "io.mockk:mockk-agent-jvm:$mockkVersion"
+    // endregion
 }
