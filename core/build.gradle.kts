@@ -34,6 +34,7 @@ kotlin {
                 implementation(Dependencies.kotlinDateTime)
                 implementation(Dependencies.kotlinSerializationJson)
                 implementation(Dependencies.ktorClientCore)
+                implementation(Dependencies.koinCore)
             }
         }
         val commonTest by getting {

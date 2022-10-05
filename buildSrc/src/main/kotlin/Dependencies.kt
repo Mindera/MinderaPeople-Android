@@ -21,6 +21,12 @@ object Dependencies {
     const val ktorClientDarwin = "io.ktor:ktor-client-darwin:$ktorVersion"
     // endregion
 
+    // region Koin libraries
+    const val koinCore = "io.insert-koin:koin-core:$koinVersion"
+    const val koinTest = "io.insert-koin:koin-test:$koinVersion"
+    const val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
+    // endregion
+
     // region Jetpack Compose libraries
     const val composeCompiler = "androidx.compose.compiler:compiler:$composeCompilerVersion"
     const val composeUI = "androidx.compose.ui:ui:$composeVersion"
