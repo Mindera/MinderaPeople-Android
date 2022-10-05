@@ -31,6 +31,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(Dependencies.kotlinCoroutinesCore)
+                implementation(Dependencies.kotlinDateTime)
                 implementation(Dependencies.kotlinSerializationJson)
                 implementation(Dependencies.ktorClientCore)
             }

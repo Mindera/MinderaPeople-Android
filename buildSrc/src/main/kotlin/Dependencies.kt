@@ -9,9 +9,9 @@ object Dependencies {
     const val kotlinCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     const val kotlinCoroutinesNativeMt = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesMtVersion"
     const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    // endregion
-
-    // region Kotlin Serialization
+    // Kotlin DateTime
+    const val kotlinDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:$datetimeVersion"
+    // Kotlin Serialization
     const val kotlinSerializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion"
     // endregion
 
