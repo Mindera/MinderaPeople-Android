@@ -6,11 +6,6 @@ plugins {
 repositories {
     google()
     mavenCentral()
-
-    // temporary until final Compose is released to kotlin 1.6.20
-    maven {
-        setUrl("https://androidx.dev/storage/compose-compiler/repository/")
-    }
 }
 
 android {
