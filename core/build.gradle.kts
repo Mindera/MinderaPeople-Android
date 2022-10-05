@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id(BuildPlugins.googleKsp).version(kspVersion)
     id(BuildPlugins.detekt).version(detektVersion)
 }
@@ -30,6 +31,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(Dependencies.kotlinCoroutinesCore)
+                implementation(Dependencies.kotlinSerializationJson)
                 implementation(Dependencies.ktorClientCore)
             }
         }

@@ -11,6 +11,10 @@ object Dependencies {
     const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     // endregion
 
+    // region Kotlin Serialization
+    const val kotlinSerializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion"
+    // endregion
+
     // region Ktor libraries
     const val ktorClientCore = "io.ktor:ktor-client-core:$ktorVersion"
     const val ktorClientOkHttp = "io.ktor:ktor-client-okhttp:$ktorVersion"
