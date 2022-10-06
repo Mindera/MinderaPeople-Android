@@ -1,14 +1,26 @@
 package com.mindera.people
 
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LoggerConfig
 import com.mindera.people.utils.MainScope
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import org.koin.dsl.module
 
-class MinderaPeopleWrapper {
+object MinderaPeopleWrapper {
     private val mainScope = MainScope()
 //    private val konnection = Konnection(enableDebugLog = true)
 //
 //    fun hasNetworkConnection(): Boolean = konnection.isConnected()
+
+    fun start() {
+        initKoin {
+            modules(
+                module {
+                    val baseKermit = Logger(config = LoggerConfig.default, tag = "MinderaPeople")
+                    factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
+                }
+            )
+        }
+    }
 
     fun stop() {
      // konnection.stop()

@@ -10,7 +10,7 @@ import MinderaPeopleKt
 
 struct ContentView: View {
 
-    private let minderaPeople = MinderaPeopleWrapper()
+    private let minderaPeople = MinderaPeopleWrapper.shared
 
     var body: some View {
         ZStack {
