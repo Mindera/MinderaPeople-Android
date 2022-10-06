@@ -9,7 +9,7 @@ import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-@ExperimentalSettingsImplementation
+@OptIn(ExperimentalSettingsImplementation::class)
 actual val platformModule: Module = module {
     single<Settings>(named(SettingsStorage.encryptedSettingsName)) {
         KeychainSettings(service = SettingsStorage.ENCRYPTED_STORAGE_NAME)
