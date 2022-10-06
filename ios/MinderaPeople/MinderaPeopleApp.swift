@@ -10,6 +10,7 @@ import MinderaPeopleKt
 
 @main
 struct MinderaPeopleApp: App {
+
     init() {
         MinderaPeopleWrapper.shared.start()
     }
