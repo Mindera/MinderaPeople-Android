@@ -76,6 +76,11 @@ afterEvaluate {
 }
 
 dependencies {
+//    configurations
+//        .filter { it.name.startsWith("ksp") && it.name.contains("Test") }
+//        .forEach {
+//            add(it.name, Dependencies.mockativeProcessor)
+//        }
     ksp(Dependencies.mockativeProcessor)
 }
 

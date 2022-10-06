@@ -72,13 +72,9 @@ object Dependencies {
     const val junit = "junit:junit:4.13.2"
     const val turbine = "app.cash.turbine:turbine:0.9.0"
     const val robolectric = "org.robolectric:robolectric:4.8.1"
-
+    // Mock library
     private const val mockativeVersion = "1.2.6"
     const val mockative = "io.mockative:mockative:$mockativeVersion"
     const val mockativeProcessor = "io.mockative:mockative-processor:$mockativeVersion"
-
-    private const val mockkVersion = "1.12.5"
-    const val mockk = "io.mockk:mockk:$mockkVersion"
-    const val mockkAgentJvm = "io.mockk:mockk-agent-jvm:$mockkVersion"
     // endregion
 }

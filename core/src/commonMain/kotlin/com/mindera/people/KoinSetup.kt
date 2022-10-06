@@ -1,6 +1,7 @@
 package com.mindera.people
 
-import com.mindera.people.settings.SettingsStorage
+import com.mindera.people.data.SettingsStorage
+import com.mindera.people.data.SettingsStorageImpl
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.parameter.parametersOf
@@ -15,8 +16,8 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 }
 
 private val coreModule = module {
-    single {
-        SettingsStorage(
+    single<SettingsStorage> {
+        SettingsStorageImpl(
             log = getWith("SettingsStorage"),
             encryptedSettings = get(named(SettingsStorage.encryptedSettingsName))
         )

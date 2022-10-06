@@ -53,9 +53,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation(Dependencies.mockk)
-                implementation(Dependencies.mockkAgentJvm)
                 implementation(Dependencies.robolectric)
+                implementation(Dependencies.mockative)
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.mindera.people
 
-import com.mindera.people.settings.SettingsStorage
+import com.mindera.people.data.SettingsStorage
 import com.russhwolf.settings.ExperimentalSettingsImplementation
 import com.russhwolf.settings.KeychainSettings
 import com.russhwolf.settings.NSUserDefaultsSettings

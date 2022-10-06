@@ -7,7 +7,7 @@ import androidx.security.crypto.MasterKey
 import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
-import com.mindera.people.settings.SettingsStorage
+import com.mindera.people.data.SettingsStorage
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.core.module.Module
