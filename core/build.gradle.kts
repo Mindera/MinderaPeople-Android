@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.serialization")
     id(BuildPlugins.googleKsp).version(kspVersion)
     id(BuildPlugins.detekt).version(detektVersion)
+    id(BuildPlugins.kermit)
 }
 
 group = "com.mindera"
@@ -35,6 +36,10 @@ kotlin {
                 implementation(Dependencies.kotlinSerializationJson)
                 implementation(Dependencies.ktorClientCore)
                 implementation(Dependencies.koinCore)
+                implementation(Dependencies.multiplatformSettings)
+                implementation(Dependencies.multiplatformSettingsSerialization)
+                implementation(Dependencies.kermit)
+                implementation(Dependencies.kermitCrashlytics)
             }
         }
         val commonTest by getting {

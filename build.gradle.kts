@@ -7,6 +7,7 @@ buildscript {
         classpath(GradlePlugins.android)
         classpath(GradlePlugins.kotlin)
         classpath(GradlePlugins.kotlinSerialization)
+        classpath(GradlePlugins.kermit)
     }
 }
 

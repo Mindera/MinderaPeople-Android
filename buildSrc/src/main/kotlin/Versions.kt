@@ -14,3 +14,6 @@ const val composeCompilerVersion = "1.3.1"
 const val detektVersion = "1.20.0"
 
 const val kspVersion = "1.7.10-1.0.6"
+
+const val multiplatformSettingsVersion = "1.0.0-RC"
+const val kermitVersion = "1.2.1-alpha"

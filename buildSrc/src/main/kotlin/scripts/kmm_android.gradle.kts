@@ -44,6 +44,7 @@ kotlin {
             kotlin.srcDir("src/androidMain/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
+                implementation(Dependencies.androidSecurityCrypto)
                 implementation(Dependencies.androidXAnnotation)
                 implementation(Dependencies.ktorClientOkHttp)
             }

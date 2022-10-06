@@ -3,6 +3,8 @@ object GradlePlugins {
 
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     const val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+
+    const val kermit = "co.touchlab:kermit-gradle-plugin:$kermitVersion"
 }
 
 object BuildPlugins {
@@ -13,6 +15,8 @@ object BuildPlugins {
     const val detekt = "io.gitlab.arturbosch.detekt"
 
     const val googleKsp = "com.google.devtools.ksp"
+
+    const val kermit = "co.touchlab.kermit"
 }
 
 object ScriptPlugins {

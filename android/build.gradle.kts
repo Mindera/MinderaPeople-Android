@@ -88,6 +88,8 @@ dependencies {
     implementation(Dependencies.kotlinJdk)
     implementation(Dependencies.kotlinCoroutinesAndroid)
 
+    implementation(Dependencies.koinAndroid)
+
     implementation(Dependencies.androidXAppCompact)
     implementation(Dependencies.androidXCoreKtx)
 

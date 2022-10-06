@@ -52,11 +52,20 @@ object Dependencies {
     const val androidXAppCompact = "androidx.appcompat:appcompat:1.5.0"
     const val androidXAnnotation = "androidx.annotation:annotation:1.4.0"
     const val androidXCoreKtx = "androidx.core:core-ktx:1.8.0"
+    const val androidSecurityCrypto = "androidx.security:security-crypto:1.1.0-alpha03"
 
     const val androidCoreTesting = "androidx.arch.core:core-testing:2.1.0"
     const val androidTestRunner = "androidx.test:runner:1.4.0"
     const val androidJunit = "androidx.test.ext:junit:1.1.3"
     const val androidExpressoCore = "androidx.test.espresso:espresso-core:3.4.0"
+    // endregion
+
+    // region Misc libraries
+    const val multiplatformSettings = "com.russhwolf:multiplatform-settings:$multiplatformSettingsVersion"
+    const val multiplatformSettingsSerialization = "com.russhwolf:multiplatform-settings-serialization:$multiplatformSettingsVersion"
+    // Logging library
+    const val kermit = "co.touchlab:kermit:$kermitVersion"
+    const val kermitCrashlytics = "co.touchlab:kermit-crashlytics:$kermitVersion"
     // endregion
 
     // region Test libraries
