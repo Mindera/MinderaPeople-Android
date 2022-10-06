@@ -1,7 +1,6 @@
 package com.mindera.people
 
 import app.cash.turbine.test
-import com.mindera.people.utils.TriggerEvent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test

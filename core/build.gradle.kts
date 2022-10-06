@@ -35,11 +35,11 @@ kotlin {
                 implementation(Dependencies.kotlinDateTime)
                 implementation(Dependencies.kotlinSerializationJson)
                 implementation(Dependencies.ktorClientCore)
-                implementation(Dependencies.koinCore)
                 implementation(Dependencies.multiplatformSettings)
                 implementation(Dependencies.multiplatformSettingsSerialization)
                 implementation(Dependencies.kermit)
                 implementation(Dependencies.kermitCrashlytics)
+                api(Dependencies.koinCore)
             }
         }
         val commonTest by getting {
@@ -58,6 +58,21 @@ kotlin {
             languageSettings.optIn("kotlin.RequiresOptIn")
             languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
+}
+
+// Workaround for https://youtrack.jetbrains.com/issue/KT-51970
+afterEvaluate {
+    afterEvaluate {
+        tasks.configureEach {
+            if (
+                name.startsWith("compile")
+                && name.endsWith("KotlinMetadata")
+            ) {
+                println("disabling $this:$name")
+                enabled = false
+            }
+        }
+    }
 }
 
 dependencies {
