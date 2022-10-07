@@ -63,6 +63,7 @@ object Dependencies {
     // region Misc libraries
     const val multiplatformSettings = "com.russhwolf:multiplatform-settings:$multiplatformSettingsVersion"
     const val multiplatformSettingsSerialization = "com.russhwolf:multiplatform-settings-serialization:$multiplatformSettingsVersion"
+    const val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:$multiplatformSettingsVersion"
     // Logging library
     const val kermit = "co.touchlab:kermit:$kermitVersion"
     const val kermitCrashlytics = "co.touchlab:kermit-crashlytics:$kermitVersion"

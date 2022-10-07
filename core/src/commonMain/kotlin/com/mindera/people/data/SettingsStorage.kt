@@ -22,6 +22,7 @@ interface SettingsStorage {
 @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
 class SettingsStorageImpl(
     private val log: Logger,
+    private val settings: Settings,
     private val encryptedSettings: Settings
 ): SettingsStorage {
 

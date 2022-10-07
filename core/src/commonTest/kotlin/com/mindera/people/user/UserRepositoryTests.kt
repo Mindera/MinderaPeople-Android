@@ -1,35 +1,21 @@
 package com.mindera.people.user
 
-import com.mindera.people.data.SettingsStorage
-import io.mockative.Mock
-import io.mockative.classOf
-import io.mockative.eq
-import io.mockative.given
-import io.mockative.mock
-import io.mockative.once
-import io.mockative.thenDoNothing
-import io.mockative.verify
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LoggerConfig
+import com.russhwolf.settings.MapSettings
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class UserRepositoryTests {
 
-    @Mock val storage = mock(classOf<SettingsStorage>())
-
     private val repository: UserRepository by lazy {
-        UserRepositoryImpl(storage)
+        UserRepositoryImpl(Logger(LoggerConfig.default), MapSettings())
     }
 
     @Test
     fun `test UserRepository save a given User properly`() {
-        val testUser = User(email = "user@mail.com")
-
-        given(storage).invocation { user = testUser }.thenDoNothing()
-        given(storage).invocation { user }.thenReturn(testUser)
-
-        repository.authenticateUser(testUser)
-
-        verify(storage).setter(storage::user)
-            .with(eq(testUser))
-            .wasInvoked(exactly = once)
+        val user = User(email = "user@mail.com")
+        repository.authenticateUser(user)
+        assertEquals(user, repository.authenticated)
     }
 }

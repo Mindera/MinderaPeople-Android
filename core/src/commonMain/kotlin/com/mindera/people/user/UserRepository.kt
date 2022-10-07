@@ -1,6 +1,11 @@
 package com.mindera.people.user
 
-import com.mindera.people.data.SettingsStorage
+import co.touchlab.kermit.Logger
+import com.russhwolf.settings.ExperimentalSettingsApi
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.serialization.decodeValueOrNull
+import com.russhwolf.settings.serialization.encodeValue
+import kotlinx.serialization.ExperimentalSerializationApi
 
 interface UserRepository {
     val authenticated: User?
@@ -8,18 +13,30 @@ interface UserRepository {
     fun clearUser()
 }
 
+@OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
 class UserRepositoryImpl(
-    private val storage: SettingsStorage
+    private val log: Logger,
+    private val encryptedSettings: Settings
 ) : UserRepository {
 
     override val authenticated: User?
-        get() = storage.user
+        get() {
+            val user = encryptedSettings.decodeValueOrNull(User.serializer(), USER_SETTING)
+            log.d { "authenticated user $user" }
+            return user
+        }
 
     override fun authenticateUser(user: User) {
-        storage.user = user
+        log.d { "authenticate user $user" }
+        encryptedSettings.encodeValue(User.serializer(), USER_SETTING, user)
     }
 
     override fun clearUser() {
-        storage.user = null
+        log.d { "clearing authenticated user" }
+        encryptedSettings.remove(USER_SETTING)
+    }
+
+    companion object {
+        private const val USER_SETTING = "user"
     }
 }

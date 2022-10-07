@@ -47,6 +47,7 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation(Dependencies.kotlinCoroutinesTest)
+                implementation(Dependencies.multiplatformSettingsTest)
                 implementation(Dependencies.mockative)
                 implementation(Dependencies.turbine)
             }
