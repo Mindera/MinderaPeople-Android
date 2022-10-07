@@ -1,4 +1,4 @@
-package com.mindera.people
+package com.mindera.people.utils
 
 sealed class BaseTriggerEvent {
     override fun equals(other: Any?): Boolean = false

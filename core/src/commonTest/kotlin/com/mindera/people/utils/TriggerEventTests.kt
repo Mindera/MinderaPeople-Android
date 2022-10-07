@@ -1,4 +1,4 @@
-package com.mindera.people
+package com.mindera.people.utils
 
 import app.cash.turbine.test
 import kotlinx.coroutines.flow.MutableStateFlow

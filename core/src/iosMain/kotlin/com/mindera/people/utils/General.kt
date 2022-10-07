@@ -1,4 +1,4 @@
-package com.mindera.people
+package com.mindera.people.utils
 
 import platform.Foundation.NSString
 import platform.Foundation.NSURL
