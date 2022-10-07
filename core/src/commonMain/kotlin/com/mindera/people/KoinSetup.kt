@@ -21,14 +21,14 @@ private val coreModule = module {
     single<SettingsStorage> {
         SettingsStorageImpl(
             log = getWith("Settings"),
-            settings = get(named(SettingsStorage.unencryptedSettingsName))
+            settings = get(named(unencryptedSettings))
         )
     }
 
     factory<UserRepository> {
         UserRepositoryImpl(
             log = getWith("UserRepo"),
-            encryptedSettings = get(named(SettingsStorage.encryptedSettingsName))
+            encryptedSettings = get(named(encryptedSettings))
         )
     }
 }
@@ -37,3 +37,9 @@ inline fun <reified T> Scope.getWith(vararg params: Any?): T =
     get(parameters = { parametersOf(*params) })
 
 expect val platformModule: Module
+
+
+const val STORAGE_NAME = "UNENCRYPTED_SETTINGS"
+const val ENCRYPTED_STORAGE_NAME = "ENCRYPTED_SETTINGS"
+const val encryptedSettings = "encryptedSettings"
+const val unencryptedSettings = "unencryptedSettings"

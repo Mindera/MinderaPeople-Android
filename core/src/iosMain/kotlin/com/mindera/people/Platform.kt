@@ -1,6 +1,5 @@
 package com.mindera.people
 
-import com.mindera.people.data.SettingsStorage
 import com.russhwolf.settings.ExperimentalSettingsImplementation
 import com.russhwolf.settings.KeychainSettings
 import com.russhwolf.settings.NSUserDefaultsSettings
@@ -11,10 +10,10 @@ import org.koin.dsl.module
 
 @OptIn(ExperimentalSettingsImplementation::class)
 actual val platformModule: Module = module {
-    single<Settings>(named(SettingsStorage.encryptedSettingsName)) {
-        KeychainSettings(service = SettingsStorage.ENCRYPTED_STORAGE_NAME)
+    single<Settings>(named(encryptedSettings)) {
+        KeychainSettings(service = ENCRYPTED_STORAGE_NAME)
     }
-    single<Settings>(named(SettingsStorage.unencryptedSettingsName)) {
-        NSUserDefaultsSettings.Factory().create(SettingsStorage.STORAGE_NAME)
+    single<Settings>(named(unencryptedSettings)) {
+        NSUserDefaultsSettings.Factory().create(name = STORAGE_NAME)
     }
 }

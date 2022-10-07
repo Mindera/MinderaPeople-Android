@@ -7,7 +7,6 @@ import androidx.security.crypto.MasterKey
 import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
-import com.mindera.people.data.SettingsStorage
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.core.module.Module
@@ -32,11 +31,11 @@ fun startSdk(app: Application) {
 }
 
 actual val platformModule: Module = module {
-    single<Settings>(named(SettingsStorage.encryptedSettingsName)) {
+    single<Settings>(named(encryptedSettings)) {
         SharedPreferencesSettings(
             delegate = EncryptedSharedPreferences.create(
                 get(),
-                SettingsStorage.ENCRYPTED_STORAGE_NAME,
+                ENCRYPTED_STORAGE_NAME,
                 MasterKey.Builder(get())
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                     .build(),
@@ -46,7 +45,7 @@ actual val platformModule: Module = module {
             commit = false
         )
     }
-    single<Settings>(named(SettingsStorage.unencryptedSettingsName)) {
-        SharedPreferencesSettings.Factory(get()).create(SettingsStorage.STORAGE_NAME)
+    single<Settings>(named(unencryptedSettings)) {
+        SharedPreferencesSettings.Factory(get()).create(name = STORAGE_NAME)
     }
 }
