@@ -22,10 +22,11 @@ class SettingsStorageImpl(
     override var isOnboarded: Boolean
         get() {
             val value = settings.getBoolean(IS_ONBOARDED, false)
-            log.d { "isOnboarded=$value" }
+            log.d { "get isOnboarded=$value" }
             return value
         }
         set(value) {
+            log.d { "set isOnboarded=$value" }
             settings.putBoolean(IS_ONBOARDED, value)
         }
 
