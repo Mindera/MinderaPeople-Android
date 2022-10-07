@@ -40,7 +40,7 @@ object Dependencies {
     const val composeMaterialIconsCore = "androidx.compose.material:material-icons-core:$composeVersion"
     const val composeMaterialIconsExtended = "androidx.compose.material:material-icons-extended:$composeVersion"
     // Compose APIs for Activity
-    const val composeActivity = "androidx.activity:activity-compose:1.5.0"
+    const val composeActivity = "androidx.activity:activity-compose:1.6.0"
     // Integration with observables
     const val composeRuntime = "androidx.compose.runtime:runtime:$composeVersion"
  // const val composeLiveData = "androidx.compose.runtime:runtime-livedata:$compose_version"
@@ -49,9 +49,9 @@ object Dependencies {
     // endregion
 
     // region AndroidX libraries
-    const val androidXAppCompact = "androidx.appcompat:appcompat:1.5.0"
-    const val androidXAnnotation = "androidx.annotation:annotation:1.4.0"
-    const val androidXCoreKtx = "androidx.core:core-ktx:1.8.0"
+    const val androidXAppCompact = "androidx.appcompat:appcompat:1.5.1"
+    const val androidXAnnotation = "androidx.annotation:annotation:1.5.0"
+    const val androidXCoreKtx = "androidx.core:core-ktx:1.9.0"
     const val androidSecurityCrypto = "androidx.security:security-crypto:1.1.0-alpha03"
 
     const val androidCoreTesting = "androidx.arch.core:core-testing:2.1.0"
