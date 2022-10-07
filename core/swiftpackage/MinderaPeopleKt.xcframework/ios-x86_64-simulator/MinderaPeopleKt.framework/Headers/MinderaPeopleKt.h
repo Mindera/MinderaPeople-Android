@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class MPKKoin_coreKoin, MPKMinderaPeopleWrapper, MPKKermitLogger, MPKSettingsStorageCompanion, MPKUserCompanion, MPKUser, MPKKoin_coreLockable, MPKKoin_coreScope, MPKKoin_coreParametersHolder, MPKKotlinLazyThreadSafetyMode, MPKKotlinArray<T>, MPKKoin_coreLogger, MPKKoin_coreModule, MPKKoin_coreKoinApplication, MPKKoin_coreInstanceRegistry, MPKKoin_corePropertyRegistry, MPKKoin_coreScopeRegistry, MPKKermitLoggerCompanion, MPKKotlinThrowable, MPKKermitSeverity, MPKKotlinException, MPKKotlinRuntimeException, MPKKotlinIllegalStateException, MPKKoin_coreParametersHolderCompanion, MPKKotlinEnumCompanion, MPKKotlinEnum<E>, MPKKoin_coreLevel, MPKKoin_coreInstanceFactory<T>, MPKKotlinPair<__covariant A, __covariant B>, MPKKoin_coreScopeDSL, MPKKoin_coreSingleInstanceFactory<T>, MPKKoin_coreKoinApplicationCompanion, MPKKoin_coreScopeRegistryCompanion, MPKKermitLogWriter, MPKKotlinx_serialization_coreSerializersModule, MPKKotlinx_serialization_coreSerialKind, MPKKotlinNothing, MPKKoin_coreBeanDefinition<T>, MPKKoin_coreInstanceFactoryCompanion, MPKKoin_coreInstanceContext, MPKKoin_coreKind, MPKKoin_coreCallbacks<T>;
+@class MPKKoin_coreKoin, MPKMinderaPeopleWrapper, MPKKermitLogger, MPKSettingsStorageImplCompanion, MPKUserCompanion, MPKUser, MPKUserRepositoryImplCompanion, MPKKoin_coreLockable, MPKKoin_coreScope, MPKKoin_coreParametersHolder, MPKKotlinLazyThreadSafetyMode, MPKKotlinArray<T>, MPKKoin_coreLogger, MPKKoin_coreKoinApplication, MPKKoin_coreModule, MPKKoin_coreInstanceRegistry, MPKKoin_corePropertyRegistry, MPKKoin_coreScopeRegistry, MPKKermitLoggerCompanion, MPKKotlinThrowable, MPKKermitSeverity, MPKKoin_coreParametersHolderCompanion, MPKKotlinEnumCompanion, MPKKotlinEnum<E>, MPKKoin_coreLevel, MPKKoin_coreKoinApplicationCompanion, MPKKoin_coreInstanceFactory<T>, MPKKotlinPair<__covariant A, __covariant B>, MPKKoin_coreScopeDSL, MPKKoin_coreSingleInstanceFactory<T>, MPKKoin_coreScopeRegistryCompanion, MPKKermitLogWriter, MPKKotlinx_serialization_coreSerializersModule, MPKKotlinx_serialization_coreSerialKind, MPKKotlinNothing, MPKKoin_coreBeanDefinition<T>, MPKKoin_coreInstanceFactoryCompanion, MPKKoin_coreInstanceContext, MPKKoin_coreKind, MPKKoin_coreCallbacks<T>;
 
-@protocol MPKKoin_coreKoinComponent, MPKMultiplatform_settingsSettings, MPKKotlinx_serialization_coreKSerializer, MPKUserRepository, MPKKoin_coreQualifier, MPKKotlinKClass, MPKKotlinLazy, MPKKoin_coreScopeCallback, MPKKoin_coreKoinScopeComponent, MPKKermitLoggerConfig, MPKKotlinx_serialization_coreEncoder, MPKKotlinx_serialization_coreSerialDescriptor, MPKKotlinx_serialization_coreSerializationStrategy, MPKKotlinx_serialization_coreDecoder, MPKKotlinx_serialization_coreDeserializationStrategy, MPKKotlinKDeclarationContainer, MPKKotlinKAnnotatedElement, MPKKotlinKClassifier, MPKKotlinComparable, MPKKotlinIterator, MPKKotlinx_serialization_coreCompositeEncoder, MPKKotlinAnnotation, MPKKotlinx_serialization_coreCompositeDecoder, MPKKotlinx_serialization_coreSerializersModuleCollector;
+@protocol MPKKoin_coreKoinComponent, MPKSettingsStorage, MPKMultiplatform_settingsSettings, MPKKotlinx_serialization_coreKSerializer, MPKUserRepository, MPKKoin_coreQualifier, MPKKotlinKClass, MPKKotlinLazy, MPKKoin_coreScopeCallback, MPKKoin_coreKoinScopeComponent, MPKKermitLoggerConfig, MPKKotlinx_serialization_coreEncoder, MPKKotlinx_serialization_coreSerialDescriptor, MPKKotlinx_serialization_coreSerializationStrategy, MPKKotlinx_serialization_coreDecoder, MPKKotlinx_serialization_coreDeserializationStrategy, MPKKotlinKDeclarationContainer, MPKKotlinKAnnotatedElement, MPKKotlinKClassifier, MPKKotlinComparable, MPKKotlinIterator, MPKKotlinx_serialization_coreCompositeEncoder, MPKKotlinAnnotation, MPKKotlinx_serialization_coreCompositeDecoder, MPKKotlinx_serialization_coreSerializersModuleCollector;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -167,25 +167,27 @@ __attribute__((swift_name("MinderaPeopleWrapper")))
 - (void)stop __attribute__((swift_name("stop()")));
 @end;
 
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SettingsStorage")))
-@interface MPKSettingsStorage : MPKBase
-- (instancetype)initWithLog:(MPKKermitLogger *)log encryptedSettings:(id<MPKMultiplatform_settingsSettings>)encryptedSettings __attribute__((swift_name("init(log:encryptedSettings:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) MPKSettingsStorageCompanion *companion __attribute__((swift_name("companion")));
-@property NSString * _Nullable token __attribute__((swift_name("token")));
+@protocol MPKSettingsStorage
+@required
+@property BOOL isOnboarded __attribute__((swift_name("isOnboarded")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("SettingsStorage.Companion")))
-@interface MPKSettingsStorageCompanion : MPKBase
+__attribute__((swift_name("SettingsStorageImpl")))
+@interface MPKSettingsStorageImpl : MPKBase <MPKSettingsStorage>
+- (instancetype)initWithLog:(MPKKermitLogger *)log settings:(id<MPKMultiplatform_settingsSettings>)settings __attribute__((swift_name("init(log:settings:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) MPKSettingsStorageImplCompanion *companion __attribute__((swift_name("companion")));
+@property BOOL isOnboarded __attribute__((swift_name("isOnboarded")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("SettingsStorageImpl.Companion")))
+@interface MPKSettingsStorageImplCompanion : MPKBase
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) MPKSettingsStorageCompanion *shared __attribute__((swift_name("shared")));
-@property (readonly) NSString *ENCRYPTED_STORAGE_NAME __attribute__((swift_name("ENCRYPTED_STORAGE_NAME")));
-@property (readonly) NSString *STORAGE_NAME __attribute__((swift_name("STORAGE_NAME")));
-@property (readonly) NSString *encryptedSettingsName __attribute__((swift_name("encryptedSettingsName")));
-@property (readonly) NSString *unencryptedSettingsName __attribute__((swift_name("unencryptedSettingsName")));
+@property (class, readonly, getter=shared) MPKSettingsStorageImplCompanion *shared __attribute__((swift_name("shared")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -214,37 +216,28 @@ __attribute__((swift_name("User.Companion")))
 __attribute__((swift_name("UserRepository")))
 @protocol MPKUserRepository
 @required
-
-/**
- @note This method converts instances of CancellationException to errors.
- Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)authenticateUserUser:(MPKUser *)user completionHandler:(void (^)(NSError * _Nullable))completionHandler __attribute__((swift_name("authenticateUser(user:completionHandler:)")));
-
-/**
- @note This method converts instances of CancellationException to errors.
- Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)clearUserWithCompletionHandler:(void (^)(NSError * _Nullable))completionHandler __attribute__((swift_name("clearUser(completionHandler:)")));
+- (void)authenticateUserUser:(MPKUser *)user __attribute__((swift_name("authenticateUser(user:)")));
+- (void)clearUser __attribute__((swift_name("clearUser()")));
+@property (readonly) MPKUser * _Nullable authenticated __attribute__((swift_name("authenticated")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("UserRepositoryImpl")))
 @interface MPKUserRepositoryImpl : MPKBase <MPKUserRepository>
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithLog:(MPKKermitLogger *)log encryptedSettings:(id<MPKMultiplatform_settingsSettings>)encryptedSettings __attribute__((swift_name("init(log:encryptedSettings:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) MPKUserRepositoryImplCompanion *companion __attribute__((swift_name("companion")));
+- (void)authenticateUserUser:(MPKUser *)user __attribute__((swift_name("authenticateUser(user:)")));
+- (void)clearUser __attribute__((swift_name("clearUser()")));
+@property (readonly) MPKUser * _Nullable authenticated __attribute__((swift_name("authenticated")));
+@end;
 
-/**
- @note This method converts instances of CancellationException to errors.
- Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)authenticateUserUser:(MPKUser *)user completionHandler:(void (^)(NSError * _Nullable))completionHandler __attribute__((swift_name("authenticateUser(user:completionHandler:)")));
-
-/**
- @note This method converts instances of CancellationException to errors.
- Other uncaught Kotlin exceptions are fatal.
-*/
-- (void)clearUserWithCompletionHandler:(void (^)(NSError * _Nullable))completionHandler __attribute__((swift_name("clearUser(completionHandler:)")));
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("UserRepositoryImpl.Companion")))
+@interface MPKUserRepositoryImplCompanion : MPKBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPKUserRepositoryImplCompanion *shared __attribute__((swift_name("shared")));
 @end;
 
 __attribute__((swift_name("Koin_coreLockable")))
@@ -300,6 +293,16 @@ __attribute__((swift_name("Koin_coreScope")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KoinSetupKt")))
+@interface MPKKoinSetupKt : MPKBase
++ (MPKKoin_coreKoinApplication *)doInitKoinAppDeclaration:(void (^)(MPKKoin_coreKoinApplication *))appDeclaration __attribute__((swift_name("doInitKoin(appDeclaration:)")));
+@property (class, readonly) NSString *ENCRYPTED_STORAGE_NAME __attribute__((swift_name("ENCRYPTED_STORAGE_NAME")));
+@property (class, readonly) NSString *STORAGE_NAME __attribute__((swift_name("STORAGE_NAME")));
+@property (class, readonly) NSString *encryptedSettings __attribute__((swift_name("encryptedSettings")));
+@property (class, readonly) NSString *unencryptedSettings __attribute__((swift_name("unencryptedSettings")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("PlatformKt")))
 @interface MPKPlatformKt : MPKBase
 @property (class, readonly) MPKKoin_coreModule *platformModule __attribute__((swift_name("platformModule")));
@@ -309,12 +312,6 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("UtilsKt")))
 @interface MPKUtilsKt : MPKBase
 + (NSString * _Nullable)getUrlContentUrl:(NSString *)url __attribute__((swift_name("getUrlContent(url:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("KoinSetupKt")))
-@interface MPKKoinSetupKt : MPKBase
-+ (MPKKoin_coreKoinApplication *)doInitKoinAppDeclaration:(void (^)(MPKKoin_coreKoinApplication *))appDeclaration __attribute__((swift_name("doInitKoin(appDeclaration:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -433,57 +430,6 @@ __attribute__((swift_name("Kotlinx_serialization_coreDeserializationStrategy")))
 __attribute__((swift_name("Kotlinx_serialization_coreKSerializer")))
 @protocol MPKKotlinx_serialization_coreKSerializer <MPKKotlinx_serialization_coreSerializationStrategy, MPKKotlinx_serialization_coreDeserializationStrategy>
 @required
-@end;
-
-__attribute__((swift_name("KotlinThrowable")))
-@interface MPKKotlinThrowable : MPKBase
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (MPKKotlinArray<NSString *> *)getStackTrace __attribute__((swift_name("getStackTrace()")));
-- (void)printStackTrace __attribute__((swift_name("printStackTrace()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) MPKKotlinThrowable * _Nullable cause __attribute__((swift_name("cause")));
-@property (readonly) NSString * _Nullable message __attribute__((swift_name("message")));
-- (NSError *)asError __attribute__((swift_name("asError()")));
-@end;
-
-__attribute__((swift_name("KotlinException")))
-@interface MPKKotlinException : MPKKotlinThrowable
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
-@end;
-
-__attribute__((swift_name("KotlinRuntimeException")))
-@interface MPKKotlinRuntimeException : MPKKotlinException
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
-@end;
-
-__attribute__((swift_name("KotlinIllegalStateException")))
-@interface MPKKotlinIllegalStateException : MPKKotlinRuntimeException
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
-@end;
-
-__attribute__((swift_name("KotlinCancellationException")))
-@interface MPKKotlinCancellationException : MPKKotlinIllegalStateException
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
 @end;
 
 __attribute__((swift_name("Koin_coreQualifier")))
@@ -607,6 +553,24 @@ __attribute__((swift_name("Koin_coreLogger")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Koin_coreKoinApplication")))
+@interface MPKKoin_coreKoinApplication : MPKBase
+@property (class, readonly, getter=companion) MPKKoin_coreKoinApplicationCompanion *companion __attribute__((swift_name("companion")));
+- (void)allowOverrideOverride:(BOOL)override __attribute__((swift_name("allowOverride(override:)")));
+- (void)close __attribute__((swift_name("close()")));
+- (void)createEagerInstances __attribute__((swift_name("createEagerInstances()")));
+- (MPKKoin_coreKoinApplication *)loggerLogger:(MPKKoin_coreLogger *)logger __attribute__((swift_name("logger(logger:)")));
+- (MPKKoin_coreKoinApplication *)modulesModules:(MPKKotlinArray<MPKKoin_coreModule *> *)modules __attribute__((swift_name("modules(modules:)")));
+- (MPKKoin_coreKoinApplication *)modulesModules_:(NSArray<MPKKoin_coreModule *> *)modules __attribute__((swift_name("modules(modules_:)")));
+- (MPKKoin_coreKoinApplication *)modulesModules__:(MPKKoin_coreModule *)modules __attribute__((swift_name("modules(modules__:)")));
+- (MPKKoin_coreKoinApplication *)printLoggerLevel:(MPKKoin_coreLevel *)level __attribute__((swift_name("printLogger(level:)")));
+- (MPKKoin_coreKoinApplication *)propertiesValues:(NSDictionary<NSString *, id> *)values __attribute__((swift_name("properties(values:)")));
+- (void)unloadModulesModules:(NSArray<MPKKoin_coreModule *> *)modules __attribute__((swift_name("unloadModules(modules:)")));
+- (void)unloadModulesModule:(MPKKoin_coreModule *)module __attribute__((swift_name("unloadModules(module:)")));
+@property (readonly) MPKKoin_coreKoin *koin __attribute__((swift_name("koin")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Koin_coreModule")))
 @interface MPKKoin_coreModule : MPKBase
 - (instancetype)initWith_createdAtStart:(BOOL)_createdAtStart __attribute__((swift_name("init(_createdAtStart:)"))) __attribute__((objc_designated_initializer));
@@ -623,24 +587,6 @@ __attribute__((swift_name("Koin_coreModule")))
 @property (readonly) MPKMutableSet<MPKKoin_coreSingleInstanceFactory<id> *> *eagerInstances __attribute__((swift_name("eagerInstances")));
 @property (readonly) NSString *id __attribute__((swift_name("id")));
 @property (readonly) BOOL isLoaded __attribute__((swift_name("isLoaded")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Koin_coreKoinApplication")))
-@interface MPKKoin_coreKoinApplication : MPKBase
-@property (class, readonly, getter=companion) MPKKoin_coreKoinApplicationCompanion *companion __attribute__((swift_name("companion")));
-- (void)allowOverrideOverride:(BOOL)override __attribute__((swift_name("allowOverride(override:)")));
-- (void)close __attribute__((swift_name("close()")));
-- (void)createEagerInstances __attribute__((swift_name("createEagerInstances()")));
-- (MPKKoin_coreKoinApplication *)loggerLogger:(MPKKoin_coreLogger *)logger __attribute__((swift_name("logger(logger:)")));
-- (MPKKoin_coreKoinApplication *)modulesModules:(MPKKotlinArray<MPKKoin_coreModule *> *)modules __attribute__((swift_name("modules(modules:)")));
-- (MPKKoin_coreKoinApplication *)modulesModules_:(NSArray<MPKKoin_coreModule *> *)modules __attribute__((swift_name("modules(modules_:)")));
-- (MPKKoin_coreKoinApplication *)modulesModules__:(MPKKoin_coreModule *)modules __attribute__((swift_name("modules(modules__:)")));
-- (MPKKoin_coreKoinApplication *)printLoggerLevel:(MPKKoin_coreLevel *)level __attribute__((swift_name("printLogger(level:)")));
-- (MPKKoin_coreKoinApplication *)propertiesValues:(NSDictionary<NSString *, id> *)values __attribute__((swift_name("properties(values:)")));
-- (void)unloadModulesModules:(NSArray<MPKKoin_coreModule *> *)modules __attribute__((swift_name("unloadModules(modules:)")));
-- (void)unloadModulesModule:(MPKKoin_coreModule *)module __attribute__((swift_name("unloadModules(module:)")));
-@property (readonly) MPKKoin_coreKoin *koin __attribute__((swift_name("koin")));
 @end;
 
 __attribute__((swift_name("Koin_coreKoinScopeComponent")))
@@ -707,6 +653,21 @@ __attribute__((swift_name("KermitLogger.Companion")))
 - (void)vTag:(NSString *)tag throwable:(MPKKotlinThrowable * _Nullable)throwable message:(NSString *(^)(void))message __attribute__((swift_name("v(tag:throwable:message:)")));
 - (void)wTag:(NSString *)tag throwable:(MPKKotlinThrowable * _Nullable)throwable message:(NSString *(^)(void))message __attribute__((swift_name("w(tag:throwable:message:)")));
 @property (readonly) NSString *tag __attribute__((swift_name("tag")));
+@end;
+
+__attribute__((swift_name("KotlinThrowable")))
+@interface MPKKotlinThrowable : MPKBase
+- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
+- (MPKKotlinArray<NSString *> *)getStackTrace __attribute__((swift_name("getStackTrace()")));
+- (void)printStackTrace __attribute__((swift_name("printStackTrace()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) MPKKotlinThrowable * _Nullable cause __attribute__((swift_name("cause")));
+@property (readonly) NSString * _Nullable message __attribute__((swift_name("message")));
+- (NSError *)asError __attribute__((swift_name("asError()")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -824,6 +785,16 @@ __attribute__((swift_name("Koin_coreLevel")))
 + (MPKKotlinArray<MPKKoin_coreLevel *> *)values __attribute__((swift_name("values()")));
 @end;
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Koin_coreKoinApplication.Companion")))
+@interface MPKKoin_coreKoinApplicationCompanion : MPKBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPKKoin_coreKoinApplicationCompanion *shared __attribute__((swift_name("shared")));
+- (MPKKoin_coreKoinApplication *)doInit __attribute__((swift_name("doInit()")));
+@end;
+
 __attribute__((swift_name("Koin_coreInstanceFactory")))
 @interface MPKKoin_coreInstanceFactory<T> : MPKKoin_coreLockable
 - (instancetype)initWithBeanDefinition:(MPKKoin_coreBeanDefinition<T> *)beanDefinition __attribute__((swift_name("init(beanDefinition:)"))) __attribute__((objc_designated_initializer));
@@ -872,16 +843,6 @@ __attribute__((swift_name("Koin_coreSingleInstanceFactory")))
 - (void)dropAll __attribute__((swift_name("dropAll()")));
 - (T _Nullable)getContext:(MPKKoin_coreInstanceContext *)context __attribute__((swift_name("get(context:)")));
 - (BOOL)isCreatedContext:(MPKKoin_coreInstanceContext * _Nullable)context __attribute__((swift_name("isCreated(context:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Koin_coreKoinApplication.Companion")))
-@interface MPKKoin_coreKoinApplicationCompanion : MPKBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) MPKKoin_coreKoinApplicationCompanion *shared __attribute__((swift_name("shared")));
-- (MPKKoin_coreKoinApplication *)doInit __attribute__((swift_name("doInit()")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
