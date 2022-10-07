@@ -1,15 +1,10 @@
 package com.mindera.people.data
 
 import co.touchlab.kermit.Logger
-import com.mindera.people.user.User
-import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
-import com.russhwolf.settings.serialization.decodeValueOrNull
-import com.russhwolf.settings.serialization.encodeValue
-import kotlinx.serialization.ExperimentalSerializationApi
 
 interface SettingsStorage {
-    var user: User?
+    var isOnboarded: Boolean
 
     companion object {
         const val STORAGE_NAME = "UNENCRYPTED_SETTINGS"
@@ -19,29 +14,22 @@ interface SettingsStorage {
     }
 }
 
-@OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
 class SettingsStorageImpl(
     private val log: Logger,
-    private val settings: Settings,
-    private val encryptedSettings: Settings
+    private val settings: Settings
 ): SettingsStorage {
 
-    override var user: User?
+    override var isOnboarded: Boolean
         get() {
-            val user: User? = encryptedSettings.decodeValueOrNull(User.serializer(), USER_SETTING)
-            log.d { "Getting user $user" }
-            return user
+            val value = settings.getBoolean(IS_ONBOARDED, false)
+            log.d { "isOnboarded=$value" }
+            return value
         }
         set(value) {
-            log.d {"Setting user $value"}
-            if (value == null) {
-                encryptedSettings.remove(USER_SETTING)
-            } else {
-                encryptedSettings.encodeValue(User.serializer(), USER_SETTING, value)
-            }
+            settings.putBoolean(IS_ONBOARDED, value)
         }
 
     companion object {
-        private const val USER_SETTING = "user"
+        private const val IS_ONBOARDED = "onboarded"
     }
 }

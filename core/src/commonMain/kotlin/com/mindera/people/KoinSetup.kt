@@ -18,17 +18,16 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 }
 
 private val coreModule = module {
-//    single<SettingsStorage> {
-//        SettingsStorageImpl(
-//            log = getWith("SettingsStorage"),
-//            settings = get(named(SettingsStorage.unencryptedSettingsName)),
-//            encryptedSettings = get(named(SettingsStorage.encryptedSettingsName))
-//        )
-//    }
+    single<SettingsStorage> {
+        SettingsStorageImpl(
+            log = getWith("Settings"),
+            settings = get(named(SettingsStorage.unencryptedSettingsName))
+        )
+    }
 
     factory<UserRepository> {
         UserRepositoryImpl(
-            log = getWith("UserRepository"),
+            log = getWith("UserRepo"),
             encryptedSettings = get(named(SettingsStorage.encryptedSettingsName))
         )
     }
