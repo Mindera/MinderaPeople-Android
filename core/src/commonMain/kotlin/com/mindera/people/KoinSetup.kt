@@ -38,8 +38,9 @@ inline fun <reified T> Scope.getWith(vararg params: Any?): T =
 
 expect val platformModule: Module
 
-
+// region Koin Qualifiers
 const val STORAGE_NAME = "UNENCRYPTED_SETTINGS"
 const val ENCRYPTED_STORAGE_NAME = "ENCRYPTED_SETTINGS"
 const val encryptedSettings = "encryptedSettings"
 const val unencryptedSettings = "unencryptedSettings"
+// endregion
