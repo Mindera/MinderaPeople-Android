@@ -4,15 +4,18 @@ import android.app.Application
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
+import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+@OptIn(ExperimentalKermitApi::class)
 fun startSdk(app: Application) {
     initKoin {
         modules(

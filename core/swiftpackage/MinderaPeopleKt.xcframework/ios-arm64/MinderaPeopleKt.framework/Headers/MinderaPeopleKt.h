@@ -144,12 +144,6 @@ __attribute__((swift_name("KotlinBoolean")))
 + (instancetype)numberWithBool:(BOOL)value;
 @end;
 
-__attribute__((swift_name("BaseTriggerEvent")))
-@interface MPKBaseTriggerEvent : MPKBase
-- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (NSUInteger)hash __attribute__((swift_name("hash()")));
-@end;
-
 __attribute__((swift_name("Koin_coreKoinComponent")))
 @protocol MPKKoin_coreKoinComponent
 @required
@@ -165,6 +159,12 @@ __attribute__((swift_name("MinderaPeopleWrapper")))
 @property (class, readonly, getter=shared) MPKMinderaPeopleWrapper *shared __attribute__((swift_name("shared")));
 - (void)start __attribute__((swift_name("start()")));
 - (void)stop __attribute__((swift_name("stop()")));
+@end;
+
+__attribute__((swift_name("BaseTriggerEvent")))
+@interface MPKBaseTriggerEvent : MPKBase
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
 @end;
 
 __attribute__((swift_name("SettingsStorage")))
@@ -309,8 +309,8 @@ __attribute__((swift_name("PlatformKt")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("UtilsKt")))
-@interface MPKUtilsKt : MPKBase
+__attribute__((swift_name("GeneralKt")))
+@interface MPKGeneralKt : MPKBase
 + (NSString * _Nullable)getUrlContentUrl:(NSString *)url __attribute__((swift_name("getUrlContent(url:)")));
 @end;
 
