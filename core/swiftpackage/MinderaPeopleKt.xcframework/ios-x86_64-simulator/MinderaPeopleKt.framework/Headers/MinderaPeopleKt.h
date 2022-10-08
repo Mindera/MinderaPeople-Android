@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class MPKKoin_coreKoin, MPKMinderaPeopleWrapper, MPKBaseTriggerEvent, MPKTriggerEvent, MPKKermitLogger, MPKSettingsStorageImplCompanion, MPKViewModel, MPKUser, MPKUserCompanion, MPKUserRepositoryImplCompanion, MPKKoin_coreLockable, MPKKoin_coreScope, MPKKoin_coreParametersHolder, MPKKotlinLazyThreadSafetyMode, MPKKotlinArray<T>, MPKKoin_coreLogger, MPKKoin_coreKoinApplication, MPKKoin_coreModule, MPKKoin_coreInstanceRegistry, MPKKoin_corePropertyRegistry, MPKKoin_coreScopeRegistry, MPKKermitLoggerCompanion, MPKKotlinThrowable, MPKKermitSeverity, MPKKoin_coreParametersHolderCompanion, MPKKotlinEnumCompanion, MPKKotlinEnum<E>, MPKKoin_coreLevel, MPKKoin_coreKoinApplicationCompanion, MPKKoin_coreInstanceFactory<T>, MPKKotlinPair<__covariant A, __covariant B>, MPKKoin_coreScopeDSL, MPKKoin_coreSingleInstanceFactory<T>, MPKKotlinCancellationException, MPKKoin_coreScopeRegistryCompanion, MPKKermitLogWriter, MPKKotlinx_serialization_coreSerializersModule, MPKKotlinx_serialization_coreSerialKind, MPKKotlinNothing, MPKKoin_coreBeanDefinition<T>, MPKKoin_coreInstanceFactoryCompanion, MPKKoin_coreInstanceContext, MPKKotlinException, MPKKotlinRuntimeException, MPKKotlinIllegalStateException, MPKKoin_coreKind, MPKKoin_coreCallbacks<T>, MPKKotlinx_coroutines_coreAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, MPKKotlinx_coroutines_coreAtomicOp<__contravariant T>, MPKKotlinx_coroutines_coreOpDescriptor, MPKKotlinx_coroutines_coreLockFreeLinkedListNode, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
+@class MPKKoin_coreKoin, MPKMinderaPeopleWrapper, MPKBaseTriggerEvent, MPKTriggerEvent, MPKKermitLogger, MPKSettingsStorageImplCompanion, MPKViewModel, MPKUser, MPKUserCompanion, MPKUserRepositoryImplCompanion, MPKKoin_coreLockable, MPKKoin_coreScope, MPKKoin_coreParametersHolder, MPKKotlinLazyThreadSafetyMode, MPKKotlinArray<T>, MPKKoin_coreLogger, MPKKoin_coreKoinApplication, MPKKoin_coreModule, MPKKotlinRegex, MPKKoin_coreInstanceRegistry, MPKKoin_corePropertyRegistry, MPKKoin_coreScopeRegistry, MPKKermitLoggerCompanion, MPKKotlinThrowable, MPKKermitSeverity, MPKKoin_coreParametersHolderCompanion, MPKKotlinEnumCompanion, MPKKotlinEnum<E>, MPKKoin_coreLevel, MPKKoin_coreKoinApplicationCompanion, MPKKoin_coreInstanceFactory<T>, MPKKotlinPair<__covariant A, __covariant B>, MPKKoin_coreScopeDSL, MPKKoin_coreSingleInstanceFactory<T>, MPKKotlinRegexOption, MPKKotlinRegexCompanion, MPKKotlinCancellationException, MPKKoin_coreScopeRegistryCompanion, MPKKermitLogWriter, MPKKotlinx_serialization_coreSerializersModule, MPKKotlinx_serialization_coreSerialKind, MPKKotlinNothing, MPKKoin_coreBeanDefinition<T>, MPKKoin_coreInstanceFactoryCompanion, MPKKoin_coreInstanceContext, MPKKotlinMatchResultDestructured, MPKKotlinIntRange, MPKKotlinException, MPKKotlinRuntimeException, MPKKotlinIllegalStateException, MPKKoin_coreKind, MPKKoin_coreCallbacks<T>, MPKKotlinMatchGroup, MPKKotlinIntProgressionCompanion, MPKKotlinIntIterator, MPKKotlinIntProgression, MPKKotlinIntRangeCompanion, MPKKotlinx_coroutines_coreAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, MPKKotlinx_coroutines_coreAtomicOp<__contravariant T>, MPKKotlinx_coroutines_coreOpDescriptor, MPKKotlinx_coroutines_coreLockFreeLinkedListNode, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
 
-@protocol MPKKoin_coreKoinComponent, MPKKotlinx_coroutines_coreCoroutineScope, MPKSettingsStorage, MPKMultiplatform_settingsSettings, MPKUserRepository, MPKKotlinx_serialization_coreKSerializer, MPKKoin_coreQualifier, MPKKotlinKClass, MPKKotlinLazy, MPKKoin_coreScopeCallback, MPKKotlinx_coroutines_coreJob, MPKKotlinSuspendFunction1, MPKKotlinx_coroutines_coreFlow, MPKKoin_coreKoinScopeComponent, MPKKotlinCoroutineContext, MPKKermitLoggerConfig, MPKKotlinx_serialization_coreEncoder, MPKKotlinx_serialization_coreSerialDescriptor, MPKKotlinx_serialization_coreSerializationStrategy, MPKKotlinx_serialization_coreDecoder, MPKKotlinx_serialization_coreDeserializationStrategy, MPKKotlinKDeclarationContainer, MPKKotlinKAnnotatedElement, MPKKotlinKClassifier, MPKKotlinComparable, MPKKotlinIterator, MPKKotlinx_coroutines_coreChildHandle, MPKKotlinx_coroutines_coreChildJob, MPKKotlinx_coroutines_coreDisposableHandle, MPKKotlinSequence, MPKKotlinx_coroutines_coreSelectClause0, MPKKotlinCoroutineContextKey, MPKKotlinCoroutineContextElement, MPKKotlinFunction, MPKKotlinx_coroutines_coreFlowCollector, MPKKotlinx_serialization_coreCompositeEncoder, MPKKotlinAnnotation, MPKKotlinx_serialization_coreCompositeDecoder, MPKKotlinx_coroutines_coreParentJob, MPKKotlinx_coroutines_coreSelectInstance, MPKKotlinSuspendFunction0, MPKKotlinx_serialization_coreSerializersModuleCollector, MPKKotlinContinuation;
+@protocol MPKKoin_coreKoinComponent, MPKKotlinx_coroutines_coreCoroutineScope, MPKSettingsStorage, MPKMultiplatform_settingsSettings, MPKUserRepository, MPKKotlinx_serialization_coreKSerializer, MPKKoin_coreQualifier, MPKKotlinKClass, MPKKotlinLazy, MPKKoin_coreScopeCallback, MPKKotlinx_coroutines_coreJob, MPKKotlinSuspendFunction1, MPKKotlinx_coroutines_coreFlow, MPKKoin_coreKoinScopeComponent, MPKKotlinCoroutineContext, MPKKermitLoggerConfig, MPKKotlinx_serialization_coreEncoder, MPKKotlinx_serialization_coreSerialDescriptor, MPKKotlinx_serialization_coreSerializationStrategy, MPKKotlinx_serialization_coreDecoder, MPKKotlinx_serialization_coreDeserializationStrategy, MPKKotlinKDeclarationContainer, MPKKotlinKAnnotatedElement, MPKKotlinKClassifier, MPKKotlinComparable, MPKKotlinIterator, MPKKotlinMatchResult, MPKKotlinSequence, MPKKotlinx_coroutines_coreChildHandle, MPKKotlinx_coroutines_coreChildJob, MPKKotlinx_coroutines_coreDisposableHandle, MPKKotlinx_coroutines_coreSelectClause0, MPKKotlinCoroutineContextKey, MPKKotlinCoroutineContextElement, MPKKotlinFunction, MPKKotlinx_coroutines_coreFlowCollector, MPKKotlinx_serialization_coreCompositeEncoder, MPKKotlinAnnotation, MPKKotlinx_serialization_coreCompositeDecoder, MPKKotlinMatchGroupCollection, MPKKotlinx_coroutines_coreParentJob, MPKKotlinx_coroutines_coreSelectInstance, MPKKotlinSuspendFunction0, MPKKotlinx_serialization_coreSerializersModuleCollector, MPKKotlinIterable, MPKKotlinCollection, MPKKotlinClosedRange, MPKKotlinContinuation;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -334,6 +334,12 @@ __attribute__((swift_name("PlatformKt")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("RegexKt")))
+@interface MPKRegexKt : MPKBase
+@property (class, readonly) MPKKotlinRegex *emailAddressRegex __attribute__((swift_name("emailAddressRegex")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("GeneralKt")))
 @interface MPKGeneralKt : MPKBase
 + (NSString * _Nullable)getUrlContentUrl:(NSString *)url __attribute__((swift_name("getUrlContent(url:)")));
@@ -625,6 +631,30 @@ __attribute__((swift_name("Koin_coreModule")))
 @property (readonly) MPKMutableSet<MPKKoin_coreSingleInstanceFactory<id> *> *eagerInstances __attribute__((swift_name("eagerInstances")));
 @property (readonly) NSString *id __attribute__((swift_name("id")));
 @property (readonly) BOOL isLoaded __attribute__((swift_name("isLoaded")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinRegex")))
+@interface MPKKotlinRegex : MPKBase
+- (instancetype)initWithPattern:(NSString *)pattern __attribute__((swift_name("init(pattern:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithPattern:(NSString *)pattern option:(MPKKotlinRegexOption *)option __attribute__((swift_name("init(pattern:option:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithPattern:(NSString *)pattern options:(NSSet<MPKKotlinRegexOption *> *)options __attribute__((swift_name("init(pattern:options:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) MPKKotlinRegexCompanion *companion __attribute__((swift_name("companion")));
+- (BOOL)containsMatchInInput:(id)input __attribute__((swift_name("containsMatchIn(input:)")));
+- (id<MPKKotlinMatchResult> _Nullable)findInput:(id)input startIndex:(int32_t)startIndex __attribute__((swift_name("find(input:startIndex:)")));
+- (id<MPKKotlinSequence>)findAllInput:(id)input startIndex:(int32_t)startIndex __attribute__((swift_name("findAll(input:startIndex:)")));
+- (id<MPKKotlinMatchResult> _Nullable)matchAtInput:(id)input index:(int32_t)index __attribute__((swift_name("matchAt(input:index:)")));
+- (id<MPKKotlinMatchResult> _Nullable)matchEntireInput:(id)input __attribute__((swift_name("matchEntire(input:)")));
+- (BOOL)matchesInput:(id)input __attribute__((swift_name("matches(input:)")));
+- (BOOL)matchesAtInput:(id)input index:(int32_t)index __attribute__((swift_name("matchesAt(input:index:)")));
+- (NSString *)replaceInput:(id)input transform:(id (^)(id<MPKKotlinMatchResult>))transform __attribute__((swift_name("replace(input:transform:)")));
+- (NSString *)replaceInput:(id)input replacement:(NSString *)replacement __attribute__((swift_name("replace(input:replacement:)")));
+- (NSString *)replaceFirstInput:(id)input replacement:(NSString *)replacement __attribute__((swift_name("replaceFirst(input:replacement:)")));
+- (NSArray<NSString *> *)splitInput:(id)input limit:(int32_t)limit __attribute__((swift_name("split(input:limit:)")));
+- (id<MPKKotlinSequence>)splitToSequenceInput:(id)input limit:(int32_t)limit __attribute__((swift_name("splitToSequence(input:limit:)")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) NSSet<MPKKotlinRegexOption *> *options __attribute__((swift_name("options")));
+@property (readonly) NSString *pattern __attribute__((swift_name("pattern")));
 @end;
 
 __attribute__((swift_name("KotlinCoroutineContext")))
@@ -948,6 +978,53 @@ __attribute__((swift_name("Koin_coreSingleInstanceFactory")))
 - (BOOL)isCreatedContext:(MPKKoin_coreInstanceContext * _Nullable)context __attribute__((swift_name("isCreated(context:)")));
 @end;
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinRegexOption")))
+@interface MPKKotlinRegexOption : MPKKotlinEnum<MPKKotlinRegexOption *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly) MPKKotlinRegexOption *ignoreCase __attribute__((swift_name("ignoreCase")));
+@property (class, readonly) MPKKotlinRegexOption *multiline __attribute__((swift_name("multiline")));
+@property (class, readonly) MPKKotlinRegexOption *literal __attribute__((swift_name("literal")));
+@property (class, readonly) MPKKotlinRegexOption *unixLines __attribute__((swift_name("unixLines")));
+@property (class, readonly) MPKKotlinRegexOption *comments __attribute__((swift_name("comments")));
+@property (class, readonly) MPKKotlinRegexOption *dotMatchesAll __attribute__((swift_name("dotMatchesAll")));
+@property (class, readonly) MPKKotlinRegexOption *canonEq __attribute__((swift_name("canonEq")));
++ (MPKKotlinArray<MPKKotlinRegexOption *> *)values __attribute__((swift_name("values()")));
+@property (readonly) int32_t mask __attribute__((swift_name("mask")));
+@property (readonly) int32_t value_ __attribute__((swift_name("value_")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinRegex.Companion")))
+@interface MPKKotlinRegexCompanion : MPKBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPKKotlinRegexCompanion *shared __attribute__((swift_name("shared")));
+- (NSString *)escapeLiteral:(NSString *)literal __attribute__((swift_name("escape(literal:)")));
+- (NSString *)escapeReplacementLiteral:(NSString *)literal __attribute__((swift_name("escapeReplacement(literal:)")));
+- (MPKKotlinRegex *)fromLiteralLiteral:(NSString *)literal __attribute__((swift_name("fromLiteral(literal:)")));
+@end;
+
+__attribute__((swift_name("KotlinMatchResult")))
+@protocol MPKKotlinMatchResult
+@required
+- (id<MPKKotlinMatchResult> _Nullable)next __attribute__((swift_name("next()")));
+@property (readonly) MPKKotlinMatchResultDestructured *destructured __attribute__((swift_name("destructured")));
+@property (readonly) NSArray<NSString *> *groupValues __attribute__((swift_name("groupValues")));
+@property (readonly) id<MPKKotlinMatchGroupCollection> groups __attribute__((swift_name("groups")));
+@property (readonly) MPKKotlinIntRange *range __attribute__((swift_name("range")));
+@property (readonly) NSString *value __attribute__((swift_name("value")));
+@end;
+
+__attribute__((swift_name("KotlinSequence")))
+@protocol MPKKotlinSequence
+@required
+- (id<MPKKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
+@end;
+
 __attribute__((swift_name("KotlinException")))
 @interface MPKKotlinException : MPKKotlinThrowable
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
@@ -1001,12 +1078,6 @@ __attribute__((swift_name("Kotlinx_coroutines_coreChildJob")))
 @protocol MPKKotlinx_coroutines_coreChildJob <MPKKotlinx_coroutines_coreJob>
 @required
 - (void)parentCancelledParentJob:(id<MPKKotlinx_coroutines_coreParentJob>)parentJob __attribute__((swift_name("parentCancelled(parentJob:)")));
-@end;
-
-__attribute__((swift_name("KotlinSequence")))
-@protocol MPKKotlinSequence
-@required
-- (id<MPKKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
 @end;
 
 __attribute__((swift_name("Kotlinx_coroutines_coreSelectClause0")))
@@ -1164,6 +1235,80 @@ __attribute__((swift_name("Koin_coreInstanceContext")))
 @property (readonly) MPKKoin_coreScope *scope __attribute__((swift_name("scope")));
 @end;
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinMatchResultDestructured")))
+@interface MPKKotlinMatchResultDestructured : MPKBase
+- (NSString *)component1 __attribute__((swift_name("component1()")));
+- (NSString *)component10 __attribute__((swift_name("component10()")));
+- (NSString *)component2 __attribute__((swift_name("component2()")));
+- (NSString *)component3 __attribute__((swift_name("component3()")));
+- (NSString *)component4 __attribute__((swift_name("component4()")));
+- (NSString *)component5 __attribute__((swift_name("component5()")));
+- (NSString *)component6 __attribute__((swift_name("component6()")));
+- (NSString *)component7 __attribute__((swift_name("component7()")));
+- (NSString *)component8 __attribute__((swift_name("component8()")));
+- (NSString *)component9 __attribute__((swift_name("component9()")));
+- (NSArray<NSString *> *)toList __attribute__((swift_name("toList()")));
+@property (readonly) id<MPKKotlinMatchResult> match __attribute__((swift_name("match")));
+@end;
+
+__attribute__((swift_name("KotlinIterable")))
+@protocol MPKKotlinIterable
+@required
+- (id<MPKKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
+@end;
+
+__attribute__((swift_name("KotlinCollection")))
+@protocol MPKKotlinCollection <MPKKotlinIterable>
+@required
+- (BOOL)containsElement:(id _Nullable)element __attribute__((swift_name("contains(element:)")));
+- (BOOL)containsAllElements:(id)elements __attribute__((swift_name("containsAll(elements:)")));
+- (BOOL)isEmpty __attribute__((swift_name("isEmpty()")));
+@property (readonly) int32_t size __attribute__((swift_name("size")));
+@end;
+
+__attribute__((swift_name("KotlinMatchGroupCollection")))
+@protocol MPKKotlinMatchGroupCollection <MPKKotlinCollection>
+@required
+- (MPKKotlinMatchGroup * _Nullable)getIndex:(int32_t)index __attribute__((swift_name("get(index:)")));
+@end;
+
+__attribute__((swift_name("KotlinIntProgression")))
+@interface MPKKotlinIntProgression : MPKBase <MPKKotlinIterable>
+@property (class, readonly, getter=companion) MPKKotlinIntProgressionCompanion *companion __attribute__((swift_name("companion")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (BOOL)isEmpty __attribute__((swift_name("isEmpty()")));
+- (MPKKotlinIntIterator *)iterator __attribute__((swift_name("iterator()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) int32_t first __attribute__((swift_name("first")));
+@property (readonly) int32_t last __attribute__((swift_name("last")));
+@property (readonly) int32_t step __attribute__((swift_name("step")));
+@end;
+
+__attribute__((swift_name("KotlinClosedRange")))
+@protocol MPKKotlinClosedRange
+@required
+- (BOOL)containsValue:(id)value __attribute__((swift_name("contains(value:)")));
+- (BOOL)isEmpty __attribute__((swift_name("isEmpty()")));
+@property (readonly) id endInclusive __attribute__((swift_name("endInclusive")));
+@property (readonly, getter=start_) id start __attribute__((swift_name("start")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinIntRange")))
+@interface MPKKotlinIntRange : MPKKotlinIntProgression <MPKKotlinClosedRange>
+- (instancetype)initWithStart:(int32_t)start endInclusive:(int32_t)endInclusive __attribute__((swift_name("init(start:endInclusive:)"))) __attribute__((objc_designated_initializer));
+@property (class, readonly, getter=companion) MPKKotlinIntRangeCompanion *companion __attribute__((swift_name("companion")));
+- (BOOL)containsValue:(MPKInt *)value __attribute__((swift_name("contains(value:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (BOOL)isEmpty __attribute__((swift_name("isEmpty()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) MPKInt *endInclusive __attribute__((swift_name("endInclusive")));
+@property (readonly, getter=start_) MPKInt *start __attribute__((swift_name("start")));
+@end;
+
 __attribute__((swift_name("Kotlinx_coroutines_coreParentJob")))
 @protocol MPKKotlinx_coroutines_coreParentJob <MPKKotlinx_coroutines_coreJob>
 @required
@@ -1226,6 +1371,48 @@ __attribute__((swift_name("Koin_coreCallbacks")))
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) void (^ _Nullable onClose)(T _Nullable) __attribute__((swift_name("onClose")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinMatchGroup")))
+@interface MPKKotlinMatchGroup : MPKBase
+- (instancetype)initWithValue:(NSString *)value range:(MPKKotlinIntRange *)range __attribute__((swift_name("init(value:range:)"))) __attribute__((objc_designated_initializer));
+- (NSString *)component1 __attribute__((swift_name("component1()"))) __attribute__((deprecated("use corresponding property instead")));
+- (MPKKotlinIntRange *)component2 __attribute__((swift_name("component2()"))) __attribute__((deprecated("use corresponding property instead")));
+- (MPKKotlinMatchGroup *)doCopyValue:(NSString *)value range:(MPKKotlinIntRange *)range __attribute__((swift_name("doCopy(value:range:)")));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) MPKKotlinIntRange *range __attribute__((swift_name("range")));
+@property (readonly) NSString *value __attribute__((swift_name("value")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinIntProgression.Companion")))
+@interface MPKKotlinIntProgressionCompanion : MPKBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPKKotlinIntProgressionCompanion *shared __attribute__((swift_name("shared")));
+- (MPKKotlinIntProgression *)fromClosedRangeRangeStart:(int32_t)rangeStart rangeEnd:(int32_t)rangeEnd step:(int32_t)step __attribute__((swift_name("fromClosedRange(rangeStart:rangeEnd:step:)")));
+@end;
+
+__attribute__((swift_name("KotlinIntIterator")))
+@interface MPKKotlinIntIterator : MPKBase <MPKKotlinIterator>
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (MPKInt *)next __attribute__((swift_name("next()")));
+- (int32_t)nextInt __attribute__((swift_name("nextInt()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinIntRange.Companion")))
+@interface MPKKotlinIntRangeCompanion : MPKBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPKKotlinIntRangeCompanion *shared __attribute__((swift_name("shared")));
+@property (readonly) MPKKotlinIntRange *EMPTY __attribute__((swift_name("EMPTY")));
 @end;
 
 __attribute__((swift_name("Kotlinx_coroutines_coreAtomicDesc")))
