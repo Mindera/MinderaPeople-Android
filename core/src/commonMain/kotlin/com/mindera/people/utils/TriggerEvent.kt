@@ -5,4 +5,4 @@ sealed class BaseTriggerEvent {
     override fun hashCode(): Int = kotlin.random.Random.nextInt()
 }
 
-internal object TriggerEvent : BaseTriggerEvent()
+object TriggerEvent : BaseTriggerEvent()

@@ -47,14 +47,16 @@ kotlin {
                 implementation(Dependencies.androidSecurityCrypto)
                 implementation(Dependencies.androidXAnnotation)
                 implementation(Dependencies.ktorClientOkHttp)
+                implementation(Dependencies.androidViewModel)
+                implementation(Dependencies.androidViewModelSavedState)
             }
         }
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
-                implementation(Dependencies.robolectric)
                 implementation(Dependencies.mockative)
+                implementation(Dependencies.robolectric)
             }
         }
     }

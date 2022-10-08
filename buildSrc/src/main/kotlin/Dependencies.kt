@@ -53,6 +53,8 @@ object Dependencies {
     const val androidXAnnotation = "androidx.annotation:annotation:1.5.0"
     const val androidXCoreKtx = "androidx.core:core-ktx:1.9.0"
     const val androidSecurityCrypto = "androidx.security:security-crypto:1.1.0-alpha03"
+    const val androidViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
+    const val androidViewModelSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1"
 
     const val androidCoreTesting = "androidx.arch.core:core-testing:2.1.0"
     const val androidTestRunner = "androidx.test:runner:1.4.0"

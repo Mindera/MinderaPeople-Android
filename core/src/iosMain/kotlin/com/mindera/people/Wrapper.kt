@@ -23,8 +23,8 @@ object MinderaPeopleWrapper : KoinComponent {
     }
 
     fun stop() {
-     // konnection.stop()
-     // mainScope.cancel()
+        // konnection.stop()
+        // mainScope.cancel()
     }
 
 //    fun networkConnectionObservation(callback: (NetworkConnection?) -> Unit) {
