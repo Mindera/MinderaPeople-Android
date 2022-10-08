@@ -1,6 +1,7 @@
 package com.mindera.people.user
 
 import co.touchlab.kermit.Logger
+import com.mindera.people.utils.emailAddressRegex
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.serialization.decodeValueOrNull
@@ -27,6 +28,11 @@ class UserRepositoryImpl(
         }
 
     override fun authenticateUser(user: User) {
+        if (user.email.isEmpty() || !emailAddressRegex.matches(user.email)) {
+            val error = IllegalArgumentException("User $user is invalid!")
+            log.d(error) { "error when try authenticateUser" }
+            throw error
+        }
         log.d { "authenticate user $user" }
         encryptedSettings.encodeValue(User.serializer(), USER_SETTING, user)
     }

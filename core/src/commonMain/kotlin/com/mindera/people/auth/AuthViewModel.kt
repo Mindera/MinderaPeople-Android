@@ -9,6 +9,10 @@ class AuthViewModel(
 ) : ViewModel() {
 
     fun authenticate(user: User) {
-        userRepository.authenticateUser(user)
+        try {
+            userRepository.authenticateUser(user)
+        } catch (error: Throwable) {
+            // TODO feedback to User?
+        }
     }
 }
