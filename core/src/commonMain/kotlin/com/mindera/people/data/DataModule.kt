@@ -7,9 +7,7 @@ import org.koin.dsl.module
 
 val dataModule = module {
     single<SettingsStorage> {
-        SettingsStorageImpl(
-            log = getWith("Settings"),
-            settings = get(named(unencryptedSettings))
-        )
+        SettingsStorageImpl(log = getWith("Settings"),
+                            settings = get(named(unencryptedSettings)))
     }
 }

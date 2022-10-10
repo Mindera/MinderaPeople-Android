@@ -14,7 +14,7 @@ class AuthViewModel(
         enqueueAction(Action.Authenticate(user))
     }
 
-    override suspend fun processAction(latestState: AuthState, action: Action): AuthState =
+    override suspend fun processAction(action: Action, latestState: AuthState): AuthState =
         when (action) {
             is Action.Authenticate -> processAuthentication(action.user)
         }

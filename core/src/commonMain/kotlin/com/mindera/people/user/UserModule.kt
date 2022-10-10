@@ -7,9 +7,7 @@ import org.koin.dsl.module
 
 val userModule = module {
     factory<UserRepository> {
-        UserRepositoryImpl(
-            log = getWith("UserRepo"),
-            encryptedSettings = get(named(encryptedSettings))
-        )
+        UserRepositoryImpl(log = getWith("UserRepo"),
+                           encryptedSettings = get(named(encryptedSettings)))
     }
 }

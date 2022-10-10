@@ -18,7 +18,7 @@ class TestViewModel: StateViewModel<Action, CombinedState>(
     fun action2() { enqueueAction(Action.Action2) }
     fun action3() { enqueueAction(Action.Action3) }
 
-    override suspend fun processAction(latestState: CombinedState, action: Action): CombinedState =
+    override suspend fun processAction(action: Action, latestState: CombinedState): CombinedState =
         when (action) {
             is Action.Action1 -> {
                 delay(100.milliseconds)

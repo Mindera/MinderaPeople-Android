@@ -25,16 +25,14 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     val state: StateFlow<S> = _state
 
     init {
-        _action.zip(_state) { action, latestState ->
-            processAction(latestState, action)
-        }
-        .onEach { _state.value = it }
-        .safeLaunchIn(scope)
+        _action.zip(_state, ::processAction)
+            .onEach { _state.value = it }
+            .safeLaunchIn(scope)
     }
 
     fun enqueueAction(action: A) {
         _action.tryEmit(action)
     }
 
-    abstract suspend fun processAction(latestState: S, action: A): S
+    abstract suspend fun processAction(action: A, latestState: S): S
 }
