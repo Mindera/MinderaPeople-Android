@@ -23,7 +23,7 @@ class TestViewModel: StateViewModel<Action, CombinedState>(
 
     override suspend fun processAction(action: Action, latestState: CombinedState): CombinedState =
         withContext(Dispatchers.Default) {
-            return@withContext when (action) {
+            when (action) {
                 is Action.Action1 -> {
                     delay(100.milliseconds)
                     CombinedState(items = listOf(1))
