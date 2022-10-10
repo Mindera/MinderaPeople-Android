@@ -18,7 +18,6 @@ expect open class ViewModel() {
 abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     @Suppress("PropertyName")
     private val _state = MutableStateFlow(value = initialState)
-
     @Suppress("PropertyName")
     private val _action = MutableSharedFlow<A>(extraBufferCapacity = Int.MAX_VALUE)
 
