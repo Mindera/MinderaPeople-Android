@@ -62,6 +62,12 @@ object Dependencies {
     const val androidExpressoCore = "androidx.test.espresso:espresso-core:3.4.0"
     // endregion
 
+    // region Firebase libraries
+    const val firebaseBoM = "com.google.firebase:firebase-bom:30.5.0"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics"
+    // endregion
+
     // region Misc libraries
     const val multiplatformSettings = "com.russhwolf:multiplatform-settings:$multiplatformSettingsVersion"
     const val multiplatformSettingsSerialization = "com.russhwolf:multiplatform-settings-serialization:$multiplatformSettingsVersion"

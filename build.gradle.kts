@@ -8,6 +8,8 @@ buildscript {
         classpath(GradlePlugins.kotlin)
         classpath(GradlePlugins.kotlinSerialization)
         classpath(GradlePlugins.kermit)
+        classpath(GradlePlugins.googleServices)
+        classpath(GradlePlugins.firebaseCrashlytics)
     }
 }
 
@@ -18,6 +20,7 @@ allprojects {
     }
 
     repositories {
+        google()
         mavenCentral()
     }
 }

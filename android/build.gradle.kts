@@ -1,6 +1,8 @@
 plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
+    id(BuildPlugins.googleServices)
+    id(BuildPlugins.firebaseCrashlytics)
 }
 
 repositories {
@@ -24,6 +26,15 @@ android {
         versionCode = 1
         versionName = "2.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("./keys/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
     }
 
     composeOptions {
@@ -103,6 +114,9 @@ dependencies {
     implementation(Dependencies.composeActivity)
     implementation(Dependencies.composeRuntime)
  // androidTestImplementation(Dependencies.composeUITests)
+
+ // implementation(platform(Dependencies.firebaseBoM))
+ // implementation(Dependencies.firebaseAnalytics)
 
     testImplementation(Dependencies.junit)
     testImplementation(Dependencies.androidCoreTesting)
