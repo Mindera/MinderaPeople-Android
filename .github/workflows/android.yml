@@ -19,5 +19,5 @@ jobs:
         distribution: 'adopt'
         java-version: 17
 
-    - name: build sample app
+    - name: build android app
       run: ./gradlew android:build
