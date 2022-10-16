@@ -23,11 +23,11 @@ fun startSdk(app: Application) {
                 single<Context> { app }
                 val baseLogger = Logger(
                     config = LoggerConfig.default.copy(
-                        logWriterList = listOf(LogcatWriter() /*, CrashlyticsLogWriter()*/)
+                        logWriterList = listOf(LogcatWriter() , CrashlyticsLogWriter())
                     ),
                     tag = "MinderaPeople"
                 )
-                factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
+                factory { (tag: String?) -> tag?.let { baseLogger.withTag(it) } ?: baseLogger }
             }
         )
     }

@@ -58,13 +58,13 @@ object MinderaPeopleWrapper : KoinComponent {
         initKoin {
             modules(
                 module {
-                    val baseKermit = Logger(
+                    val baseLogger = Logger(
                         config = LoggerConfig.default.copy(
                             logWriterList = listOf(CommonWriter() /*, CrashlyticsLogWriter()*/)
                         ),
                         tag = "MinderaPeople"
                     )/*.also { setCrashlyticsUnhandledExceptionHook() }*/
-                    factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
+                    factory { (tag: String?) -> tag?.let { baseLogger.withTag(it) } ?: baseLogger }
                 }
             )
         }
