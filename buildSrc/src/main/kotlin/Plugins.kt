@@ -1,5 +1,5 @@
 object GradlePlugins {
-    const val android = "com.android.tools.build:gradle:7.3.0"
+    const val android = "com.android.tools.build:gradle:7.3.1"
 
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     const val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
