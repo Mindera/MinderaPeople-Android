@@ -84,9 +84,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
         jvmTarget = "1.8"
         freeCompilerArgs += listOf(
             "-Xallow-jvm-ir-dependencies",
-            "-Xskip-prerelease-check",
-            //"-P",
-            //"plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            "-Xskip-prerelease-check"
         )
     }
 }
