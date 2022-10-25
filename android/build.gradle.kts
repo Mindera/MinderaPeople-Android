@@ -98,6 +98,7 @@ dependencies {
     implementation(Dependencies.kotlinCoroutinesAndroid)
 
     implementation(Dependencies.koinAndroid)
+    implementation(Dependencies.koinCompose)
 
     implementation(Dependencies.androidXAppCompact)
     implementation(Dependencies.androidXCoreKtx)
@@ -111,7 +112,12 @@ dependencies {
     implementation(Dependencies.composeMaterialIconsExtended)
     implementation(Dependencies.composeActivity)
     implementation(Dependencies.composeRuntime)
- // androidTestImplementation(Dependencies.composeUITests)
+    implementation(Dependencies.composeLottie)
+    implementation(Dependencies.composeNavigation)
+    implementation(Dependencies.googleAuth)
+    implementation(Dependencies.composeLiveData)
+
+    // androidTestImplementation(Dependencies.composeUITests)
 
  // implementation(platform(Dependencies.firebaseBoM))
  // implementation(Dependencies.firebaseAnalytics)

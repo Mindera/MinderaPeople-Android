@@ -1,4 +1,4 @@
-package com.mindera.people.android.ui
+package com.mindera.people.android.ui.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

@@ -1,6 +1,6 @@
 package com.mindera.people
 
-import java.util.Enumeration
+import java.util.*
 
 /**
  * Extension function for converting a {@link List} to an {@link Enumeration}

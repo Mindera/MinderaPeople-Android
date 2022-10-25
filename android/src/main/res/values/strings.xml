@@ -3,4 +3,9 @@
 
     <string name="loading">Loading&#8230;</string>
     <string name="retry">Retry</string>
+    <string name="app_logo_desc">App Logo</string>
+    <string name="auth_error_msg">Something went wrong...</string>
+
+    <string name="google_cloud_server_client_id" translatable="false">ESRA</string>
+
 </resources>

@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import com.mindera.people.android.ui.Home
+import androidx.navigation.compose.rememberNavController
+import com.mindera.people.android.ui.navigation.SetupNavGraph
 import com.mindera.people.android.ui.theme.MinderaTheme
 
 class MainActivity : ComponentActivity() {
@@ -15,7 +16,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MinderaTheme {
-                Home()
+                SetupNavGraph(navController = rememberNavController())
             }
         }
     }

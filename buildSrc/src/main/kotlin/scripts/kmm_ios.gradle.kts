@@ -1,5 +1,6 @@
 package scripts
 
+import Dependencies
 import isMacOsMachine
 
 plugins {

@@ -4,9 +4,6 @@ import co.touchlab.kermit.CommonWriter
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
-import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
-import co.touchlab.kermit.crashlytics.setCrashlyticsUnhandledExceptionHook
-import co.touchlab.kermit.setupUnhandledExceptionHook
 import com.mindera.people.auth.AuthState
 import com.mindera.people.auth.AuthViewModel
 import com.mindera.people.user.User
