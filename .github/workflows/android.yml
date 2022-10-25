@@ -23,6 +23,7 @@ jobs:
       run: ./gradlew android:build
 
   deployment:
+    if: github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
 
