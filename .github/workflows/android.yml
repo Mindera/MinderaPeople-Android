@@ -2,9 +2,9 @@ name: MinderaPeople Android
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, staging, develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, staging, develop ]
 
 jobs:
   build:
@@ -21,3 +21,25 @@ jobs:
 
     - name: build android app
       run: ./gradlew android:build
+
+  deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: build and publish alpha
+      if: github.ref == 'refs/heads/develop'
+      env:
+        FB_DIST: {{ secrets.APPS_FIREBASE_DISTRIBUTION }}
+        FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
+      run: |
+        echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
+        ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
+
+    - name: build and publish beta
+      if: github.ref == 'refs/heads/staging'
+      env:
+        FB_DIST: { { secrets.APPS_FIREBASE_DISTRIBUTION } }
+        FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
+      run: |
+        echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
+        ./gradlew android:bundleBeta android:appDistributionUploadBeta

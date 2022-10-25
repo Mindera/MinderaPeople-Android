@@ -41,6 +41,117 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856677742822:android:dc2973ce4d48f3506ba327",
+        "android_client_info": {
+          "package_name": "org.mindera.peopleandroid.alpha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856677742822-va3phchu5igngjthfm905ov22l8kl2cq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.mindera.peopleandroid.alpha",
+            "certificate_hash": "ac4648a1fd8b38e94cd02dfc076f21fa482f13e7"
+          }
+        },
+        {
+          "client_id": "856677742822-8dnffu2treg35s0o5of8crds5rubgbn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh1RfdEnp-PLRONsOkJHI-sXpPCyais0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856677742822-8dnffu2treg35s0o5of8crds5rubgbn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856677742822:android:fc158db93485cf156ba327",
+        "android_client_info": {
+          "package_name": "org.mindera.peopleandroid.beta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856677742822-bfrtqoqek309get660d134bc6n6eg56r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.mindera.peopleandroid.beta",
+            "certificate_hash": "ac4648a1fd8b38e94cd02dfc076f21fa482f13e7"
+          }
+        },
+        {
+          "client_id": "856677742822-8dnffu2treg35s0o5of8crds5rubgbn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh1RfdEnp-PLRONsOkJHI-sXpPCyais0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856677742822-8dnffu2treg35s0o5of8crds5rubgbn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856677742822:android:69c13d821a0ac4536ba327",
+        "android_client_info": {
+          "package_name": "org.mindera.peopleandroid.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856677742822-c49oduue0ambsgqsdvlmif9cv2d1gp25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.mindera.peopleandroid.debug",
+            "certificate_hash": "ac4648a1fd8b38e94cd02dfc076f21fa482f13e7"
+          }
+        },
+        {
+          "client_id": "856677742822-8dnffu2treg35s0o5of8crds5rubgbn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh1RfdEnp-PLRONsOkJHI-sXpPCyais0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856677742822-8dnffu2treg35s0o5of8crds5rubgbn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
