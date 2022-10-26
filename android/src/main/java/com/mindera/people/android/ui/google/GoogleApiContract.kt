@@ -16,6 +16,7 @@ class GoogleApiContract : ActivityResultContract<Int, Task<GoogleSignInAccount>?
             .setHostedDomain(DOMAIN)
             .requestIdToken(context.getString(R.string.google_cloud_server_client_id))
             .requestEmail()
+            .requestProfile()
             .build()
 
         val intent = GoogleSignIn.getClient(context, gso)

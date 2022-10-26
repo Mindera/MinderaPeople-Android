@@ -6,6 +6,6 @@
     <string name="app_logo_desc">App Logo</string>
     <string name="auth_error_msg">Something went wrong...</string>
 
-    <string name="google_cloud_server_client_id" translatable="false">ESRA</string>
+    <string name="google_cloud_server_client_id" translatable="false">856677742822-vdq7toqtgkdhb4jfguokcua701cp2uio.apps.googleusercontent.com</string>
 
 </resources>

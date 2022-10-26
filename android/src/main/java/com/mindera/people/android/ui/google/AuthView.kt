@@ -12,8 +12,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -34,14 +35,17 @@ import org.koin.androidx.compose.koinViewModel
 fun AuthScreen(navController: NavHostController) {
     val signInRequestCode = 1
     val viewModel = koinViewModel<SignInGoogleViewModel>()
+    val googleUser by remember(viewModel) { viewModel.googleUser }.collectAsState()
+
 
     val authResultLauncher =
         rememberLauncherForActivityResult(contract = GoogleApiContract()) { task ->
             try {
-                task?.getResult(ApiException::class.java)?.let {
-                    viewModel.fetchSignInUser(it.email, it.displayName)
-                } ?: run {
+                val account = task?.getResult(ApiException::class.java)
+                if (account == null) {
                     viewModel.setError()
+                } else {
+                    viewModel.fetchSignInUser(account.email, account.displayName)
                 }
             } catch (e: ApiException) {
                 Log.d("Error in AuthScreen%s", e.toString())
@@ -50,10 +54,10 @@ fun AuthScreen(navController: NavHostController) {
 
     AuthView(
         onClick = { authResultLauncher.launch(signInRequestCode) },
-        viewModel
+        googleUser
     )
 
-    if (viewModel.googleUser.value is UiState.Success) {
+    if (googleUser is UiState.Success) {
         LaunchedEffect(key1 = Unit) {
             navController.navigate(Screen.Home.route) {
                 popUpTo(Screen.Home.route) {
@@ -67,15 +71,14 @@ fun AuthScreen(navController: NavHostController) {
 @Composable
 private fun AuthView(
     onClick: () -> Unit,
-    mSignInViewModel: SignInGoogleViewModel
+    googleUser: UiState<User>
 ) {
-    val state = mSignInViewModel.googleUser.observeAsState()
 
-    Scaffold { it
-        if (state.value == UiState.Loading) {
+    Scaffold {
+        if (googleUser == UiState.Loading) {
             FullScreenLoaderComponent()
         } else {
-            AuthBehaviorView(onClick, state)
+            AuthBehaviorView(onClick, googleUser)
         }
     }
 }
@@ -84,7 +87,7 @@ private fun AuthView(
 @Composable
 private fun AuthBehaviorView(
     onClick: () -> Unit,
-    state: State<UiState<User>?>
+    googleUser: UiState<User>
 ) {
     Column(
         modifier = Modifier
@@ -103,7 +106,7 @@ private fun AuthBehaviorView(
         })
         Spacer(modifier = Modifier.weight(1F))
 
-        if (state.value == UiState.Error) {
+        if (googleUser == UiState.Error) {
             Text(
                 stringResource(R.string.auth_error_msg),
                 style = MaterialTheme.typography.h6,

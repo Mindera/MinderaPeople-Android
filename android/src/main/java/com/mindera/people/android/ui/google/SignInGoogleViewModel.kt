@@ -1,14 +1,14 @@
 package com.mindera.people.android.ui.google
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.mindera.people.UiState
 import com.mindera.people.auth.AuthViewModel
 import com.mindera.people.user.User
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class SignInGoogleViewModel(
@@ -16,8 +16,8 @@ class SignInGoogleViewModel(
     private val authViewModel: AuthViewModel
 ) : ViewModel() {
 
-    private var _userState = MutableLiveData<UiState<User>>()
-    val googleUser: LiveData<UiState<User>> = _userState
+    private var _userState = MutableStateFlow<UiState<User>>(UiState.Idle)
+    val googleUser: StateFlow<UiState<User>> = _userState
 
     init {
         checkSignedInUser()
@@ -41,11 +41,7 @@ class SignInGoogleViewModel(
         }
     }
 
-    fun hideLoading() {
-        _userState.value = UiState.Idle
-    }
-
-    fun showLoading() {
+    private fun showLoading() {
         _userState.value = UiState.Loading
     }
 
