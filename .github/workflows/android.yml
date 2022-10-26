@@ -29,18 +29,18 @@ jobs:
 
     environment: firebase-app-distribution
     env:
-      FB_DIST: { { secrets.APPS_FIREBASE_DISTRIBUTION } }
+      FB_DIST: {{ secrets.APPS_FIREBASE_DISTRIBUTION }}
       FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
 
     steps:
     - name: build and publish alpha
-      if: github.ref == 'refs/heads/develop'
+      if: ${{ github.ref == 'refs/heads/develop' }}
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
 
     - name: build and publish beta
-      if: github.ref == 'refs/heads/release'
+      if: ${{ github.ref == 'refs/heads/release' }}
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleBeta android:appDistributionUploadBeta
