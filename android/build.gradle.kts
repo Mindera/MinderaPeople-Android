@@ -3,6 +3,7 @@ plugins {
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.googleServices)
     id(BuildPlugins.firebaseCrashlytics)
+    id(BuildPlugins.firebaseDistribution)
 }
 
 repositories {
@@ -56,9 +57,50 @@ android {
     }
 
     buildTypes {
+        debug {
+            isDebuggable = true
+            isMinifyEnabled = false
+            isShrinkResources = false
+
+            applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+
+        // Alpha will be published via Firebase Distribution for QA testing
+        create("alpha").initWith(buildTypes.getByName("release"))
+        getByName("alpha") {
+            isDebuggable = true
+
+            applicationIdSuffix = ".alpha"
+            versionNameSuffix = "-alpha"
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks.add("release")
+
+            firebaseAppDistribution {
+                groups = "alpha-group"
+                serviceCredentialsFile = System.getenv("FB_DIST_FILE")
+            }
+        }
+
+        // Beta will be published via Firebase Distribution for Staging testing
+        create("beta").initWith(buildTypes.getByName("release"))
+        getByName("beta") {
+            isDebuggable = true
+
+            applicationIdSuffix = ".beta"
+            versionNameSuffix = "-beta"
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks.add("release")
+
+            firebaseAppDistribution {
+                groups = "beta-group"
+                serviceCredentialsFile = System.getenv("FB_DIST_FILE")
+            }
         }
     }
 
