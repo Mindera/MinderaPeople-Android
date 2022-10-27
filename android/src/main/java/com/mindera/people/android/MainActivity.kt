@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import com.mindera.people.android.ui.Home
+import com.mindera.people.android.ui.home.Home
 import com.mindera.people.android.ui.theme.MinderaTheme
 
 class MainActivity : ComponentActivity() {

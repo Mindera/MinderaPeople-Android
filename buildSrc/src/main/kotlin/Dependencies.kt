@@ -25,6 +25,7 @@ object Dependencies {
     const val koinCore = "io.insert-koin:koin-core:$koinVersion"
     const val koinTest = "io.insert-koin:koin-test:$koinVersion"
     const val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
+    const val koinCompose = "io.insert-koin:koin-androidx-compose:$koinComposeVersion"
     // endregion
 
     // region Jetpack Compose libraries
@@ -43,7 +44,7 @@ object Dependencies {
     const val composeActivity = "androidx.activity:activity-compose:1.6.0"
     // Integration with observables
     const val composeRuntime = "androidx.compose.runtime:runtime:$composeVersion"
- // const val composeLiveData = "androidx.compose.runtime:runtime-livedata:$compose_version"
+    const val composeLiveData = "androidx.compose.runtime:runtime-livedata:$composeVersion"
     // UI tests
     const val composeUITests = "androidx.compose.ui:ui-test:$composeVersion"
     // endregion
@@ -67,6 +68,11 @@ object Dependencies {
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics"
     // endregion
+
+    // region google libraries
+    const val googleAuth = "com.google.android.gms:play-services-auth:$googleAuthVersion"
+    // endregion
+
 
     // region Misc libraries
     const val multiplatformSettings = "com.russhwolf:multiplatform-settings:$multiplatformSettingsVersion"
