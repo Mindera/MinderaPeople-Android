@@ -6,9 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -24,7 +24,8 @@ import com.mindera.people.android.R
 
 @Composable
 fun SignInGoogleButton(
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Surface(
         modifier = Modifier.clickable(onClick = onClick),
@@ -34,8 +35,7 @@ fun SignInGoogleButton(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(start = 12.dp, end = 16.dp, top = 12.dp, bottom = 12.dp)
-                               .fillMaxWidth()
+            modifier = modifier.padding(start = 12.dp, end = 16.dp, top = 12.dp, bottom = 12.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_google_logo),
@@ -59,5 +59,8 @@ fun SignInGoogleButton(
 )
 @Composable
 fun PreviewSignInGoogleButton() {
-    SignInGoogleButton(onClick = {})
+    SignInGoogleButton(
+        onClick = {},
+        modifier = Modifier.wrapContentSize()
+    )
 }
