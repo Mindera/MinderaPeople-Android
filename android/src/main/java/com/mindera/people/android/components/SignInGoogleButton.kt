@@ -24,24 +24,18 @@ import com.mindera.people.android.R
 
 @Composable
 fun SignInGoogleButton(
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     Surface(
-        modifier = Modifier.clickable(
-            onClick = onClick
-        ),
+        modifier = Modifier.clickable(onClick = onClick),
         border = BorderStroke(width = 1.dp, color = Color.LightGray),
         color = MaterialTheme.colors.surface
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(
-                start = 12.dp,
-                end = 16.dp,
-                top = 12.dp,
-                bottom = 12.dp
-            ).fillMaxWidth()
+            modifier = Modifier.padding(start = 12.dp, end = 16.dp, top = 12.dp, bottom = 12.dp)
+                               .fillMaxWidth()
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_google_logo),
@@ -49,10 +43,7 @@ fun SignInGoogleButton(
                 tint = Color.Unspecified
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Sign in With Google"
-            )
-
+            Text(text = "Sign in With Google")
             Spacer(modifier = Modifier.width(16.dp))
         }
     }
