@@ -1,4 +1,4 @@
-package com.mindera.people
+package com.mindera.people.utils
 
 sealed class UiState<out T> {
     object Idle: UiState<Nothing>()

@@ -1,6 +1,7 @@
 package com.mindera.people.android.ui.home
 
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,11 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
-import com.mindera.people.UiState
+import com.mindera.people.utils.UiState
 import com.mindera.people.android.R
 import com.mindera.people.android.components.FullScreenLoaderComponent
 import com.mindera.people.android.components.SignInGoogleButton
@@ -34,7 +37,7 @@ fun Home() {
     val signInRequestCode = 1
     val viewModel = koinViewModel<HomeViewModel>()
     val googleUser by remember(viewModel) { viewModel.googleUser }.collectAsState()
-
+    val context = LocalContext.current
 
     val authResultLauncher =
         rememberLauncherForActivityResult(contract = GoogleApiContract()) { task ->
@@ -54,6 +57,10 @@ fun Home() {
         onClick = { authResultLauncher.launch(signInRequestCode) },
         googleUser
     )
+
+    GoogleSignIn.getLastSignedInAccount(context)?.run {
+        viewModel.setUser(email, displayName)
+    }
 
     if (googleUser is UiState.Success) {
         LaunchedEffect(key1 = Unit) {
