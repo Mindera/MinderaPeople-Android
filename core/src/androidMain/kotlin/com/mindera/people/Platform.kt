@@ -16,7 +16,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 @OptIn(ExperimentalKermitApi::class)
-fun startSdk(app: Application, module: Module) {
+fun startSdk(app: Application, appModule: Module) {
     initKoin {
         modules(
             module {
@@ -28,7 +28,8 @@ fun startSdk(app: Application, module: Module) {
                     tag = "MinderaPeople"
                 )
                 factory { (tag: String?) -> tag?.let { baseLogger.withTag(it) } ?: baseLogger }
-            } + module
+            }
+            + appModule
         )
     }
 }
