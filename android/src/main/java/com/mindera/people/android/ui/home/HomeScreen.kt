@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -33,7 +34,9 @@ import com.mindera.people.user.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Home() {
+fun Home(
+    modifier: Modifier = Modifier
+) {
     val signInRequestCode = 1
     val viewModel = koinViewModel<HomeViewModel>()
     val googleUser by remember(viewModel) { viewModel.googleUser }.collectAsState()
@@ -55,7 +58,8 @@ fun Home() {
 
     AuthView(
         onClick = { authResultLauncher.launch(signInRequestCode) },
-        googleUser
+        googleUser = googleUser,
+        modifier = modifier
     )
 
     GoogleSignIn.getLastSignedInAccount(context)?.run {
@@ -69,18 +73,18 @@ fun Home() {
     }
 }
 
-
 @Composable
 private fun AuthView(
     onClick: () -> Unit,
-    googleUser: UiState<User>
+    googleUser: UiState<User>,
+    modifier: Modifier = Modifier
 ) {
 
     Scaffold { it
         if (googleUser == UiState.Loading) {
             FullScreenLoaderComponent()
         } else {
-            AuthBehaviorView(onClick, googleUser)
+            AuthBehaviorView(onClick, googleUser, modifier)
         }
     }
 }
@@ -89,18 +93,17 @@ private fun AuthView(
 @Composable
 private fun AuthBehaviorView(
     onClick: () -> Unit,
-    googleUser: UiState<User>
+    googleUser: UiState<User>,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.weight(1F))
-        SignInGoogleButton(onClick = {
-            onClick()
-        })
+        SignInGoogleButton(onClick = onClick, modifier = Modifier.wrapContentSize())
         Spacer(modifier = Modifier.weight(1F))
 
         if (googleUser == UiState.Error) {

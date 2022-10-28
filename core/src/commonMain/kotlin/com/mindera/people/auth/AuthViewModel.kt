@@ -27,12 +27,12 @@ class AuthViewModel(
     private fun processAuthentication(user: User): AuthState =
         runCatching { userRepository.authenticateUser(user) }
             .fold(onSuccess = { AuthState.AuthSuccess(user) },
-                onFailure = { AuthState.AuthError(it) })
+                  onFailure = { AuthState.AuthError(it) })
 
     private fun processClear(): AuthState =
         runCatching { userRepository.clearUser() }
             .fold(onSuccess = { AuthState.Idle },
-                onFailure = { AuthState.AuthError(it) })
+                  onFailure = { AuthState.AuthError(it) })
 
     sealed class Action {
         data class Authenticate(val user: User) : Action()

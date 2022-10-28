@@ -3,7 +3,7 @@ package com.mindera.people.android
 import android.app.Application
 import com.mindera.people.android.ui.home.HomeViewModel
 import com.mindera.people.startSdk
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 class MinderaPeopleApp : Application() {
@@ -15,6 +15,8 @@ class MinderaPeopleApp : Application() {
 
     private fun setupKoin() {
         startSdk(app = this@MinderaPeopleApp,
-            module = module { viewModel { HomeViewModel(get(), get()) } })
+                 appModule = module {
+                     viewModelOf(::HomeViewModel)
+                 })
     }
 }

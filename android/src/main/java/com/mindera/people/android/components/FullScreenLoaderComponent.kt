@@ -14,9 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun FullScreenLoaderComponent() {
     Box(modifier = Modifier.fillMaxSize()) {
         CircularProgressIndicator(
-            modifier = Modifier
-                .wrapContentSize()
-                .align(Alignment.Center)
+            modifier = Modifier.wrapContentSize().align(Alignment.Center)
         )
     }
 }
