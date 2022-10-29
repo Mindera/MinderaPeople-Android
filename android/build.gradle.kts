@@ -36,6 +36,12 @@ android {
             keyAlias = "androiddebugkey"
             keyPassword = "android"
         }
+        create("release") {
+            storeFile = file("./keys/release.keystore")
+            storePassword = System.getenv("RK_STORE_PASS")
+            keyAlias = System.getenv("RK_KEY_ALIAS")
+            keyPassword = System.getenv("RK_KEY_PASS")
+        }
     }
 
     composeOptions {
@@ -68,7 +74,15 @@ android {
 
         release {
             isMinifyEnabled = true
+
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+
+            signingConfig = signingConfigs.getByName("release")
+
+            firebaseAppDistribution {
+                groups = "release-group"
+                serviceCredentialsFile = System.getenv("FB_DIST_FILE")
+            }
         }
 
         // Alpha will be published via Firebase Distribution for QA testing
