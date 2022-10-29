@@ -1,17 +1,15 @@
 package com.mindera.people.android.ui.home
 
-import android.content.Context
 import androidx.lifecycle.viewModelScope
-import com.mindera.people.utils.UiState
 import com.mindera.people.auth.AuthViewModel
 import com.mindera.people.user.User
+import com.mindera.people.utils.UiState
 import com.mindera.people.utils.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val context: Context,
     private val authViewModel: AuthViewModel
 ) : ViewModel() {
 

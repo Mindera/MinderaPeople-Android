@@ -1,7 +1,6 @@
 package com.mindera.people.android.ui.home
 
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,13 +23,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
-import com.mindera.people.utils.UiState
 import com.mindera.people.android.R
 import com.mindera.people.android.components.FullScreenLoaderComponent
 import com.mindera.people.android.components.SignInGoogleButton
 import com.mindera.people.android.ui.google.GoogleApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.user.User
+import com.mindera.people.utils.UiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -79,7 +78,6 @@ private fun AuthView(
     googleUser: UiState<User>,
     modifier: Modifier = Modifier
 ) {
-
     Scaffold { it
         if (googleUser == UiState.Loading) {
             FullScreenLoaderComponent()
@@ -107,11 +105,9 @@ private fun AuthBehaviorView(
         Spacer(modifier = Modifier.weight(1F))
 
         if (googleUser == UiState.Error) {
-            Text(
-                stringResource(R.string.auth_error_msg),
-                style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.error
-            )
+            Text(text = stringResource(R.string.auth_error_msg),
+                 style = MaterialTheme.typography.h6,
+                 color = MaterialTheme.colors.error)
         }
     }
 }
