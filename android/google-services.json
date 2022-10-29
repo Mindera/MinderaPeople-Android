@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "856677742822-q93p2dvljnp5dbr9j86nlbnokrah26mi.apps.googleusercontent.com",
+          "client_id": "856677742822-otl75l99j5jqieo4pp7saeunbjq7v7ja.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.mindera.peopleandroid",
-            "certificate_hash": "ac4648a1fd8b38e94cd02dfc076f21fa482f13e7"
+            "certificate_hash": "7da1850f18d9ca2ed8e56ef821724199156a7bf1"
           }
         },
         {
@@ -51,7 +51,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "856677742822-va3phchu5igngjthfm905ov22l8kl2cq.apps.googleusercontent.com",
+          "client_id": "856677742822-k9jgn7rkdh9l0r7dc93bvc2bkjq8490u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.mindera.peopleandroid.alpha",
