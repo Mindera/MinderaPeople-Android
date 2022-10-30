@@ -33,5 +33,5 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
         _action.tryEmit(action)
     }
 
-    abstract suspend fun processAction(action: A, latestState: S): S
+    protected abstract suspend fun processAction(action: A, latestState: S): S
 }

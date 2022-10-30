@@ -28,8 +28,6 @@ import com.mindera.people.android.components.FullScreenLoaderComponent
 import com.mindera.people.android.components.SignInGoogleButton
 import com.mindera.people.android.ui.google.GoogleApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
-import com.mindera.people.user.User
-import com.mindera.people.utils.UiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -38,34 +36,35 @@ fun Home(
 ) {
     val signInRequestCode = 1
     val viewModel = koinViewModel<HomeViewModel>()
-    val googleUser by remember(viewModel) { viewModel.googleUser }.collectAsState()
+    val homeState by remember(viewModel) { viewModel.state }.collectAsState()
     val context = LocalContext.current
 
-    val authResultLauncher =
-        rememberLauncherForActivityResult(contract = GoogleApiContract()) { task ->
-            try {
-                val account = task?.getResult(ApiException::class.java)
-                if (account == null) {
-                    viewModel.setError()
-                } else {
-                    viewModel.fetchSignInUser(account.email, account.displayName)
-                }
-            } catch (e: ApiException) {
-                Log.d("Error in AuthScreen%s", e.toString())
+    val authResultLauncher = rememberLauncherForActivityResult(
+        contract = GoogleApiContract()
+    ) { task ->
+        try {
+            val account = task?.getResult(ApiException::class.java)
+            when {
+                account == null -> {/* TODO what feedback? */}
+                account.email.isNullOrBlank() -> {/* TODO what feedback? */}
+                else -> viewModel.fetchSignInUser(account.email!!, account.displayName)
             }
+        } catch (error: ApiException) {
+            Log.d("Home", "Error in AuthScreen", error)
         }
+    }
 
     AuthView(
         onClick = { authResultLauncher.launch(signInRequestCode) },
-        googleUser = googleUser,
+        homeState = homeState,
         modifier = modifier
     )
 
     GoogleSignIn.getLastSignedInAccount(context)?.run {
-        viewModel.setUser(email, displayName)
+        email?.run { viewModel.setUser(email = this, name = displayName) }
     }
 
-    if (googleUser is UiState.Success) {
+    if (homeState is HomeState.AuthenticationState) {
         LaunchedEffect(key1 = Unit) {
             // TODO Nav
         }
@@ -75,23 +74,24 @@ fun Home(
 @Composable
 private fun AuthView(
     onClick: () -> Unit,
-    googleUser: UiState<User>,
+    homeState: HomeState,
     modifier: Modifier = Modifier
 ) {
     Scaffold { it
-        if (googleUser == UiState.Loading) {
-            FullScreenLoaderComponent()
-        } else {
-            AuthBehaviorView(onClick, googleUser, modifier)
+        when (homeState) {
+            is HomeState.Idle -> {/* no-op */}
+            is HomeState.Loading -> FullScreenLoaderComponent()
+            is HomeState.AuthenticationState -> {
+                AuthBehaviorView(onClick, homeState, modifier)
+            }
         }
     }
 }
 
-
 @Composable
 private fun AuthBehaviorView(
     onClick: () -> Unit,
-    googleUser: UiState<User>,
+    state: HomeState.AuthenticationState,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -104,10 +104,12 @@ private fun AuthBehaviorView(
         SignInGoogleButton(onClick = onClick, modifier = Modifier.wrapContentSize())
         Spacer(modifier = Modifier.weight(1F))
 
-        if (googleUser == UiState.Error) {
-            Text(text = stringResource(R.string.auth_error_msg),
-                 style = MaterialTheme.typography.h6,
-                 color = MaterialTheme.colors.error)
+        if (state.error != null) {
+            Text(
+                text = stringResource(R.string.auth_error_msg),
+                style = MaterialTheme.typography.h6,
+                color = MaterialTheme.colors.error
+            )
         }
     }
 }

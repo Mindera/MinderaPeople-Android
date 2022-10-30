@@ -1,38 +1,53 @@
 package com.mindera.people.android.ui.home
 
-import androidx.lifecycle.viewModelScope
+import com.mindera.people.auth.AuthState
 import com.mindera.people.auth.AuthViewModel
 import com.mindera.people.user.User
-import com.mindera.people.utils.UiState
-import com.mindera.people.utils.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import com.mindera.people.utils.StateViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class HomeViewModel(
     private val authViewModel: AuthViewModel
-) : ViewModel() {
+) : StateViewModel<HomeViewModel.Action, HomeState>(initialState = HomeState.Idle) {
 
-    private var _userState = MutableStateFlow<UiState<User>>(UiState.Idle)
-    val googleUser: StateFlow<UiState<User>> = _userState
-
-    fun fetchSignInUser(email: String?, name: String?) {
-        showLoading()
-        viewModelScope.launch { setUser(email, name) }
-    }
-
-    fun setUser(email: String?, name: String?) {
-        User(email = email, name = name).run {
-            _userState.value = UiState.Success(this)
-            authViewModel.authenticate(this)
+    init {
+        authViewModel.state.onEach {
+            when (it) {
+                is AuthState.Idle -> {/* no-op */}
+                is AuthState.AuthSuccess ->
+                    enqueueAction(Action.UserAuthenticationUpdate(user = it.user))
+                is AuthState.AuthError ->
+                    enqueueAction(Action.UserAuthenticationUpdate(error = it.error))
+            }
         }
+        .launchIn(scope)
     }
 
-    private fun showLoading() {
-        _userState.value = UiState.Loading
+    override suspend fun processAction(action: Action, latestState: HomeState): HomeState =
+        when (action) {
+            is Action.Authenticate -> {
+                authViewModel.authenticate(action.user)
+                HomeState.Loading
+            }
+            is Action.UserAuthenticationUpdate ->
+                HomeState.AuthenticationState(user = action.user, error = action.error)
+        }
+
+    fun fetchSignInUser(email: String, name: String?) {
+        setUser(email, name)
     }
 
-    fun setError() {
-        _userState.value = UiState.Error
+    fun setUser(email: String, name: String?) {
+        val user = User(email = email, name = name)
+        enqueueAction(Action.Authenticate(user))
+    }
+
+    sealed class Action {
+        data class Authenticate(val user: User) : Action()
+        data class UserAuthenticationUpdate(
+            val user: User? = null,
+            val error: Throwable? = null
+        ) : Action()
     }
 }
