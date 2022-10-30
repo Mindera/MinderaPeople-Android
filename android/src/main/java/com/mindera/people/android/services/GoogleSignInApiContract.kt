@@ -1,4 +1,4 @@
-package com.mindera.people.android.ui.google
+package com.mindera.people.android.services
 
 import android.app.Activity
 import android.content.Context
@@ -10,7 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.mindera.people.android.R
 
-class GoogleApiContract : ActivityResultContract<Int, Task<GoogleSignInAccount>?>() {
+class GoogleSignInApiContract : ActivityResultContract<Int, Task<GoogleSignInAccount>?>() {
 
     override fun createIntent(context: Context, input: Int): Intent {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

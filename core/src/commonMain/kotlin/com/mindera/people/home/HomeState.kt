@@ -1,4 +1,4 @@
-package com.mindera.people.android.ui.home
+package com.mindera.people.home
 
 import com.mindera.people.user.User
 

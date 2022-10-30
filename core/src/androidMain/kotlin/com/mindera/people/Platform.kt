@@ -9,14 +9,17 @@ import co.touchlab.kermit.LogcatWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
 import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
+import com.mindera.people.auth.AuthViewModel
+import com.mindera.people.home.HomeViewModel
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 @OptIn(ExperimentalKermitApi::class)
-fun startSdk(app: Application, appModule: Module) {
+fun startSdk(app: Application, appModule: Module = module {  }) {
     initKoin {
         modules(
             module {
@@ -29,6 +32,7 @@ fun startSdk(app: Application, appModule: Module) {
                 )
                 factory { (tag: String?) -> tag?.let { baseLogger.withTag(it) } ?: baseLogger }
             }
+            + featureModules
             + appModule
         )
     }
@@ -52,4 +56,12 @@ actual val platformModule: Module = module {
     single<Settings>(named(unencryptedSettings)) {
         SharedPreferencesSettings.Factory(get()).create(name = STORAGE_NAME)
     }
+}
+
+private val featureModules = module {
+    // authentication
+    viewModelOf(::AuthViewModel)
+
+    // home
+    viewModelOf(::HomeViewModel)
 }

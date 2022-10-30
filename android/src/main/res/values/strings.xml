@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name" translatable="false">Mindera People</string>
 
+    <string name="google_cloud_server_client_id" translatable="false">856677742822-vdq7toqtgkdhb4jfguokcua701cp2uio.apps.googleusercontent.com</string>
+
     <string name="loading">Loading&#8230;</string>
     <string name="retry">Retry</string>
     <string name="auth_error_msg">Something went wrong...</string>
-    <string name="google_cloud_server_client_id" translatable="false">856677742822-vdq7toqtgkdhb4jfguokcua701cp2uio.apps.googleusercontent.com</string>
-
 </resources>

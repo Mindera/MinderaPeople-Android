@@ -1,34 +1,32 @@
-package com.mindera.people.android.ui.home
+package com.mindera.people.home
 
-import com.mindera.people.auth.AuthState
-import com.mindera.people.auth.AuthViewModel
 import com.mindera.people.user.User
+import com.mindera.people.user.UserRepository
 import com.mindera.people.utils.StateViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import com.mindera.people.utils.safeLaunch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
-    private val authViewModel: AuthViewModel
+    private val userRepository: UserRepository
 ) : StateViewModel<HomeViewModel.Action, HomeState>(initialState = HomeState.Idle) {
 
     init {
-        authViewModel.state.onEach {
-            when (it) {
-                is AuthState.Idle -> {/* no-op */}
-                is AuthState.AuthSuccess ->
-                    enqueueAction(Action.UserAuthenticationUpdate(user = it.user))
-                is AuthState.AuthError ->
-                    enqueueAction(Action.UserAuthenticationUpdate(error = it.error))
-            }
+        scope.safeLaunch {
+            val user = userRepository.authenticated
+            enqueueAction(Action.UserAuthenticationUpdate(user = user))
         }
-        .launchIn(scope)
     }
 
     override suspend fun processAction(action: Action, latestState: HomeState): HomeState =
         when (action) {
             is Action.Authenticate -> {
-                authViewModel.authenticate(action.user)
-                HomeState.Loading
+                runCatching {
+                    withContext(ioDispatcher) {
+                        userRepository.authenticateUser(action.user)
+                    }
+                }
+                .fold(onSuccess = { HomeState.AuthenticationState(user = action.user) },
+                      onFailure = { HomeState.AuthenticationState(error = it) })
             }
             is Action.UserAuthenticationUpdate ->
                 HomeState.AuthenticationState(user = action.user, error = action.error)

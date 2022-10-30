@@ -26,8 +26,10 @@ import com.google.android.gms.common.api.ApiException
 import com.mindera.people.android.R
 import com.mindera.people.android.components.FullScreenLoaderComponent
 import com.mindera.people.android.components.SignInGoogleButton
-import com.mindera.people.android.ui.google.GoogleApiContract
+import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
+import com.mindera.people.home.HomeState
+import com.mindera.people.home.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -40,7 +42,7 @@ fun Home(
     val context = LocalContext.current
 
     val authResultLauncher = rememberLauncherForActivityResult(
-        contract = GoogleApiContract()
+        contract = GoogleSignInApiContract()
     ) { task ->
         try {
             val account = task?.getResult(ApiException::class.java)
