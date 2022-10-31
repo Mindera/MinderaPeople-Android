@@ -6,9 +6,11 @@ import com.mindera.people.utils.ViewModelTests.TestViewModel.Action
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.milliseconds
@@ -55,23 +57,25 @@ class ViewModelTests : BaseTest()  {
         fun action2() { enqueueAction(Action.Action2) }
         fun action3() { enqueueAction(Action.Action3) }
 
-        override suspend fun processAction(action: Action, latestState: CombinedState): CombinedState =
-            withContext(Dispatchers.Default) {
-                when (action) {
-                    is Action.Action1 -> {
-                        delay(100.milliseconds)
-                        CombinedState(items = listOf(1))
-                    }
-                    is Action.Action2 -> {
-                        delay(200.milliseconds)
-                        latestState.copy(items = latestState.items + listOf(2))
-                    }
-                    is Action.Action3 -> {
-                        delay(100.milliseconds)
-                        latestState.copy(items = latestState.items + listOf(3))
-                    }
+        override suspend fun processAction(
+            action: Action,
+            latestState: CombinedState
+        ): Flow<CombinedState> = flow {
+            when (action) {
+                is Action.Action1 -> {
+                    delay(100.milliseconds)
+                    emit(CombinedState(items = listOf(1)))
+                }
+                is Action.Action2 -> {
+                    delay(200.milliseconds)
+                    emit(latestState.copy(items = latestState.items + listOf(2)))
+                }
+                is Action.Action3 -> {
+                    delay(100.milliseconds)
+                    emit(latestState.copy(items = latestState.items + listOf(3)))
                 }
             }
+        }.flowOn(Dispatchers.Default)
 
         sealed class Action {
             object Action1: Action()
