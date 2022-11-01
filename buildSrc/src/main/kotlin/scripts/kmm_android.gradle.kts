@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+    namespace = "com.mindera.people"
+
     compileSdk = 33
 
     defaultConfig {

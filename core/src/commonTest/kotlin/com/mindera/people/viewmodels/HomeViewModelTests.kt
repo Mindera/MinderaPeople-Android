@@ -11,6 +11,7 @@ import io.mockative.classOf
 import io.mockative.given
 import io.mockative.mock
 import kotlinx.coroutines.test.runTest
+import kotlin.test.BeforeTest
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -21,6 +22,7 @@ class HomeViewModelTests : BaseTest() {
 
     private val viewModel by lazy { HomeViewModel(userRepository) }
 
+    @BeforeTest
     override fun setup() {
         super.setup()
         given(userRepository).invocation { authenticated }.thenReturn(value = null)
