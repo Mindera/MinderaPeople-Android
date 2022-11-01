@@ -22,6 +22,15 @@ jobs:
     - name: build android app
       run: ./gradlew android:assembleDebug
 
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: run core unit tests
+      run: ./gradlew :core:testDebugUnitTest
+
+    - name: run android unit tests
+      run: ./gradlew :android:testDebugUnitTest
+
   deployment:
     if: github.event.pull_request.merged == true
     needs: build
