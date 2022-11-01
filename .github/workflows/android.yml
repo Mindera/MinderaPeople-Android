@@ -24,7 +24,7 @@ jobs:
 
   test:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -41,7 +41,7 @@ jobs:
     - name: run android unit tests
       run: ./gradlew android:testDebugUnitTest
 
-  deployment:
+  deploy:
     if: github.event.pull_request.merged == true
     needs: test
     runs-on: ubuntu-latest
