@@ -26,13 +26,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/checkout@v3
+
     - name: setup JDK
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
         java-version: 17
 
-    steps:
     - name: run core unit tests
       run: ./gradlew core:testDebugUnitTest
 
@@ -44,31 +46,33 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
 
+    environment: firebase-app-distribution
+    env:
+      FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
+
+    steps:
+    - uses: actions/checkout@v3
+
     - name: setup JDK
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
         java-version: 17
 
-    environment: firebase-app-distribution
-    env:
-      FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
-
-    steps:
     - name: build and publish alpha
-      if: ${{ github.ref == 'refs/heads/develop' }}
+      if: github.ref == 'refs/heads/develop'
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
 
     - name: build and publish beta
-      if: ${{ github.ref == 'refs/heads/release' }}
+      if: github.ref == 'refs/heads/release'
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleBeta android:appDistributionUploadBeta
 
     - name: build and publish release
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: github.ref == 'refs/heads/main'
       run: |
         echo $RELEASE_KEYSTORE > release.keystore.asc
         gpd -d --passphrase "$RELEASE_KEYSTORE_PASS" --batch release.keystore.asc > android/keys/release.keystore
