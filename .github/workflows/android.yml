@@ -23,6 +23,7 @@ jobs:
       run: ./gradlew android:assembleDebug
 
   deployment:
+    if: github.event.pull_request.merged == true
     needs: build
     runs-on: ubuntu-latest
 
@@ -32,19 +33,19 @@ jobs:
 
     steps:
     - name: build and publish alpha
-      if: ${{ github.ref == 'refs/heads/develop' && github.event.pull_request.merged == true }}
+      if: ${{ github.ref == 'refs/heads/develop' }}
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
 
     - name: build and publish beta
-      if: ${{ github.ref == 'refs/heads/release' && github.event.pull_request.merged == true }}
+      if: ${{ github.ref == 'refs/heads/release' }}
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleBeta android:appDistributionUploadBeta
 
     - name: build and publish release
-      if: ${{ github.ref == 'refs/heads/main' && github.event.pull_request.merged == true }}
+      if: ${{ github.ref == 'refs/heads/main' }}
       run: |
         echo $RELEASE_KEYSTORE > release.keystore.asc
         gpd -d --passphrase "$RELEASE_KEYSTORE_PASS" --batch release.keystore.asc > android/keys/release.keystore
