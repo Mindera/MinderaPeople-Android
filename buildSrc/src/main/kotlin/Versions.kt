@@ -7,9 +7,12 @@ const val datetimeVersion = "0.4.0"
 const val ktorVersion = "2.1.2"
 
 const val koinVersion = "3.2.2"
+const val koinComposeVersion = "3.3.0"
 
 const val composeVersion = "1.2.1"
 const val composeCompilerVersion = "1.3.1"
+
+const val googleAuthVersion = "20.3.0"
 
 const val detektVersion = "1.20.0"
 

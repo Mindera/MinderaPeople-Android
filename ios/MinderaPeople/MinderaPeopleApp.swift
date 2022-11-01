@@ -12,7 +12,7 @@ import MinderaPeopleKt
 struct MinderaPeopleApp: App {
 
     init() {
-        MinderaPeopleWrapper.shared.start()
+        MinderaPeopleAppKt.shared.start()
     }
 
     var body: some Scene {

@@ -7,6 +7,10 @@ class MinderaPeopleApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startSdk(this@MinderaPeopleApp)
+        setupKoin()
+    }
+
+    private fun setupKoin() {
+        startSdk(app = this@MinderaPeopleApp)
     }
 }
