@@ -40,7 +40,7 @@ jobs:
       run: /usr/bin/xcodebuild -version
 
     - name: build KMM library
-      run: ./gradlew :core:build
+      run: ./gradlew :core:iosX64Test
 
     - name: create Swift Package
       run: ./gradlew :core:createSwiftPackage
