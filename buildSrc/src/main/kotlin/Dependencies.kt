@@ -85,7 +85,7 @@ object Dependencies {
 
     // region Test libraries
     const val junit = "junit:junit:4.13.2"
-    const val turbine = "app.cash.turbine:turbine:0.11.0"
+    const val turbine = "app.cash.turbine:turbine:0.12.0"
     const val robolectric = "org.robolectric:robolectric:4.8.1"
     // Mock library
     private const val mockativeVersion = "1.2.6"

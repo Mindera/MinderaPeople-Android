@@ -27,12 +27,7 @@ class HomeViewModel(
                 processAuthenticationUpdate(user = action.user, error = action.error)
         }
 
-    fun fetchSignInUser(email: String, name: String?) {
-        setUser(email, name)
-    }
-
-    fun setUser(email: String, name: String?) {
-        val user = User(email = email, name = name)
+    fun setUser(user: User) {
         enqueueAction(Action.Authenticate(user))
     }
 

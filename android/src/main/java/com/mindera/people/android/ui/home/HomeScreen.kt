@@ -30,6 +30,7 @@ import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.home.HomeState
 import com.mindera.people.home.HomeViewModel
+import com.mindera.people.user.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -49,7 +50,9 @@ fun Home(
             when {
                 account == null -> {/* TODO what feedback? */}
                 account.email.isNullOrBlank() -> {/* TODO what feedback? */}
-                else -> viewModel.fetchSignInUser(account.email!!, account.displayName)
+                else -> viewModel.setUser(
+                    User(email = account.email!!, name = account.displayName)
+                )
             }
         } catch (error: ApiException) {
             Log.d("Home", "Error in AuthScreen", error)
@@ -63,7 +66,7 @@ fun Home(
     )
 
     GoogleSignIn.getLastSignedInAccount(context)?.run {
-        email?.run { viewModel.setUser(email = this, name = displayName) }
+        email?.run { viewModel.setUser(User(email = this, name = displayName)) }
     }
 
     if (homeState is HomeState.AuthenticationState) {

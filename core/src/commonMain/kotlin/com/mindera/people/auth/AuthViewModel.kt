@@ -34,8 +34,11 @@ class AuthViewModel(
     }.flowOn(ioDispatcher)
 
     private fun processClear(): Flow<AuthState> = flow {
+        // necessary to prevent no emission in case the prior `state` is UserCleared
+        emit(AuthState.Idle)
+        // clear the user authenticated
         runCatching { userRepository.clearUser() }
-            .fold(onSuccess = { emit(AuthState.Idle) },
+            .fold(onSuccess = { emit(AuthState.UserCleared) },
                   onFailure = { emit(AuthState.AuthError(it)) })
     }.flowOn(ioDispatcher)
 

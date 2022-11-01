@@ -29,3 +29,9 @@ internal class MainScope: CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = dispatcher + job
 }
+
+/** Util for Tests, it allows the possibilities to override the Dispatchers used on the App. */
+internal object DispatchersProvider {
+    var main: CoroutineDispatcher = MainDispatcher
+        internal set
+}

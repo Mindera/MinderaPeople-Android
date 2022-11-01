@@ -47,7 +47,7 @@ class ViewModelTests : BaseTest()  {
 
     private data class CombinedState(val items: List<Int>)
 
-    private class TestViewModel: StateViewModel<Action, CombinedState>(
+    private class TestViewModel : StateViewModel<Action, CombinedState>(
         initialState = CombinedState(items = emptyList())
     ) {
         override val mainDispatcher: CoroutineDispatcher get() = StandardTestDispatcher()
