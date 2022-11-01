@@ -3,13 +3,10 @@ package com.mindera.people.utils
 import app.cash.turbine.test
 import com.mindera.people.BaseTest
 import com.mindera.people.utils.ViewModelTests.TestViewModel.Action
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -50,9 +47,6 @@ class ViewModelTests : BaseTest()  {
     private class TestViewModel : StateViewModel<Action, CombinedState>(
         initialState = CombinedState(items = emptyList())
     ) {
-        override val mainDispatcher: CoroutineDispatcher get() = StandardTestDispatcher()
-        override val ioDispatcher: CoroutineDispatcher get() = StandardTestDispatcher()
-
         fun action1() { enqueueAction(Action.Action1) }
         fun action2() { enqueueAction(Action.Action2) }
         fun action3() { enqueueAction(Action.Action3) }
@@ -75,7 +69,7 @@ class ViewModelTests : BaseTest()  {
                     emit(latestState.copy(items = latestState.items + listOf(3)))
                 }
             }
-        }.flowOn(Dispatchers.Default)
+        }.flowOn(mainDispatcher)
 
         sealed class Action {
             object Action1: Action()
