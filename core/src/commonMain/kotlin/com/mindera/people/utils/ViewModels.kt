@@ -2,9 +2,11 @@ package com.mindera.people.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.zip
 
@@ -25,6 +27,7 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
 
     init {
         _action.zip(_state, ::processAction)
+            .flatMapConcat { it }
             .onEach { _state.value = it }
             .safeLaunchIn(scope)
     }
@@ -33,5 +36,5 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
         _action.tryEmit(action)
     }
 
-    abstract suspend fun processAction(action: A, latestState: S): S
+    protected abstract suspend fun processAction(action: A, latestState: S): Flow<S>
 }

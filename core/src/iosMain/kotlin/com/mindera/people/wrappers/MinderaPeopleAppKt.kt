@@ -1,27 +1,17 @@
-package com.mindera.people
+package com.mindera.people.wrappers
 
 import co.touchlab.kermit.CommonWriter
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
-import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
-import co.touchlab.kermit.crashlytics.setCrashlyticsUnhandledExceptionHook
-import co.touchlab.kermit.setupUnhandledExceptionHook
-import com.mindera.people.auth.AuthState
-import com.mindera.people.auth.AuthViewModel
-import com.mindera.people.user.User
+import com.mindera.people.initKoin
 import com.mindera.people.utils.MainScope
-import com.mindera.people.utils.safeLaunchIn
-import kotlinx.coroutines.flow.onEach
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import org.koin.dsl.module
 
 @OptIn(ExperimentalKermitApi::class)
-object MinderaPeopleWrapper : KoinComponent {
+object MinderaPeopleAppKt : KoinComponent {
     private val mainScope = MainScope()
-
-    private val authViewModel: AuthViewModel by inject()
 
 //    private val konnection = Konnection(enableDebugLog = true)
 //
@@ -43,16 +33,6 @@ object MinderaPeopleWrapper : KoinComponent {
 //    }
 //
 //    suspend fun getCurrentIpInfo(): IpInfo? = konnection.getCurrentIpInfo()
-
-    fun authentication(user: User) {
-        authViewModel.authenticate(user)
-    }
-
-    fun authStateObservation(callback: (AuthState) -> Unit) {
-        authViewModel.state
-            .onEach {callback.invoke(it) }
-            .safeLaunchIn(mainScope)
-    }
 
     private fun setupKoin() {
         initKoin {

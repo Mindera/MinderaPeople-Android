@@ -10,6 +10,7 @@ buildscript {
         classpath(GradlePlugins.kermit)
         classpath(GradlePlugins.googleServices)
         classpath(GradlePlugins.firebaseCrashlytics)
+        classpath(GradlePlugins.firebaseDistribution)
     }
 }
 
