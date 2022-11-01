@@ -26,6 +26,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
+    - name: setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
     steps:
     - name: run core unit tests
       run: ./gradlew core:testDebugUnitTest
@@ -37,6 +43,12 @@ jobs:
     if: github.event.pull_request.merged == true
     needs: test
     runs-on: ubuntu-latest
+
+    - name: setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
 
     environment: firebase-app-distribution
     env:
