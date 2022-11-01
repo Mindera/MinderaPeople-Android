@@ -11,6 +11,7 @@ import io.mockative.classOf
 import io.mockative.given
 import io.mockative.mock
 import kotlinx.coroutines.test.runTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -18,7 +19,13 @@ class AuthViewModelTests : BaseTest() {
 
     @Mock private val userRepository = mock(classOf<UserRepository>())
 
-    private val viewModel by lazy { AuthViewModel(userRepository) }
+    private lateinit var viewModel: AuthViewModel
+
+    @BeforeTest
+    override fun setup() {
+        super.setup()
+        viewModel = AuthViewModel(userRepository)
+    }
 
     @Test
     fun `test ViewModel emits Error when authenticate fails`() = runTest {
