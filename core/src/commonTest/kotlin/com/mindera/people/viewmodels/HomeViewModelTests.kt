@@ -2,6 +2,7 @@ package com.mindera.people.viewmodels
 
 import app.cash.turbine.test
 import com.mindera.people.BaseTest
+import com.mindera.people.data.toError
 import com.mindera.people.home.HomeState
 import com.mindera.people.home.HomeViewModel
 import com.mindera.people.user.User
@@ -12,7 +13,6 @@ import io.mockative.given
 import io.mockative.mock
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -54,12 +54,12 @@ class HomeViewModelTests : BaseTest() {
         }
     }
 
-    @Test @Ignore
+    @Test
     fun `test ViewModel emits AuthenticationState with Error when setUser fails`() = runTest {
-        val error = Throwable("some crazy error!")
+        val throwable = Throwable("some crazy error!")
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenThrow(error)
+        given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
 
         viewModel.state.test {
             // first state on ViewModel is Idle
@@ -71,7 +71,7 @@ class HomeViewModelTests : BaseTest() {
             // check ViewModel State emits Loading
             assertEquals(HomeState.Loading, awaitItem())
             // check ViewModel State emits no User authenticated and the Error
-            assertEquals(HomeState.AuthenticationState(user = null, error = error), awaitItem())
+            assertEquals(HomeState.AuthenticationState(user = null, error = throwable.toError()), awaitItem())
         }
     }
 

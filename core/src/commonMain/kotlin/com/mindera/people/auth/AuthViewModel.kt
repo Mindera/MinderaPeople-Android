@@ -1,6 +1,7 @@
 package com.mindera.people.auth
 
 import com.mindera.people.auth.AuthViewModel.Action
+import com.mindera.people.data.toError
 import com.mindera.people.user.User
 import com.mindera.people.user.UserRepository
 import com.mindera.people.utils.StateViewModel
@@ -30,7 +31,7 @@ class AuthViewModel(
     private fun processAuthentication(user: User): Flow<AuthState> = flow {
         runCatching { userRepository.authenticateUser(user) }
             .fold(onSuccess = { emit(AuthState.AuthSuccess(user)) },
-                  onFailure = { emit(AuthState.AuthError(it)) })
+                  onFailure = { emit(AuthState.AuthError(it.toError())) })
     }.flowOn(ioDispatcher)
 
     private fun processClear(): Flow<AuthState> = flow {
@@ -39,7 +40,7 @@ class AuthViewModel(
         // clear the user authenticated
         runCatching { userRepository.clearUser() }
             .fold(onSuccess = { emit(AuthState.UserCleared) },
-                  onFailure = { emit(AuthState.AuthError(it)) })
+                  onFailure = { emit(AuthState.AuthError(it.toError())) })
     }.flowOn(ioDispatcher)
 
     sealed class Action {

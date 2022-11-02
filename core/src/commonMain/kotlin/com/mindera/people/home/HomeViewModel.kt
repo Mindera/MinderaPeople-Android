@@ -1,5 +1,6 @@
 package com.mindera.people.home
 
+import com.mindera.people.data.toError
 import com.mindera.people.user.User
 import com.mindera.people.user.UserRepository
 import com.mindera.people.utils.StateViewModel
@@ -40,11 +41,11 @@ class HomeViewModel(
             }
         }
         .fold(onSuccess = { emit(HomeState.AuthenticationState(user = user)) },
-              onFailure = { emit(HomeState.AuthenticationState(error = it)) })
+              onFailure = { emit(HomeState.AuthenticationState(error = it.toError())) })
     }
 
     private fun processAuthenticationUpdate(user: User?, error: Throwable?): Flow<HomeState> =
-        flowOf(HomeState.AuthenticationState(user = user, error = error))
+        flowOf(HomeState.AuthenticationState(user = user, error = error?.toError()))
 
     sealed class Action {
         data class Authenticate(val user: User) : Action()

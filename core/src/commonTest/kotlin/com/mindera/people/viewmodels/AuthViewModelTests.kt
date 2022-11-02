@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.mindera.people.BaseTest
 import com.mindera.people.auth.AuthState
 import com.mindera.people.auth.AuthViewModel
+import com.mindera.people.data.toError
 import com.mindera.people.user.User
 import com.mindera.people.user.UserRepository
 import io.mockative.Mock
@@ -22,10 +23,10 @@ class AuthViewModelTests : BaseTest() {
 
     @Test
     fun `test ViewModel emits Error when authenticate fails`() = runTest {
-        val error = Throwable("some crazy error!")
+        val throwable = Throwable("some crazy error!")
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenThrow(error)
+        given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
 
         viewModel.state.test {
             // first state on ViewModel is Idle
@@ -33,7 +34,7 @@ class AuthViewModelTests : BaseTest() {
             // try authenticate [user]
             viewModel.authenticate(user)
             // check if error is emit to the ViewModel State
-            assertEquals(AuthState.AuthError(error), awaitItem())
+            assertEquals(AuthState.AuthError(throwable.toError()), awaitItem())
         }
     }
 
@@ -55,9 +56,9 @@ class AuthViewModelTests : BaseTest() {
 
     @Test
     fun `test ViewModel emits Error when clear fails`() = runTest {
-        val error = Throwable("some crazy error!")
+        val throwable = Throwable("some crazy error!")
 
-        given(userRepository).invocation { clearUser() }.thenThrow(error)
+        given(userRepository).invocation { clearUser() }.thenThrow(throwable)
 
         viewModel.state.test {
             // first state on ViewModel is Idle
@@ -65,7 +66,7 @@ class AuthViewModelTests : BaseTest() {
             // try cleat current user
             viewModel.clear()
             // check if error is emit to the ViewModel State
-            assertEquals(AuthState.AuthError(error), awaitItem())
+            assertEquals(AuthState.AuthError(throwable.toError()), awaitItem())
         }
     }
 
