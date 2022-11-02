@@ -1,5 +1,6 @@
 package com.mindera.people.home
 
+import com.mindera.people.data.Error
 import com.mindera.people.user.User
 
 sealed class HomeState {
@@ -8,6 +9,6 @@ sealed class HomeState {
 
     data class AuthenticationState(
         val user: User? = null,
-        val error: Throwable? = null
+        val error: Error? = null
     ): HomeState()
 }

@@ -40,7 +40,10 @@ jobs:
       run: /usr/bin/xcodebuild -version
 
     - name: build KMM library
-      run: ./gradlew :core:iosX64Test #:konnection:generateDummyFramework
+      run: ./gradlew :core:iosX64Test
+
+    - name: create Swift Package
+      run: ./gradlew :core:createSwiftPackage
 
     #- name: create simulator
     #  run: xcrun simctl create "iPhone 8" "com.apple.CoreSimulator.SimDeviceType.iPhone-8" "com.apple.CoreSimulator.SimRuntime.iOS-15-2"

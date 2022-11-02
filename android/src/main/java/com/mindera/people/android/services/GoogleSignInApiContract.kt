@@ -15,7 +15,7 @@ class GoogleSignInApiContract : ActivityResultContract<Int, Task<GoogleSignInAcc
     override fun createIntent(context: Context, input: Int): Intent {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .setHostedDomain(DOMAIN)
-            .requestIdToken(context.getString(R.string.google_cloud_server_client_id))
+            .requestIdToken(CLIENT_ID)
             .requestEmail()
             .requestProfile()
             .build()
@@ -26,13 +26,12 @@ class GoogleSignInApiContract : ActivityResultContract<Int, Task<GoogleSignInAcc
 
     override fun parseResult(resultCode: Int, intent: Intent?): Task<GoogleSignInAccount>? =
         when (resultCode) {
-            Activity.RESULT_OK -> {
-                GoogleSignIn.getSignedInAccountFromIntent(intent)
-            }
+            Activity.RESULT_OK -> GoogleSignIn.getSignedInAccountFromIntent(intent)
             else -> null
         }
 
     companion object {
-        const val DOMAIN = "mindera.com"
+        private const val DOMAIN = "mindera.com"
+        private const val CLIENT_ID = "856677742822-vdq7toqtgkdhb4jfguokcua701cp2uio.apps.googleusercontent.com"
     }
 }

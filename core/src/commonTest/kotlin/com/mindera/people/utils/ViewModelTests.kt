@@ -3,12 +3,11 @@ package com.mindera.people.utils
 import app.cash.turbine.test
 import com.mindera.people.BaseTest
 import com.mindera.people.utils.ViewModelTests.TestViewModel.Action
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.milliseconds
@@ -45,33 +44,32 @@ class ViewModelTests : BaseTest()  {
 
     private data class CombinedState(val items: List<Int>)
 
-    private class TestViewModel: StateViewModel<Action, CombinedState>(
+    private class TestViewModel : StateViewModel<Action, CombinedState>(
         initialState = CombinedState(items = emptyList())
     ) {
-        override val mainDispatcher: CoroutineDispatcher get() = StandardTestDispatcher()
-        override val ioDispatcher: CoroutineDispatcher get() = StandardTestDispatcher()
-
         fun action1() { enqueueAction(Action.Action1) }
         fun action2() { enqueueAction(Action.Action2) }
         fun action3() { enqueueAction(Action.Action3) }
 
-        override suspend fun processAction(action: Action, latestState: CombinedState): CombinedState =
-            withContext(Dispatchers.Default) {
-                when (action) {
-                    is Action.Action1 -> {
-                        delay(100.milliseconds)
-                        CombinedState(items = listOf(1))
-                    }
-                    is Action.Action2 -> {
-                        delay(200.milliseconds)
-                        latestState.copy(items = latestState.items + listOf(2))
-                    }
-                    is Action.Action3 -> {
-                        delay(100.milliseconds)
-                        latestState.copy(items = latestState.items + listOf(3))
-                    }
+        override suspend fun processAction(
+            action: Action,
+            latestState: CombinedState
+        ): Flow<CombinedState> = flow {
+            when (action) {
+                is Action.Action1 -> {
+                    delay(100.milliseconds)
+                    emit(CombinedState(items = listOf(1)))
+                }
+                is Action.Action2 -> {
+                    delay(200.milliseconds)
+                    emit(latestState.copy(items = latestState.items + listOf(2)))
+                }
+                is Action.Action3 -> {
+                    delay(100.milliseconds)
+                    emit(latestState.copy(items = latestState.items + listOf(3)))
                 }
             }
+        }.flowOn(mainDispatcher)
 
         sealed class Action {
             object Action1: Action()

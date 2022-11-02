@@ -22,36 +22,57 @@ jobs:
     - name: build android app
       run: ./gradlew android:assembleDebug
 
-  deployment:
-    if: github.event_name == 'push'
+  test:
     needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: run core unit tests
+      run: ./gradlew core:testDebugUnitTest
+
+    - name: run android unit tests
+      run: ./gradlew android:testDebugUnitTest
+
+  deploy:
+    if: github.event.pull_request.merged == true
+    needs: test
     runs-on: ubuntu-latest
 
     environment: firebase-app-distribution
     env:
-      RELEASE_KEYSTORE: {{ secrets.RELEASE_KEYSTORE }}
-      RELEASE_KEYSTORE_PASS: {{ secrets.RELEASE_KEYSTORE_PASS }}
-      RK_STORE_PASS: {{ secrets.RK_STORE_PASS }}
-      RK_KEY_ALIAS: {{ secrets.RK_KEY_ALIAS }}
-      RK_KEY_PASS: {{ secrets.RK_KEY_PASS }}
-      FB_DIST: {{ secrets.APPS_FIREBASE_DISTRIBUTION }}
       FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
 
     steps:
+    - uses: actions/checkout@v3
+
+    - name: setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
     - name: build and publish alpha
-      if: ${{ github.ref == 'refs/heads/develop' }}
+      if: github.ref == 'refs/heads/develop'
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
 
     - name: build and publish beta
-      if: ${{ github.ref == 'refs/heads/release' }}
+      if: github.ref == 'refs/heads/release'
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleBeta android:appDistributionUploadBeta
 
     - name: build and publish release
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: github.ref == 'refs/heads/main'
       run: |
         echo $RELEASE_KEYSTORE > release.keystore.asc
         gpd -d --passphrase "$RELEASE_KEYSTORE_PASS" --batch release.keystore.asc > android/keys/release.keystore

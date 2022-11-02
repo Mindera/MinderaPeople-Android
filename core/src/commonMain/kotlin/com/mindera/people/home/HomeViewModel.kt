@@ -1,9 +1,13 @@
 package com.mindera.people.home
 
+import com.mindera.people.data.toError
 import com.mindera.people.user.User
 import com.mindera.people.user.UserRepository
 import com.mindera.people.utils.StateViewModel
 import com.mindera.people.utils.safeLaunch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(
@@ -17,29 +21,31 @@ class HomeViewModel(
         }
     }
 
-    override suspend fun processAction(action: Action, latestState: HomeState): HomeState =
+    override suspend fun processAction(action: Action, latestState: HomeState): Flow<HomeState> =
         when (action) {
-            is Action.Authenticate -> {
-                runCatching {
-                    withContext(ioDispatcher) {
-                        userRepository.authenticateUser(action.user)
-                    }
-                }
-                .fold(onSuccess = { HomeState.AuthenticationState(user = action.user) },
-                      onFailure = { HomeState.AuthenticationState(error = it) })
-            }
+            is Action.Authenticate -> processAuthentication(action.user)
             is Action.UserAuthenticationUpdate ->
-                HomeState.AuthenticationState(user = action.user, error = action.error)
+                processAuthenticationUpdate(user = action.user, error = action.error)
         }
 
-    fun fetchSignInUser(email: String, name: String?) {
-        setUser(email, name)
-    }
-
-    fun setUser(email: String, name: String?) {
-        val user = User(email = email, name = name)
+    fun setUser(user: User) {
         enqueueAction(Action.Authenticate(user))
     }
+
+    private fun processAuthentication(user: User): Flow<HomeState> = flow {
+        emit(HomeState.Loading)
+
+        runCatching {
+            withContext(ioDispatcher) {
+                userRepository.authenticateUser(user)
+            }
+        }
+        .fold(onSuccess = { emit(HomeState.AuthenticationState(user = user)) },
+              onFailure = { emit(HomeState.AuthenticationState(error = it.toError())) })
+    }
+
+    private fun processAuthenticationUpdate(user: User?, error: Throwable?): Flow<HomeState> =
+        flowOf(HomeState.AuthenticationState(user = user, error = error?.toError()))
 
     sealed class Action {
         data class Authenticate(val user: User) : Action()
