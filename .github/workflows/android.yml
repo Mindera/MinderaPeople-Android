@@ -19,6 +19,9 @@ jobs:
         distribution: 'adopt'
         java-version: 17
 
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
     - name: build android app
       run: ./gradlew android:assembleDebug
 
@@ -34,6 +37,9 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
 
     - name: run core unit tests
       run: ./gradlew core:testDebugUnitTest
@@ -58,6 +64,9 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
 
     - name: build and publish alpha
       if: github.ref == 'refs/heads/develop'

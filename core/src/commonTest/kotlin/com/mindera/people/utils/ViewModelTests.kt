@@ -17,7 +17,7 @@ class ViewModelTests : BaseTest()  {
     private val stateViewModel by lazy { TestViewModel() }
 
     @Test
-    fun `test StateViewModel actions handling waiting for all`() = runTest {
+    fun `test StateViewModel actions handling waiting for all events`() = runTest {
         stateViewModel.state.test {
             assertEquals(CombinedState(items = emptyList()), awaitItem())
             stateViewModel.action1()
