@@ -6,7 +6,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class MPKKoin_coreKoin, MPKAuthenticationKt, MPKUser, MPKAuthState, MPKHomeKt, MPKHomeState, MPKMinderaPeopleAppKt, MPKKotlinx_coroutines_coreCoroutineDispatcher, MPKViewModel, MPKBaseTriggerEvent, MPKTriggerEvent, MPKUiState<__covariant T>, MPKUiStateError, MPKKotlinNothing, MPKUiStateIdle, MPKUiStateLoading, MPKUiStateSuccess<T>, MPKKermitLogger, MPKSettingsStorageImplCompanion, MPKKotlinThrowable, MPKAuthStateAuthError, MPKAuthStateAuthSuccess, MPKAuthStateIdle, MPKAuthStateUserCleared, MPKStateViewModel<A, S>, MPKAuthViewModelAction, MPKAuthViewModelActionAuthenticate, MPKAuthViewModelActionClear, MPKHomeStateAuthenticationState, MPKHomeStateIdle, MPKHomeStateLoading, MPKHomeViewModelAction, MPKHomeViewModelActionAuthenticate, MPKHomeViewModelActionUserAuthenticationUpdate, MPKUserCompanion, MPKUserRepositoryImplCompanion, MPKKoin_coreLockable, MPKKoin_coreScope, MPKKoin_coreParametersHolder, MPKKotlinLazyThreadSafetyMode, MPKKotlinArray<T>, MPKKoin_coreLogger, MPKKotlinx_datetimeMonth, MPKKotlinx_datetimeLocalDateCompanion, MPKKotlinx_datetimeLocalDate, MPKKotlinx_datetimeDayOfWeek, MPKKoin_coreKoinApplication, MPKKoin_coreModule, MPKKotlinRegex, MPKKoin_coreInstanceRegistry, MPKKoin_corePropertyRegistry, MPKKoin_coreScopeRegistry, MPKKotlinAbstractCoroutineContextElement, MPKKotlinx_coroutines_coreCoroutineDispatcherKey, MPKKotlinException, MPKKotlinRuntimeException, MPKKotlinIllegalStateException, MPKKermitLoggerCompanion, MPKKermitSeverity, MPKKoin_coreParametersHolderCompanion, MPKKotlinEnumCompanion, MPKKotlinEnum<E>, MPKKoin_coreLevel, MPKKoin_coreKoinApplicationCompanion, MPKKoin_coreInstanceFactory<T>, MPKKotlinPair<__covariant A, __covariant B>, MPKKoin_coreScopeDSL, MPKKoin_coreSingleInstanceFactory<T>, MPKKotlinRegexOption, MPKKotlinRegexCompanion, MPKKotlinCancellationException, MPKKoin_coreScopeRegistryCompanion, MPKKotlinAbstractCoroutineContextKey<B, E>, MPKKermitLogWriter, MPKKotlinx_serialization_coreSerializersModule, MPKKotlinx_serialization_coreSerialKind, MPKKoin_coreBeanDefinition<T>, MPKKoin_coreInstanceFactoryCompanion, MPKKoin_coreInstanceContext, MPKKotlinMatchResultDestructured, MPKKotlinIntRange, MPKKoin_coreKind, MPKKoin_coreCallbacks<T>, MPKKotlinMatchGroup, MPKKotlinIntProgressionCompanion, MPKKotlinIntIterator, MPKKotlinIntProgression, MPKKotlinIntRangeCompanion, MPKKotlinx_coroutines_coreAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, MPKKotlinx_coroutines_coreAtomicOp<__contravariant T>, MPKKotlinx_coroutines_coreOpDescriptor, MPKKotlinx_coroutines_coreLockFreeLinkedListNode, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
+@class MPKKoin_coreKoin, MPKAuthenticationKt, MPKUser, MPKAuthState, MPKHomeKt, MPKHomeState, MPKMinderaPeopleAppKt, MPKKotlinx_coroutines_coreCoroutineDispatcher, MPKViewModel, MPKBaseTriggerEvent, MPKTriggerEvent, MPKUiState<__covariant T>, MPKUiStateError, MPKKotlinNothing, MPKUiStateIdle, MPKUiStateLoading, MPKUiStateSuccess<T>, MPKKotlinThrowable, MPKError, MPKKermitLogger, MPKSettingsStorageImplCompanion, MPKAuthStateAuthError, MPKAuthStateAuthSuccess, MPKAuthStateIdle, MPKAuthStateUserCleared, MPKStateViewModel<A, S>, MPKAuthViewModelAction, MPKAuthViewModelActionAuthenticate, MPKAuthViewModelActionClear, MPKHomeStateAuthenticationState, MPKHomeStateIdle, MPKHomeStateLoading, MPKHomeViewModelAction, MPKHomeViewModelActionAuthenticate, MPKHomeViewModelActionUserAuthenticationUpdate, MPKUserCompanion, MPKUserRepositoryImplCompanion, MPKKoin_coreLockable, MPKKoin_coreScope, MPKKoin_coreParametersHolder, MPKKotlinLazyThreadSafetyMode, MPKKotlinArray<T>, MPKKoin_coreLogger, MPKKotlinx_datetimeMonth, MPKKotlinx_datetimeLocalDateCompanion, MPKKotlinx_datetimeLocalDate, MPKKotlinx_datetimeDayOfWeek, MPKKoin_coreKoinApplication, MPKKoin_coreModule, MPKKotlinRegex, MPKKoin_coreInstanceRegistry, MPKKoin_corePropertyRegistry, MPKKoin_coreScopeRegistry, MPKKotlinAbstractCoroutineContextElement, MPKKotlinx_coroutines_coreCoroutineDispatcherKey, MPKKotlinException, MPKKotlinRuntimeException, MPKKotlinIllegalStateException, MPKKermitLoggerCompanion, MPKKermitSeverity, MPKKoin_coreParametersHolderCompanion, MPKKotlinEnumCompanion, MPKKotlinEnum<E>, MPKKoin_coreLevel, MPKKoin_coreKoinApplicationCompanion, MPKKoin_coreInstanceFactory<T>, MPKKotlinPair<__covariant A, __covariant B>, MPKKoin_coreScopeDSL, MPKKoin_coreSingleInstanceFactory<T>, MPKKotlinRegexOption, MPKKotlinRegexCompanion, MPKKotlinCancellationException, MPKKoin_coreScopeRegistryCompanion, MPKKotlinAbstractCoroutineContextKey<B, E>, MPKKermitLogWriter, MPKKotlinx_serialization_coreSerializersModule, MPKKotlinx_serialization_coreSerialKind, MPKKoin_coreBeanDefinition<T>, MPKKoin_coreInstanceFactoryCompanion, MPKKoin_coreInstanceContext, MPKKotlinMatchResultDestructured, MPKKotlinIntRange, MPKKoin_coreKind, MPKKoin_coreCallbacks<T>, MPKKotlinMatchGroup, MPKKotlinIntProgressionCompanion, MPKKotlinIntIterator, MPKKotlinIntProgression, MPKKotlinIntRangeCompanion, MPKKotlinx_coroutines_coreAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodePrepareOp, MPKKotlinx_coroutines_coreAtomicOp<__contravariant T>, MPKKotlinx_coroutines_coreOpDescriptor, MPKKotlinx_coroutines_coreLockFreeLinkedListNode, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAbstractAtomicDesc, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeAddLastDesc<T>, MPKKotlinx_coroutines_coreLockFreeLinkedListNodeRemoveFirstDesc<T>;
 
 @protocol MPKKoin_coreKoinComponent, MPKKotlinx_coroutines_coreCoroutineScope, MPKKotlinx_coroutines_coreFlow, MPKKotlinx_coroutines_coreStateFlow, MPKSettingsStorage, MPKMultiplatform_settingsSettings, MPKUserRepository, MPKKotlinx_serialization_coreKSerializer, MPKKoin_coreQualifier, MPKKotlinKClass, MPKKotlinLazy, MPKKoin_coreScopeCallback, MPKKotlinComparable, MPKKotlinx_coroutines_coreJob, MPKKotlinSuspendFunction1, MPKKoin_coreKoinScopeComponent, MPKKotlinCoroutineContextKey, MPKKotlinCoroutineContextElement, MPKKotlinCoroutineContext, MPKKotlinContinuation, MPKKotlinContinuationInterceptor, MPKKotlinx_coroutines_coreRunnable, MPKKotlinx_coroutines_coreFlowCollector, MPKKotlinx_coroutines_coreSharedFlow, MPKKermitLoggerConfig, MPKKotlinx_serialization_coreEncoder, MPKKotlinx_serialization_coreSerialDescriptor, MPKKotlinx_serialization_coreSerializationStrategy, MPKKotlinx_serialization_coreDecoder, MPKKotlinx_serialization_coreDeserializationStrategy, MPKKotlinKDeclarationContainer, MPKKotlinKAnnotatedElement, MPKKotlinKClassifier, MPKKotlinIterator, MPKKotlinMatchResult, MPKKotlinSequence, MPKKotlinx_coroutines_coreChildHandle, MPKKotlinx_coroutines_coreChildJob, MPKKotlinx_coroutines_coreDisposableHandle, MPKKotlinx_coroutines_coreSelectClause0, MPKKotlinFunction, MPKKotlinx_serialization_coreCompositeEncoder, MPKKotlinAnnotation, MPKKotlinx_serialization_coreCompositeDecoder, MPKKotlinMatchGroupCollection, MPKKotlinx_coroutines_coreParentJob, MPKKotlinx_coroutines_coreSelectInstance, MPKKotlinSuspendFunction0, MPKKotlinx_serialization_coreSerializersModuleCollector, MPKKotlinIterable, MPKKotlinCollection, MPKKotlinClosedRange;
 
@@ -265,6 +265,21 @@ __attribute__((swift_name("UiStateSuccess")))
 @property (readonly) T _Nullable data __attribute__((swift_name("data")));
 @end;
 
+__attribute__((swift_name("Error")))
+@interface MPKError : MPKBase
+- (instancetype)initWithCause:(MPKKotlinThrowable *)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
+- (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+@property (readonly) MPKKotlinThrowable *cause __attribute__((swift_name("cause")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ApiError")))
+@interface MPKApiError : MPKError
+- (instancetype)initWithCause:(MPKKotlinThrowable *)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
+@property (readonly) MPKKotlinThrowable *cause __attribute__((swift_name("cause")));
+@end;
+
 __attribute__((swift_name("SettingsStorage")))
 @protocol MPKSettingsStorage
 @required
@@ -295,13 +310,13 @@ __attribute__((swift_name("AuthState")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("AuthState.AuthError")))
 @interface MPKAuthStateAuthError : MPKAuthState
-- (instancetype)initWithError:(MPKKotlinThrowable *)error __attribute__((swift_name("init(error:)"))) __attribute__((objc_designated_initializer));
-- (MPKKotlinThrowable *)component1 __attribute__((swift_name("component1()"))) __attribute__((deprecated("use corresponding property instead")));
-- (MPKAuthStateAuthError *)doCopyError:(MPKKotlinThrowable *)error __attribute__((swift_name("doCopy(error:)")));
+- (instancetype)initWithError:(MPKError *)error __attribute__((swift_name("init(error:)"))) __attribute__((objc_designated_initializer));
+- (MPKError *)component1 __attribute__((swift_name("component1()"))) __attribute__((deprecated("use corresponding property instead")));
+- (MPKAuthStateAuthError *)doCopyError:(MPKError *)error __attribute__((swift_name("doCopy(error:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) MPKKotlinThrowable *error __attribute__((swift_name("error")));
+@property (readonly) MPKError *error __attribute__((swift_name("error")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -381,14 +396,14 @@ __attribute__((swift_name("HomeState")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("HomeState.AuthenticationState")))
 @interface MPKHomeStateAuthenticationState : MPKHomeState
-- (instancetype)initWithUser:(MPKUser * _Nullable)user error:(MPKKotlinThrowable * _Nullable)error __attribute__((swift_name("init(user:error:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithUser:(MPKUser * _Nullable)user error:(MPKError * _Nullable)error __attribute__((swift_name("init(user:error:)"))) __attribute__((objc_designated_initializer));
 - (MPKUser * _Nullable)component1 __attribute__((swift_name("component1()"))) __attribute__((deprecated("use corresponding property instead")));
-- (MPKKotlinThrowable * _Nullable)component2 __attribute__((swift_name("component2()"))) __attribute__((deprecated("use corresponding property instead")));
-- (MPKHomeStateAuthenticationState *)doCopyUser:(MPKUser * _Nullable)user error:(MPKKotlinThrowable * _Nullable)error __attribute__((swift_name("doCopy(user:error:)")));
+- (MPKError * _Nullable)component2 __attribute__((swift_name("component2()"))) __attribute__((deprecated("use corresponding property instead")));
+- (MPKHomeStateAuthenticationState *)doCopyUser:(MPKUser * _Nullable)user error:(MPKError * _Nullable)error __attribute__((swift_name("doCopy(user:error:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) MPKKotlinThrowable * _Nullable error __attribute__((swift_name("error")));
+@property (readonly) MPKError * _Nullable error __attribute__((swift_name("error")));
 @property (readonly) MPKUser * _Nullable user __attribute__((swift_name("user")));
 @end;
 
@@ -590,6 +605,25 @@ __attribute__((swift_name("Kotlinx_datetimeLocalDate")))
 @property (readonly) int32_t weekNumber __attribute__((swift_name("weekNumber")));
 @end;
 
+__attribute__((swift_name("KotlinThrowable")))
+@interface MPKKotlinThrowable : MPKBase
+- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
+- (MPKKotlinArray<NSString *> *)getStackTrace __attribute__((swift_name("getStackTrace()")));
+- (void)printStackTrace __attribute__((swift_name("printStackTrace()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) MPKKotlinThrowable * _Nullable cause __attribute__((swift_name("cause")));
+@property (readonly) NSString * _Nullable message __attribute__((swift_name("message")));
+- (NSError *)asError __attribute__((swift_name("asError()")));
+@end;
+
+@interface MPKKotlinThrowable (Extensions)
+- (MPKError *)toError __attribute__((swift_name("toError()")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("KoinSetupKt")))
 @interface MPKKoinSetupKt : MPKBase
@@ -722,21 +756,6 @@ __attribute__((swift_name("Kotlinx_coroutines_coreCoroutineScope")))
 @protocol MPKKotlinx_coroutines_coreCoroutineScope
 @required
 @property (readonly) id<MPKKotlinCoroutineContext> coroutineContext __attribute__((swift_name("coroutineContext")));
-@end;
-
-__attribute__((swift_name("KotlinThrowable")))
-@interface MPKKotlinThrowable : MPKBase
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(MPKKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (MPKKotlinArray<NSString *> *)getStackTrace __attribute__((swift_name("getStackTrace()")));
-- (void)printStackTrace __attribute__((swift_name("printStackTrace()")));
-- (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) MPKKotlinThrowable * _Nullable cause __attribute__((swift_name("cause")));
-@property (readonly) NSString * _Nullable message __attribute__((swift_name("message")));
-- (NSError *)asError __attribute__((swift_name("asError()")));
 @end;
 
 __attribute__((swift_name("KotlinException")))
