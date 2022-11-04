@@ -8,13 +8,20 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.test.runTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.milliseconds
 
 class ViewModelTests : BaseTest()  {
 
-    private val stateViewModel by lazy { TestViewModel() }
+    private lateinit var stateViewModel: TestViewModel
+
+    @BeforeTest
+    override fun setup() {
+        super.setup()
+        stateViewModel = TestViewModel()
+    }
 
     @Test
     fun `test StateViewModel actions handling waiting for all events`() = runTest {
