@@ -43,9 +43,11 @@ jobs:
 
     - name: run core unit tests
       run: ./gradlew core:testDebugUnitTest
+      shell: bash
 
     - name: run android unit tests
       run: ./gradlew android:testDebugUnitTest
+      shell: bash
 
   deploy:
     if: github.event.pull_request.merged == true
