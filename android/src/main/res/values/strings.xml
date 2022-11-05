@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name" translatable="false">Mindera People</string>
 
+    <string name="loading">Loading&#8230;</string>
+    <string name="retry">Retry</string>
+    <string name="auth_error_msg">Something went wrong…</string>
+
     <string name="google_cloud_server_client_id" translatable="false">856677742822-vdq7toqtgkdhb4jfguokcua701cp2uio.apps.googleusercontent.com</string>
 
     <string name="prompt_info_title">Re-authentication \n Mindera People</string>
     <string name="prompt_info_subtitle">Please login to get access</string>
     <string name="prompt_info_description">Mindera People is using Android biometric authentication</string>
     <string name="prompt_info_go_back">Leave</string>
-
-    <string name="loading">Loading&#8230;</string>
-    <string name="retry">Retry</string>
-    <string name="auth_error_msg">Something went wrong...</string>
 </resources>

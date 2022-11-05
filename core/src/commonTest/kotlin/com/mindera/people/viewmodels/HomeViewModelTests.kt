@@ -20,12 +20,13 @@ class HomeViewModelTests : BaseTest() {
 
     @Mock private val userRepository = mock(classOf<UserRepository>())
 
-    private val viewModel by lazy { HomeViewModel(userRepository) }
+    private lateinit var viewModel: HomeViewModel
 
     @BeforeTest
     override fun setup() {
         super.setup()
         given(userRepository).invocation { authenticated }.thenReturn(value = null)
+        viewModel = HomeViewModel(userRepository)
     }
 
     @Test

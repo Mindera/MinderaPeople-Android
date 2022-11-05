@@ -11,9 +11,8 @@ import kotlinx.coroutines.flow.flowOn
 
 class AuthViewModel(
     private val userRepository: UserRepository
-) : StateViewModel<Action, AuthState>(
-    initialState = AuthState.Idle
-) {
+) : StateViewModel<Action, AuthState>(initialState = AuthState.Idle) {
+
     fun authenticate(user: User) {
         enqueueAction(Action.Authenticate(user))
     }

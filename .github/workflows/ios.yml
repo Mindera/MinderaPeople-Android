@@ -27,7 +27,7 @@ jobs:
     #- name: Install gpg
     #  run: brew install gnupg
 
-    - name: setup JDK
+    - name: Setup JDK
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
@@ -39,16 +39,16 @@ jobs:
     - name: Xcode version
       run: /usr/bin/xcodebuild -version
 
-    - name: build KMM library
+    - name: Build KMM library
       run: ./gradlew :core:iosX64Test
 
-    - name: create Swift Package
+    - name: Create Swift Package
       run: ./gradlew :core:createSwiftPackage
 
     #- name: create simulator
     #  run: xcrun simctl create "iPhone 8" "com.apple.CoreSimulator.SimDeviceType.iPhone-8" "com.apple.CoreSimulator.SimRuntime.iOS-15-2"
 
-    - name: build iOS app
+    - name: Build iOS app
       uses: sersoft-gmbh/xcodebuild-action@v2
       with:
         project: ios/MinderaPeople.xcodeproj
