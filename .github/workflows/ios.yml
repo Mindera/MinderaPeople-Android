@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [ main ]
 
-# Ensures that only one deploy task per branch/environment will run at a time.
+# Ensures that only one deploy task per branch/environment will run at a time
 concurrency:
   group: ios-${{ github.ref }}
   cancel-in-progress: true
