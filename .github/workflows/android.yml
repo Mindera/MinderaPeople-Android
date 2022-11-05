@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: setup JDK
+    - name: Setup JDK
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
@@ -22,7 +22,7 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
 
-    - name: build android app
+    - name: Build Android app
       run: ./gradlew android:assembleDebug
 
   test:
@@ -32,7 +32,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: setup JDK
+    - name: Setup JDK
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
@@ -41,10 +41,10 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
 
-    - name: run core unit tests
+    - name: Run core Unit Tests
       run: ./gradlew core:testDebugUnitTest
 
-    - name: run android unit tests
+    - name: Run android Unit Tests
       run: ./gradlew android:testDebugUnitTest
 
   deploy:
@@ -59,7 +59,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: setup JDK
+    - name: Setup JDK
       uses: actions/setup-java@v3
       with:
         distribution: 'adopt'
@@ -68,19 +68,19 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
 
-    - name: build and publish alpha
+    - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
 
-    - name: build and publish beta
+    - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
         echo $FB_DIST > $FB_DIST_FILE
         ./gradlew android:bundleBeta android:appDistributionUploadBeta
 
-    - name: build and publish release
+    - name: Build and Publish Release
       if: github.ref == 'refs/heads/main'
       run: |
         echo $RELEASE_KEYSTORE > release.keystore.asc
