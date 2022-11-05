@@ -46,15 +46,14 @@ private fun Context.launchBiometric(
 ) {
     if (checkBiometricSupport()) {
         val biometricPrompt = BiometricPrompt.Builder(this)
-            .apply {
-                setTitle(getString(R.string.prompt_info_title))
-                setSubtitle(getString(R.string.prompt_info_subtitle))
-                setDescription(getString(R.string.prompt_info_description))
-                setConfirmationRequired(false)
-                setNegativeButton(getString(R.string.prompt_info_go_back), mainExecutor) { _, _ ->
-                    shortToast("Authentication Cancelled")
-                }
-            }.build()
+            .setTitle(getString(R.string.prompt_info_title))
+            .setSubtitle(getString(R.string.prompt_info_subtitle))
+            .setDescription(getString(R.string.prompt_info_description))
+            .setConfirmationRequired(false)
+            .setNegativeButton(getString(R.string.prompt_info_go_back), mainExecutor) { _, _ ->
+                shortToast("Authentication Cancelled")
+            }
+            .build()
 
         biometricPrompt.authenticate(cancellationSignal, this.mainExecutor, callback)
     }
