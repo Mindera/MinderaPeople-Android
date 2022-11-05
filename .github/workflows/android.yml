@@ -1,0 +1,89 @@
+name: MinderaPeople Android
+
+on:
+  push:
+    branches: [ main, release, develop ]
+  pull_request:
+    branches: [ main, release, develop ]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Build Android app
+      run: ./gradlew android:assembleDebug
+
+  test:
+    needs: build
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Run core Unit Tests
+      run: ./gradlew core:testDebugUnitTest
+
+    - name: Run android Unit Tests
+      run: ./gradlew android:testDebugUnitTest
+
+  deploy:
+    if: github.event.pull_request.merged == true
+    needs: test
+    runs-on: macOS-latest
+
+    environment: firebase-app-distribution
+    env:
+      FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Build and Publish Alpha
+      if: github.ref == 'refs/heads/develop'
+      run: |
+        echo $FB_DIST > $FB_DIST_FILE
+        ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
+
+    - name: Build and Publish Beta
+      if: github.ref == 'refs/heads/release'
+      run: |
+        echo $FB_DIST > $FB_DIST_FILE
+        ./gradlew android:bundleBeta android:appDistributionUploadBeta
+
+    - name: Build and Publish Release
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo $RELEASE_KEYSTORE > release.keystore.asc
+        gpd -d --passphrase "$RELEASE_KEYSTORE_PASS" --batch release.keystore.asc > android/keys/release.keystore
+        echo $FB_DIST > $FB_DIST_FILE
+        ./gradlew android:bundleRelease android:appDistributionUploadRelease

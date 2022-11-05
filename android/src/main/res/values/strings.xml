@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name" translatable="false">Mindera People</string>
+
+    <string name="loading">Loading&#8230;</string>
+    <string name="retry">Retry</string>
+    <string name="auth_error_msg">Something went wrong...</string>
+</resources>

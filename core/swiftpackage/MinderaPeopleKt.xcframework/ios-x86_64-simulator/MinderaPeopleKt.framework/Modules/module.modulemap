@@ -1,0 +1,8 @@
+framework module MinderaPeopleKt {
+    umbrella header "MinderaPeopleKt.h"
+
+    export *
+    module * { export * }
+
+    use Foundation
+}
