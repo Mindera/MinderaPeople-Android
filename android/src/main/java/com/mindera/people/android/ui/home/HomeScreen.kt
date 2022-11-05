@@ -20,21 +20,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.mindera.people.android.R
 import com.mindera.people.android.components.FullScreenLoaderComponent
 import com.mindera.people.android.components.SignInGoogleButton
+import com.mindera.people.android.navigation.Navigator
 import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
+import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
 import com.mindera.people.home.HomeState
 import com.mindera.people.home.HomeViewModel
 import com.mindera.people.user.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Home(
+fun HomeScreen(
+    navigator: Navigator,
     modifier: Modifier = Modifier
 ) {
     val signInRequestCode = 1
@@ -121,8 +125,10 @@ private fun AuthBehaviorView(
 
 @Preview(name = "home")
 @Composable
-private fun HomePreview() {
+private fun HomePreview(
+    @PreviewParameter(PreviewNavigatorWithoutBack::class) navigator: Navigator
+) {
     MinderaTheme {
-        Home()
+        HomeScreen(navigator)
     }
 }
