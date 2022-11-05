@@ -42,4 +42,4 @@ fun Context.shortToast(message: String) {
 fun Context.shortToast(@StringRes message: Int) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
-// end region
+// endregion
