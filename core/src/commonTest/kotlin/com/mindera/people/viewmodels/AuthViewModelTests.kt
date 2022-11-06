@@ -40,6 +40,8 @@ class AuthViewModelTests : BaseTest() {
             assertEquals(AuthState.Idle, awaitItem())
             // try authenticate [user]
             viewModel.authenticate(user)
+            // check ViewModel State emits Loading
+            assertEquals(AuthState.Loading, awaitItem())
             // check if error is emit to the ViewModel State
             assertEquals(AuthState.AuthError(throwable.toError()), awaitItem())
         }
@@ -56,6 +58,8 @@ class AuthViewModelTests : BaseTest() {
             assertEquals(AuthState.Idle, awaitItem())
             // try authenticate [user]
             viewModel.authenticate(user)
+            // check ViewModel State emits Loading
+            assertEquals(AuthState.Loading, awaitItem())
             // check if success is emit to the ViewModel State
             assertEquals(AuthState.AuthSuccess(user), awaitItem())
         }

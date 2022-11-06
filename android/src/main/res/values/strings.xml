@@ -3,5 +3,8 @@
 
     <string name="loading">Loading&#8230;</string>
     <string name="retry">Retry</string>
-    <string name="auth_error_msg">Something went wrong...</string>
+    <string name="auth_error_msg">Something went wrong…</string>
+
+    <string name="sign_in_google">Sign in With Google</string>
+    <string name="sign_in_google_icon_desc">Google Login</string>
 </resources>
