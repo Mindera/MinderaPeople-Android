@@ -73,7 +73,6 @@ object Dependencies {
     const val googleAuth = "com.google.android.gms:play-services-auth:$googleAuthVersion"
     // endregion
 
-
     // region Misc libraries
     const val multiplatformSettings = "com.russhwolf:multiplatform-settings:$multiplatformSettingsVersion"
     const val multiplatformSettingsSerialization = "com.russhwolf:multiplatform-settings-serialization:$multiplatformSettingsVersion"

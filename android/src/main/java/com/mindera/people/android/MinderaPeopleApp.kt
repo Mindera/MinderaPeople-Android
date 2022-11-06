@@ -14,5 +14,3 @@ class MinderaPeopleApp : Application() {
         startSdk(app = this@MinderaPeopleApp)
     }
 }
-
-

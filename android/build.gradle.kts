@@ -172,7 +172,9 @@ dependencies {
     implementation(Dependencies.composeRuntime)
     implementation(Dependencies.googleAuth)
 
-    // androidTestImplementation(Dependencies.composeUITests)
+ // androidTestImplementation(Dependencies.composeUITests)
+
+    implementation(Dependencies.kermit)
 
  // implementation(platform(Dependencies.firebaseBoM))
  // implementation(Dependencies.firebaseAnalytics)

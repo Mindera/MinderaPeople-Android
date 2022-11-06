@@ -1,14 +1,14 @@
-package com.mindera.people.android.ui.home
+package com.mindera.people.android.ui.auth
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import com.mindera.people.android.navigation.Navigator
 
-/** The Home route id for the App Navigation Graph. */
-const val HOME_ROUTE = "home"
+/** The Authentication route id for the App Navigation Graph. */
+const val AUTH_ROUTE = "authentication"
 
 @Composable
-fun HomeRoute(
+fun AuthRoute(
     navigator: Navigator,
     navBackStackEntry: NavBackStackEntry
 ) {
@@ -17,8 +17,8 @@ fun HomeRoute(
     // - device screen density
     // - other device/system configuration
 
-    HomeScreen(navigator)
+    AuthScreen(navigator)
 }
 
 // Define here the internal feature navigation
-// that can be not exposed on the main [NavGraph]
+// that should not be exposed on the main [NavGraph]

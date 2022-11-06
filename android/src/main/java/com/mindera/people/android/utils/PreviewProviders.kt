@@ -17,5 +17,7 @@ private fun getNavigator(hasBackStack: Boolean): Navigator =
     object : Navigator {
         override fun hasBackStack(): Boolean = hasBackStack
         override fun goBack() {/* no-op */}
-        override fun navigateToSettingsScreen() {/* no-op */}
+        override fun getBackHome() {/* no-op */}
+        override fun navigateToAuthentication() {/* no-op */}
+        override fun openSystemAppSettings() {/* no-op */}
     }

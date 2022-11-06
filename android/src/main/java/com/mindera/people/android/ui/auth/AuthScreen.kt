@@ -1,6 +1,5 @@
-package com.mindera.people.android.ui.home
+package com.mindera.people.android.ui.auth
 
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,18 +10,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.google.android.gms.auth.api.signin.GoogleSignIn
+import co.touchlab.kermit.Logger
 import com.google.android.gms.common.api.ApiException
 import com.mindera.people.android.R
 import com.mindera.people.android.components.FullScreenLoaderComponent
@@ -31,20 +28,21 @@ import com.mindera.people.android.navigation.Navigator
 import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
-import com.mindera.people.home.HomeState
-import com.mindera.people.home.HomeViewModel
+import com.mindera.people.auth.AuthState
+import com.mindera.people.auth.AuthViewModel
 import com.mindera.people.user.User
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(
+fun AuthScreen(
     navigator: Navigator,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    logger: Logger = get()
 ) {
-    val signInRequestCode = 1
-    val viewModel = koinViewModel<HomeViewModel>()
-    val homeState by remember(viewModel) { viewModel.state }.collectAsState()
-    val context = LocalContext.current
+    val signInRequestCode = 511
+    val viewModel = koinViewModel<AuthViewModel>()
+    val authState by remember(viewModel) { viewModel.state }.collectAsState()
 
     val authResultLauncher = rememberLauncherForActivityResult(
         contract = GoogleSignInApiContract()
@@ -54,51 +52,46 @@ fun HomeScreen(
             when {
                 account == null -> {/* TODO what feedback? */}
                 account.email.isNullOrBlank() -> {/* TODO what feedback? */}
-                else -> viewModel.setUser(
+                else -> viewModel.authenticate(
                     User(email = account.email!!, name = account.displayName)
                 )
             }
         } catch (error: ApiException) {
-            Log.d("Home", "Error in AuthScreen", error)
+            logger.d("Error in AuthScreen", error)
         }
     }
 
     AuthView(
         onClick = { authResultLauncher.launch(signInRequestCode) },
-        homeState = homeState,
+        state = authState,
         modifier = modifier
     )
 
-    GoogleSignIn.getLastSignedInAccount(context)?.run {
-        email?.run { viewModel.setUser(User(email = this, name = displayName)) }
-    }
-
-    if (homeState is HomeState.AuthenticationState) {
-        LaunchedEffect(key1 = Unit) {
-            // TODO Nav
-        }
+    if (authState is AuthState.AuthSuccess) {
+        navigator.getBackHome()
     }
 }
 
 @Composable
 private fun AuthView(
     onClick: () -> Unit,
-    homeState: HomeState,
+    state: AuthState,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(modifier) {
-        when (homeState) {
-            is HomeState.Idle -> {/* no-op */}
-            is HomeState.Loading -> {
-                FullScreenLoaderComponent(modifier = modifier)
+    Scaffold {
+        when (state) {
+            is AuthState.Idle -> {/* no-op */}
+            is AuthState.Loading -> {
+                FullScreenLoaderComponent(modifier = modifier.padding(it))
             }
-            is HomeState.AuthenticationState -> {
+            is AuthState.AuthSuccess, is AuthState.AuthError -> {
                 AuthBehaviorView(
                     onClick = onClick,
-                    state = homeState,
+                    state = state,
                     modifier = modifier.padding(it)
                 )
             }
+            is AuthState.UserCleared -> {/* to do */}
         }
     }
 }
@@ -106,7 +99,7 @@ private fun AuthView(
 @Composable
 private fun AuthBehaviorView(
     onClick: () -> Unit,
-    state: HomeState.AuthenticationState,
+    state: AuthState,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -119,7 +112,7 @@ private fun AuthBehaviorView(
         SignInGoogleButton(onClick = onClick, modifier = Modifier.wrapContentSize())
         Spacer(modifier = Modifier.weight(1F))
 
-        if (state.error != null) {
+        if (state is AuthState.AuthError) {
             Text(
                 text = stringResource(R.string.auth_error_msg),
                 style = MaterialTheme.typography.h6,
@@ -131,10 +124,10 @@ private fun AuthBehaviorView(
 
 @Preview(name = "home")
 @Composable
-private fun HomePreview(
+private fun AuthPreview(
     @PreviewParameter(PreviewNavigatorWithoutBack::class) navigator: Navigator
 ) {
     MinderaTheme {
-        HomeScreen(navigator)
+        AuthScreen(navigator)
     }
 }
