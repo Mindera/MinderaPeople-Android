@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mindera.people.android.navigation.Navigator
+import com.mindera.people.android.navigation.NavigatorImpl
 
 // region Keys
 const val USER_ROUTE = "user"
@@ -29,8 +30,7 @@ fun UserRoute(
 // endregion
 
 // region Navigator
-interface UserNavigator {
-    val appNavigator: Navigator
+interface UserNavigator : Navigator {
     fun navigateToUserEditScreen()
 }
 
@@ -38,9 +38,7 @@ class UserNavigatorImpl(
     private val context: Context,
     private val navigator: Navigator,
     private val controller: NavHostController
-) : UserNavigator {
-
-    override val appNavigator: Navigator get() = navigator
+) : UserNavigator, Navigator by NavigatorImpl(context, controller) {
 
     override fun navigateToUserEditScreen() {
         controller.navigate(USER_EDIT_ROUTE)
