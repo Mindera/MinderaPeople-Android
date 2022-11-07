@@ -28,17 +28,17 @@ import com.mindera.people.android.navigation.Navigator
 import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
+import com.mindera.people.android.utils.getWith
 import com.mindera.people.auth.AuthState
 import com.mindera.people.auth.AuthViewModel
 import com.mindera.people.user.User
-import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AuthScreen(
     navigator: Navigator,
     modifier: Modifier = Modifier,
-    logger: Logger = get()
+    logger: Logger = getWith("AuthScreen")
 ) {
     val signInRequestCode = 511
     val viewModel = koinViewModel<AuthViewModel>()
@@ -80,11 +80,10 @@ private fun AuthView(
 ) {
     Scaffold {
         when (state) {
-            is AuthState.Idle -> {/* no-op */}
             is AuthState.Loading -> {
                 FullScreenLoaderComponent(modifier = modifier.padding(it))
             }
-            is AuthState.AuthSuccess, is AuthState.AuthError -> {
+            is AuthState.Idle, is AuthState.AuthSuccess, is AuthState.AuthError -> {
                 AuthBehaviorView(
                     onClick = onClick,
                     state = state,
