@@ -28,6 +28,7 @@ class AuthViewModel(
         }
 
     private fun processAuthentication(user: User): Flow<AuthState> = flow {
+        emit(AuthState.Loading)
         runCatching { userRepository.authenticateUser(user) }
             .fold(onSuccess = { emit(AuthState.AuthSuccess(user)) },
                   onFailure = { emit(AuthState.AuthError(it.toError())) })

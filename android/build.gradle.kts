@@ -26,7 +26,7 @@ android {
         applicationId = "org.mindera.peopleandroid"
         minSdk = 21
         targetSdk = 33
-        versionCode = 1
+        versionCode = System.getenv("VERSION_CODE")?.toInt() ?: 1
         versionName = "2.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -172,7 +172,9 @@ dependencies {
     implementation(Dependencies.composeRuntime)
     implementation(Dependencies.googleAuth)
 
-    // androidTestImplementation(Dependencies.composeUITests)
+ // androidTestImplementation(Dependencies.composeUITests)
+
+    implementation(Dependencies.kermit)
 
  // implementation(platform(Dependencies.firebaseBoM))
  // implementation(Dependencies.firebaseAnalytics)
