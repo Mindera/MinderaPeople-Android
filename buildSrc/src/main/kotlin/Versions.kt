@@ -1,7 +1,7 @@
 const val kotlinVersion = "1.7.10"
 const val coroutinesVersion = "1.6.4"
 const val coroutinesMtVersion = "1.6.4-native-mt"
-const val serializationVersion = "1.4.0"
+const val serializationVersion = "1.4.1"
 const val datetimeVersion = "0.4.0"
 
 const val ktorVersion = "2.1.2"

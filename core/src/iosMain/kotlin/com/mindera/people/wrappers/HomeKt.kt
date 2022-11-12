@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-object HomeKt : KoinComponent {
+class HomeKt : KoinComponent {
     private val mainScope = MainScope()
 
     private val viewModel: HomeViewModel by inject()

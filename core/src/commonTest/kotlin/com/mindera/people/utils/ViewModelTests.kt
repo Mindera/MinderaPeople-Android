@@ -58,7 +58,7 @@ class ViewModelTests : BaseTest()  {
         fun action2() { enqueueAction(Action.Action2) }
         fun action3() { enqueueAction(Action.Action3) }
 
-        override suspend fun processAction(
+        override fun processAction(
             action: Action,
             latestState: CombinedState
         ): Flow<CombinedState> = flow {
