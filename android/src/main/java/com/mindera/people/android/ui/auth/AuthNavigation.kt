@@ -12,7 +12,7 @@ fun AuthRoute(
     navigator: Navigator,
     navBackStackEntry: NavBackStackEntry
 ) {
-    // This allows you to go to the define specific Routes to the Home screen, by:
+    // This allows you to define specific Routes to the Auth screen, by:
     // - device screen size (portrait, landscape, tablet size, etc.)
     // - device screen density
     // - other device/system configuration
