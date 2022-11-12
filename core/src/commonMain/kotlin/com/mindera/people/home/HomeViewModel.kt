@@ -8,7 +8,7 @@ import com.mindera.people.utils.safeLaunch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.flowOn
 
 class HomeViewModel(
     private val userRepository: UserRepository
@@ -34,15 +34,10 @@ class HomeViewModel(
 
     private fun processAuthentication(user: User): Flow<HomeState> = flow {
         emit(HomeState.Loading)
-
-        runCatching {
-            withContext(ioDispatcher) {
-                userRepository.authenticateUser(user)
-            }
-        }
-        .fold(onSuccess = { emit(HomeState.AuthenticationState(user = user)) },
-              onFailure = { emit(HomeState.AuthenticationState(error = it.toError())) })
-    }
+        runCatching { userRepository.authenticateUser(user) }
+            .fold(onSuccess = { emit(HomeState.AuthenticationState(user = user)) },
+                  onFailure = { emit(HomeState.AuthenticationState(error = it.toError())) })
+    }.flowOn(ioDispatcher)
 
     private fun processAuthenticationUpdate(user: User?, error: Throwable?): Flow<HomeState> =
         flowOf(HomeState.AuthenticationState(user = user, error = error?.toError()))
