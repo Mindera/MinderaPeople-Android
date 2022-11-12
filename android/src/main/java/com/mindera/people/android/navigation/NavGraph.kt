@@ -12,6 +12,8 @@ import com.mindera.people.android.ui.auth.AUTH_ROUTE
 import com.mindera.people.android.ui.auth.AuthRoute
 import com.mindera.people.android.ui.home.HOME_ROUTE
 import com.mindera.people.android.ui.home.HomeRoute
+import com.mindera.people.android.ui.user.USER_ROUTE
+import com.mindera.people.android.ui.user.UserRoute
 import com.mindera.people.user.UserRepository
 import org.koin.androidx.compose.get
 
@@ -40,6 +42,13 @@ fun NavGraph(
 
         composable(HOME_ROUTE) {
             HomeRoute(
+                navigator = navigator,
+                navBackStackEntry = it
+            )
+        }
+
+        composable(USER_ROUTE) {
+            UserRoute(
                 navigator = navigator,
                 navBackStackEntry = it
             )
