@@ -62,6 +62,10 @@ fun UserNavGraph(
         startDestination = startDestination,
         modifier = modifier
     ) {
+        composable(USER_ROUTE) {
+            UserScreen(navigator)
+        }
+
         composable(USER_EDIT_ROUTE) {
             UserEditScreen(userNavigator)
         }
