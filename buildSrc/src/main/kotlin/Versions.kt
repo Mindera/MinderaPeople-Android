@@ -8,8 +8,8 @@ const val ktorVersion = "2.1.2"
 const val koinVersion = "3.2.2"
 const val koinComposeVersion = "3.3.0"
 
-const val composeVersion = "1.2.1"
-const val composeCompilerVersion = "1.3.1"
+const val composeVersion = "1.3.1"
+const val composeCompilerVersion = "1.4.0-alpha02"
 
 const val googleAuthVersion = "20.3.0"
 
