@@ -11,6 +11,7 @@ import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
 import io.mockative.mock
+import io.mockative.thenDoNothing
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -51,7 +52,7 @@ class AuthViewModelTests : BaseTest() {
     fun `test ViewModel emits Success when authenticate complete`() = runTest {
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenReturn(Unit)
+        given(userRepository).invocation { authenticateUser(user) }.thenDoNothing()
 
         viewModel.state.test {
             // first state on ViewModel is Idle
@@ -83,7 +84,7 @@ class AuthViewModelTests : BaseTest() {
 
     @Test
     fun `test ViewModel emits UserCleared when clear complete`() = runTest {
-        given(userRepository).invocation { clearUser() }.thenReturn(Unit)
+        given(userRepository).invocation { clearUser() }.thenDoNothing()
 
         viewModel.state.test {
             // first state on ViewModel is Idle

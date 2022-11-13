@@ -20,8 +20,9 @@ kotlin {
             languageSettings.apply {
                 progressiveMode = true
                 experimentalAnnotations.forEach { optIn(it) }
-                //  languageVersion = "1.6" // possible values: '1.0', '1.1', .., '1.6'
-                //  apiVersion = "1.6" // possible values: '1.0', .., '1.6'
+                optIn("kotlin.ExperimentalUnsignedTypes") // annotation FQ-name
+                //  languageVersion = "1.7" // possible values: '1.4', '1.5', .., '1.7'
+                //  apiVersion = "1.7" // possible values: '1.3', .., '1.7'
                 //  enableLanguageFeature("InlineClasses") // language feature name
             }
         }

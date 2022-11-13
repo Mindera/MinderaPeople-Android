@@ -1,10 +1,12 @@
 package scripts
 
 import isMacOsMachine
+import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 
 plugins {
     kotlin("multiplatform") apply false
     id("com.chromaticnoise.multiplatform-swiftpackage")
+    id("co.touchlab.crashkios.crashlyticslink")
 }
 
 if (isMacOsMachine()) {
@@ -17,10 +19,11 @@ kotlin {
  // const val buildForDevice = project.findProperty('device')?.toBoolean() ?: false
 
     ios {
-        binaries {
-            framework {
-                baseName = moduleFrameworkName
-            }
+        binaries.framework {
+            baseName = moduleFrameworkName
+            isStatic = false
+            // necessary to make linker works with Kermit library
+            embedBitcode = BitcodeEmbeddingMode.DISABLE
         }
     }
 

@@ -11,6 +11,7 @@ import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
 import io.mockative.mock
+import io.mockative.thenDoNothing
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -80,7 +81,7 @@ class HomeViewModelTests : BaseTest() {
     fun `test ViewModel emits AuthenticationState with User when setUser success`() = runTest {
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenReturn(Unit)
+        given(userRepository).invocation { authenticateUser(user) }.thenDoNothing()
 
         viewModel.state.test {
             // first state on ViewModel is Idle
