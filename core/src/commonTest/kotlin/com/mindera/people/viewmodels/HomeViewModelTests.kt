@@ -17,24 +17,23 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class HomeViewModelTests : BaseTest() {
+class HomeViewModelTests : BaseTest<HomeViewModel>() {
 
     @Mock private val userRepository = mock(classOf<UserRepository>())
 
-    private lateinit var viewModel: HomeViewModel
+    override fun subjectFactory() = HomeViewModel(userRepository)
 
     @BeforeTest
     override fun setup() {
         super.setup()
         given(userRepository).invocation { authenticated }.thenReturn(value = null)
-        viewModel = HomeViewModel(userRepository)
     }
 
     @Test
     fun `test ViewModel emits AuthenticationState with no user when init`() = runTest {
         given(userRepository).invocation { authenticated }.thenReturn(value = null)
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(HomeState.Idle, awaitItem())
             // check ViewModel State emits no User authenticated
@@ -48,7 +47,7 @@ class HomeViewModelTests : BaseTest() {
 
         given(userRepository).invocation { authenticated }.thenReturn(user)
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(HomeState.Idle, awaitItem())
             // check ViewModel State emits no User authenticated
@@ -63,13 +62,13 @@ class HomeViewModelTests : BaseTest() {
 
         given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(HomeState.Idle, awaitItem())
             // check ViewModel State emits no User authenticated
             assertEquals(HomeState.AuthenticationState(user = null, error = null), awaitItem())
             // try setUser
-            viewModel.setUser(user)
+            subject.setUser(user)
             // check ViewModel State emits Loading
             assertEquals(HomeState.Loading, awaitItem())
             // check ViewModel State emits no User authenticated and the Error
@@ -83,13 +82,13 @@ class HomeViewModelTests : BaseTest() {
 
         given(userRepository).invocation { authenticateUser(user) }.thenDoNothing()
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(HomeState.Idle, awaitItem())
             // check ViewModel State emits no User authenticated
             assertEquals(HomeState.AuthenticationState(user = null, error = null), awaitItem())
             // try setUser
-            viewModel.setUser(user)
+            subject.setUser(user)
             // check ViewModel State emits Loading
             assertEquals(HomeState.Loading, awaitItem())
             // check ViewModel State emits no User authenticated and the Error

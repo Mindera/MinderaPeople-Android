@@ -13,21 +13,14 @@ import io.mockative.given
 import io.mockative.mock
 import io.mockative.thenDoNothing
 import kotlinx.coroutines.test.runTest
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class AuthViewModelTests : BaseTest() {
+class AuthViewModelTests : BaseTest<AuthViewModel>() {
 
     @Mock private val userRepository = mock(classOf<UserRepository>())
 
-    private lateinit var viewModel: AuthViewModel
-
-    @BeforeTest
-    override fun setup() {
-        super.setup()
-        viewModel = AuthViewModel(userRepository)
-    }
+    override fun subjectFactory() = AuthViewModel(userRepository)
 
     @Test
     fun `test ViewModel emits Error when authenticate fails`() = runTest {
@@ -36,11 +29,11 @@ class AuthViewModelTests : BaseTest() {
 
         given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
             // try authenticate [user]
-            viewModel.authenticate(user)
+            subject.authenticate(user)
             // check ViewModel State emits Loading
             assertEquals(AuthState.Loading, awaitItem())
             // check if error is emit to the ViewModel State
@@ -54,11 +47,11 @@ class AuthViewModelTests : BaseTest() {
 
         given(userRepository).invocation { authenticateUser(user) }.thenDoNothing()
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
             // try authenticate [user]
-            viewModel.authenticate(user)
+            subject.authenticate(user)
             // check ViewModel State emits Loading
             assertEquals(AuthState.Loading, awaitItem())
             // check if success is emit to the ViewModel State
@@ -72,11 +65,11 @@ class AuthViewModelTests : BaseTest() {
 
         given(userRepository).invocation { clearUser() }.thenThrow(throwable)
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
             // try cleat current user
-            viewModel.clear()
+            subject.clear()
             // check if error is emit to the ViewModel State
             assertEquals(AuthState.AuthError(throwable.toError()), awaitItem())
         }
@@ -86,11 +79,11 @@ class AuthViewModelTests : BaseTest() {
     fun `test ViewModel emits UserCleared when clear complete`() = runTest {
         given(userRepository).invocation { clearUser() }.thenDoNothing()
 
-        viewModel.state.test {
+        subject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
             // try cleat current user
-            viewModel.clear()
+            subject.clear()
             // check no events is emitted
             assertEquals(AuthState.UserCleared, awaitItem())
         }

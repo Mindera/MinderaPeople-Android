@@ -8,50 +8,43 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.test.runTest
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.milliseconds
 
-class ViewModelTests : BaseTest()  {
+class ViewModelTests : BaseTest<ViewModelTests.TestViewModel>()  {
 
-    private lateinit var stateViewModel: TestViewModel
-
-    @BeforeTest
-    override fun setup() {
-        super.setup()
-        stateViewModel = TestViewModel()
-    }
+    override fun subjectFactory() = TestViewModel()
 
     @Test
     fun `test StateViewModel actions handling waiting for all events`() = runTest {
-        stateViewModel.state.test {
+        subject.state.test {
             assertEquals(CombinedState(items = emptyList()), awaitItem())
-            stateViewModel.action1()
+            subject.action1()
             assertEquals(CombinedState(items = listOf(1)), awaitItem())
-            stateViewModel.action2()
+            subject.action2()
             assertEquals(CombinedState(items = listOf(1, 2)), awaitItem())
-            stateViewModel.action3()
+            subject.action3()
             assertEquals(CombinedState(items = listOf(1, 2, 3)), awaitItem())
         }
     }
 
     @Test
     fun `test StateViewModel actions handling not loses any event`() = runTest {
-        stateViewModel.state.test {
+        subject.state.test {
             assertEquals(CombinedState(items = emptyList()), awaitItem())
-            stateViewModel.action1()
-            stateViewModel.action2()
-            stateViewModel.action3()
+            subject.action1()
+            subject.action2()
+            subject.action3()
             assertEquals(CombinedState(items = listOf(1)), awaitItem())
             assertEquals(CombinedState(items = listOf(1, 2)), awaitItem())
             assertEquals(CombinedState(items = listOf(1, 2, 3)), awaitItem())
         }
     }
 
-    private data class CombinedState(val items: List<Int>)
+    data class CombinedState(val items: List<Int>)
 
-    private class TestViewModel : StateViewModel<Action, CombinedState>(
+    class TestViewModel : StateViewModel<Action, CombinedState>(
         initialState = CombinedState(items = emptyList())
     ) {
         fun action1() { enqueueAction(Action.Action1) }
