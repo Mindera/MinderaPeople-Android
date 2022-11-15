@@ -33,11 +33,11 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
                 implementation(Dependencies.kotlinCoroutinesCore)
                 implementation(Dependencies.kotlinDateTime)
-                implementation("io.ktor:ktor-client-logging:2.1.3")
-                implementation("io.ktor:ktor-client-core:2.1.3")
-                implementation("io.ktor:ktor-client-content-negotiation:2.1.3")
-                implementation("io.ktor:ktor-client-serialization:2.1.2")
-
+                implementation(Dependencies.kotlinSerializationJson)
+                implementation(Dependencies.ktorClientCore)
+                implementation(Dependencies.ktorClientLogging)
+                implementation(Dependencies.ktorClientContentNegotiation)
+                implementation(Dependencies.ktorClientSerialization)
                 implementation(Dependencies.multiplatformSettings)
                 implementation(Dependencies.multiplatformSettingsSerialization)
                 implementation(Dependencies.kermit)
@@ -49,12 +49,10 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation(Dependencies.kotlinCoroutinesTest)
                 implementation(Dependencies.multiplatformSettingsTest)
                 implementation(Dependencies.mockative)
                 implementation(Dependencies.turbine)
-                implementation(Dependencies.mockk)
-                implementation(Dependencies.kotlinCoroutinesTest)
-                implementation(Dependencies.mockkAgentJvm)
             }
         }
     }

@@ -1,42 +1,44 @@
 package com.mindera.people.people
 
-import com.mindera.people.network.models.UserAddressDTOMapper
-import com.mindera.people.network.models.UserDTOMapper
-import com.mindera.people.network.models.UserDomain
-import com.mindera.people.network.people.GetPeopleUseCase
-import com.mindera.people.network.people.PeopleRepository
-import com.mindera.people.network.people.PeopleRepositoryImpl
-import com.mindera.people.network.service.PeopleService
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import app.cash.turbine.test
+import com.mindera.people.BaseTest
+import com.mindera.people.defaultPerson
+import com.mindera.people.utils.UiState
+import io.mockative.Mock
+import io.mockative.classOf
+import io.mockative.given
+import io.mockative.mock
+import io.mockative.once
+import io.mockative.verify
+import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
-internal class GetPeopleUseCaseTests {
-    private lateinit var repository: PeopleRepository
-    private lateinit var useCase: GetPeopleUseCase
+class GetPeopleUseCaseTests : BaseTest() {
+    @Mock private val repository = mock(classOf<PeopleRepository>())
+
+    private lateinit var useCase: GetPersonUseCase
 
     @BeforeTest
-    fun setup() {
-        repository = mockk()
-        useCase = GetPeopleUseCase(repository)
+    override fun setup() {
+        super.setup()
+        useCase = GetPersonUseCase(repository)
     }
 
     @Test
-    fun `When execute then returns expected User`() {
-        runBlocking {
-            // Given
-            coEvery { repository.getPeopleById("2") } returns mockk()
+    fun `When execute then returns expected User`() = runTest {
+        // Given
+        given(repository).coroutine { getPersonById("2") }
+            .thenReturn(defaultPerson)
 
-            // When
-            useCase("2").first()
-
-            // Then
-            coVerify(exactly = 1) { repository.getPeopleById("2") }
+        // When
+        useCase("2").test {
+            assertEquals(UiState.Success(defaultPerson), awaitItem())
+            awaitComplete()
         }
+
+        // Then
+        verify(repository).coroutine { getPersonById("2") }.wasInvoked(exactly = once)
     }
 }

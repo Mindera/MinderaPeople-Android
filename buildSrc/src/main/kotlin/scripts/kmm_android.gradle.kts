@@ -49,8 +49,8 @@ kotlin {
                 implementation(Dependencies.androidSecurityCrypto)
                 implementation(Dependencies.androidXAnnotation)
                 implementation(Dependencies.ktorClientOkHttp)
+                implementation(Dependencies.ktorClientAndroid)
                 implementation(Dependencies.androidViewModel)
-                implementation("io.ktor:ktor-client-android:2.1.3")
                 implementation(Dependencies.androidViewModelSavedState)
                 implementation(Dependencies.koinAndroid)
             }

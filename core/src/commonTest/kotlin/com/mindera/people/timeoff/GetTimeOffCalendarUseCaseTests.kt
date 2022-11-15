@@ -1,45 +1,45 @@
 package com.mindera.people.timeoff
 
-import com.mindera.people.network.models.UserAddressDTOMapper
-import com.mindera.people.network.models.UserDTOMapper
-import com.mindera.people.network.models.UserDomain
-import com.mindera.people.network.people.GetPeopleUseCase
-import com.mindera.people.network.people.PeopleRepository
-import com.mindera.people.network.people.PeopleRepositoryImpl
-import com.mindera.people.network.service.PeopleService
-import com.mindera.people.network.timeoff.GetTimeOffCalendarUseCase
-import com.mindera.people.network.timeoff.GetTimeOffUseCase
-import com.mindera.people.network.timeoff.TimeOffRepository
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
+import app.cash.turbine.test
+import com.mindera.people.BaseTest
+import com.mindera.people.utils.UiState
+import io.mockative.Mock
+import io.mockative.classOf
+import io.mockative.given
+import io.mockative.mock
+import io.mockative.once
+import io.mockative.verify
 import kotlinx.coroutines.runBlocking
 import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
-internal class GetTimeOffCalendarUseCaseTests {
-    private lateinit var repository: TimeOffRepository
+class GetTimeOffCalendarUseCaseTests : BaseTest() {
+    @Mock private val repository = mock(classOf<TimeOffRepository>())
+
     private lateinit var useCase: GetTimeOffCalendarUseCase
 
     @BeforeTest
-    fun setup() {
-        repository = mockk()
+    override fun setup() {
+        super.setup()
         useCase = GetTimeOffCalendarUseCase(repository)
     }
 
     @Test
-    fun `When execute then returns expected TimeOff User`() {
+    fun `when execute then returns expected TimeOff User`() {
         runBlocking {
             // Given
-            coEvery { repository.getTimeOffCalendar("2") } returns mockk()
+            given(repository).coroutine { repository.getTimeOffCalendar("2") }
+                .thenReturn(Unit)
 
             // When
-            useCase("2").first()
+            useCase("2").test {
+                assertEquals(UiState.Success(Unit), awaitItem())
+                awaitComplete()
+            }
 
             // Then
-            coVerify(exactly = 1) { repository.getTimeOffCalendar("2") }
+            verify(repository).coroutine { getTimeOffCalendar("2") }.wasInvoked(exactly = once)
         }
     }
 }

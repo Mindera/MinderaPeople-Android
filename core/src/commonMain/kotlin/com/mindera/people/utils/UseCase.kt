@@ -7,13 +7,11 @@ import kotlinx.coroutines.flow.map
 
 abstract class UseCase {
     operator fun invoke(): Flow<UiState<Unit>> = flow {
-        emit(
-            try {
+        emit(try {
                 UiState.Success(block())
             } catch (ex: Exception) {
                 UiState.Error
-            }
-        )
+            })
     }
 
     protected abstract val block: suspend () -> Unit

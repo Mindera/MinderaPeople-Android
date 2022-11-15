@@ -1,4 +1,4 @@
-package com.mindera.people.network.timeoff
+package com.mindera.people.timeoff
 
 import com.mindera.people.utils.UseCaseIn
 

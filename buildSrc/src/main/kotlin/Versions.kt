@@ -4,7 +4,7 @@ const val coroutinesMtVersion = "1.6.4-native-mt"
 const val serializationVersion = "1.4.0"
 const val datetimeVersion = "0.4.0"
 
-const val ktorVersion = "2.1.2"
+const val ktorVersion = "2.1.3"
 
 const val koinVersion = "3.2.2"
 const val koinComposeVersion = "3.3.0"

@@ -1,6 +1,10 @@
 package com.mindera.people
 
+import com.mindera.people.api.apiModule
 import com.mindera.people.data.dataModule
+import com.mindera.people.people.peopleModule
+import com.mindera.people.policy.policyModule
+import com.mindera.people.timeoff.timeOffModule
 import com.mindera.people.user.userModule
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -10,7 +14,15 @@ import org.koin.dsl.KoinAppDeclaration
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
-    modules(platformModule, dataModule, userModule)
+    modules(
+        platformModule,
+        dataModule,
+        apiModule,
+        userModule,
+        peopleModule,
+        policyModule,
+        timeOffModule
+    )
 }
 
 inline fun <reified T> Scope.getWith(vararg params: Any?): T =
