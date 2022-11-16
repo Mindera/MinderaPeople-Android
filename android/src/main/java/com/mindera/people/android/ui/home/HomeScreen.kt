@@ -24,13 +24,16 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     navigator: Navigator,
     modifier: Modifier = Modifier,
-    logger: Logger = getWith("HomeScreen")
+    log: Logger = getWith("HomeScreen")
 ) {
     val viewModel = koinViewModel<HomeViewModel>()
     val homeState by remember(viewModel) { viewModel.state }.collectAsState()
 
     GoogleSignIn.getLastSignedInAccount(LocalContext.current)?.run {
-        email?.run { viewModel.setUser(User(email = this, name = displayName)) }
+        log.i { "GoogleSignIn.getLastSignedInAccount -> email=$email" }
+        val email = email ?: return@run
+        val token = idToken ?: return@run
+        viewModel.setUser(User(email = email, token = token, name = displayName))
     }
 
     if (homeState is HomeState.AuthenticationState) {

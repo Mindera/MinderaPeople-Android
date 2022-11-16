@@ -14,7 +14,7 @@ class UserRepositoryTests {
 
     @Test
     fun `test UserRepository save a given User properly`() {
-        val user = User(email = "user@mail.com", name = "user")
+        val user = User(email = "user@mail.com", token = "crazytoken!", name = "user")
         repository.authenticateUser(user)
         assertEquals(user, repository.authenticated)
     }

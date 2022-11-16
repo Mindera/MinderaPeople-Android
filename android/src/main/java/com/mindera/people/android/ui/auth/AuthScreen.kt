@@ -51,9 +51,15 @@ fun AuthScreen(
             val account = task?.getResult(ApiException::class.java)
             when {
                 account == null -> {/* TODO what feedback? */}
-                account.email.isNullOrBlank() -> {/* TODO what feedback? */}
+                account.email.isNullOrBlank() || account.idToken.isNullOrBlank() -> {
+                    /* TODO what feedback? */
+                }
                 else -> viewModel.authenticate(
-                    User(email = account.email!!, name = account.displayName)
+                    User(
+                        email = account.email!!,
+                        token = account.idToken!!,
+                        name = account.displayName
+                    )
                 )
             }
         } catch (error: ApiException) {

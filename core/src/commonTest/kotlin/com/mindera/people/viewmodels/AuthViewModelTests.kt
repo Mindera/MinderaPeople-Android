@@ -31,7 +31,7 @@ class AuthViewModelTests : BaseTest() {
     @Test
     fun `test ViewModel emits Error when authenticate fails`() = runTest {
         val throwable = Throwable("some crazy error!")
-        val user = User(email = "test@mail.com", name = "Test User")
+        val user = User(email = "test@mail.com", token = "crazytoken!", name = "Test User")
 
         given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
 
@@ -49,7 +49,7 @@ class AuthViewModelTests : BaseTest() {
 
     @Test
     fun `test ViewModel emits Success when authenticate complete`() = runTest {
-        val user = User(email = "test@mail.com", name = "Test User")
+        val user = User(email = "test@mail.com", token = "crazytoken!", name = "Test User")
 
         given(userRepository).invocation { authenticateUser(user) }.thenReturn(Unit)
 

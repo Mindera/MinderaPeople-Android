@@ -43,7 +43,7 @@ class HomeViewModelTests : BaseTest() {
 
     @Test
     fun `test ViewModel emits AuthenticationState with authenticated user when init`() = runTest {
-        val user = User(email = "test@mail.com", name = "Test User")
+        val user = User(email = "test@mail.com", token = "crazytoken!", name = "Test User")
 
         given(userRepository).invocation { authenticated }.thenReturn(user)
 
@@ -58,7 +58,7 @@ class HomeViewModelTests : BaseTest() {
     @Test
     fun `test ViewModel emits AuthenticationState with Error when setUser fails`() = runTest {
         val throwable = Throwable("some crazy error!")
-        val user = User(email = "test@mail.com", name = "Test User")
+        val user = User(email = "test@mail.com", token = "crazytoken!", name = "Test User")
 
         given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
 
@@ -78,7 +78,7 @@ class HomeViewModelTests : BaseTest() {
 
     @Test
     fun `test ViewModel emits AuthenticationState with User when setUser success`() = runTest {
-        val user = User(email = "test@mail.com", name = "Test User")
+        val user = User(email = "test@mail.com", token = "crazytoken!", name = "Test User")
 
         given(userRepository).invocation { authenticateUser(user) }.thenReturn(Unit)
 

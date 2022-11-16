@@ -1,5 +1,6 @@
 package com.mindera.people.api
 
+import com.mindera.people.user.UserRepository
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -11,6 +12,8 @@ import org.koin.dsl.module
 
 val apiModule = module {
     single {
+        val userRepository = get<UserRepository>()
+
         HttpClient {
             install(Logging) {
                 level = LogLevel.ALL
@@ -33,7 +36,7 @@ val apiModule = module {
             defaultRequest {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
-                bearerAuth("sdfdksnfla")
+                bearerAuth(token = userRepository.authenticated?.token ?: "")
             }
         }
     }
