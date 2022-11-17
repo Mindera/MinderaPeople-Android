@@ -1,69 +1,45 @@
 package com.mindera.people.policy
 
-//import com.mindera.people.network.models.PolicyDTO
-//import com.mindera.people.network.models.PolicyDTOMapper
-//import com.mindera.people.network.models.PolicyDomain
-//import com.mindera.people.timeoff.TimeOffService
-//import io.mockk.coEvery
-//import io.mockk.coVerify
-//import io.mockk.mockk
-//import kotlinx.coroutines.runBlocking
-//import kotlin.test.BeforeTest
-//import kotlin.test.Test
-//import kotlin.test.assertEquals
-//
-//class PolicyRepositoryTests {
-//
-//    private lateinit var timeOffService: TimeOffService
-//    private lateinit var policyMapper: PolicyDTOMapper
-//    private lateinit var repository: PolicyRepository
-//
-//    @BeforeTest
-//    fun setup() {
-//        policyMapper = mockk()
-//        timeOffService = mockk()
-//        repository = PolicyRepositoryImpl(timeOffService, policyMapper)
-//    }
-//
-//    private val policyDTO = PolicyDTO()
-//    private val policyDomain = PolicyDomain(
-//        id = 0,
-//        name = "",
-//        isAllowance = false,
-//        description = "",
-//        countryId = 0,
-//        contractType = "",
-//        organizationId = 0,
-//        carryover = 0,
-//        hasTeamAcknowledgement = false,
-//        isRequiresApproval = false,
-//        accrue = 0,
-//        notify = false,
-//        hasWorking = false,
-//        isDashboard = false,
-//        colour = "",
-//        maxMonthlyAllowance = 0,
-//        isAllowanceOverflow = false,
-//        icon = "",
-//        isShortcut = false,
-//        isOverflowRequiresApproval = false,
-//        periodEndDate = "",
-//        periodStartDate = ""
-//    )
-//
-//    @Test
-//    fun `test getSummary save a given Policy properly`() {
-//        runBlocking {
-//            // When
-//            coEvery { timeOffService.getSummary("2") } returns policyDTO
-//
-//            coEvery { policyMapper.mapperToDomain(policyDTO) } returns policyDomain
-//
-//            val actual = repository.getSummary("2")
-//
-//            // Then
-//            coVerify(exactly = 1) { timeOffService.getSummary("2") }
-//            assertEquals(policyDomain, actual)
-//        }
-//    }
-//}
+import com.mindera.people.BaseTest
+import com.mindera.people.defaultApiPerson
+import com.mindera.people.defaultApiPersonAddress
+import com.mindera.people.defaultApiPolicy
+import com.mindera.people.defaultPerson
+import com.mindera.people.defaultPersonAddress
+import com.mindera.people.defaultPolicy
+import com.mindera.people.people.PeopleRepository
+import com.mindera.people.people.PeopleRepositoryImpl
+import com.mindera.people.people.PeopleService
+import com.mindera.people.timeoff.TimeOffService
+import io.mockative.Mock
+import io.mockative.classOf
+import io.mockative.given
+import io.mockative.mock
+import kotlinx.coroutines.test.runTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class PolicyRepositoryTests : BaseTest() {
+    @Mock
+    private val service = mock(classOf<TimeOffService>())
+
+
+    private lateinit var repository: PolicyRepository
+
+    @BeforeTest
+    override fun setup() {
+        super.setup()
+        repository = PolicyRepositoryImpl(service)
+    }
+
+    @Test
+    fun `test getSummary save a given Policy properly`() = runTest {
+        given(service).coroutine { getSummary("2") }.thenReturn(defaultApiPolicy)
+
+        val result = repository.getSummary("2")
+
+        assertEquals(defaultPolicy, result)
+    }
+
+}

@@ -2,7 +2,7 @@ package com.mindera.people.people
 
 import app.cash.turbine.test
 import com.mindera.people.BaseTest
-import com.mindera.people.defaultPersonAddressFixtures
+import com.mindera.people.defaultPersonAddress
 import com.mindera.people.utils.UiState
 import io.mockative.Mock
 import io.mockative.classOf
@@ -30,11 +30,11 @@ class GetPeopleAddressUseCaseTests : BaseTest() {
     fun `when execute then returns expected Person Address`() = runTest {
         // Given
         given(repository).coroutine { getPersonAddressById("2") }
-            .thenReturn(defaultPersonAddressFixtures)
+            .thenReturn(defaultPersonAddress)
 
         // When
         useCase("2").test {
-            assertEquals(UiState.Success(defaultPersonAddressFixtures), awaitItem())
+            assertEquals(UiState.Success(defaultPersonAddress), awaitItem())
             awaitComplete()
         }
 

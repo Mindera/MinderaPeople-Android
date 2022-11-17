@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class Person(
+data class Person(
     @SerialName("id") val id: Int? = null,
     @SerialName("name") val name: String? = null,
     @SerialName("email") val email: String? = null,
@@ -24,10 +24,10 @@ internal data class Person(
 )
 
 @Serializable
-internal data class PersonAddress(
+data class PersonAddress(
     @SerialName("id") val id: Int? = null,
     @SerialName("type") val type: String? = null,
-    @SerialName("personId") val person_id: Int? = null,
+    @SerialName("personId") val personId: Int? = null,
     @SerialName("street") val street: String? = null,
     @SerialName("state") val state: String? = null,
     @SerialName("post_code") val postCode: String? = null,
@@ -35,7 +35,7 @@ internal data class PersonAddress(
 )
 
 @Serializable
-internal data class PersonAllocation(
+data class PersonAllocation(
     @SerialName("id") val id: Int?,
     @SerialName("email") val email: String?,
     @SerialName("end_date") val endDate: String?,
@@ -56,7 +56,7 @@ internal data class PersonAllocation(
 )
 
 @Serializable
-internal data class PersonTimeOff(
+data class PersonTimeOff(
     @SerialName("id") val id: Int? = null,
     @SerialName("start_date") val startDate: String? = null,
     @SerialName("end_date") val endDate: String? = null,
