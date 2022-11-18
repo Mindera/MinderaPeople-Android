@@ -9,15 +9,16 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 
 abstract class BaseTest<T: Any> {
-    protected lateinit var subject: T
+    protected lateinit var testSubject: T
 
-    abstract fun subjectFactory(): T
+    /** the [testSubject] factory. */
+    abstract fun createSubject(): T
 
     @BeforeTest
     open fun setup() {
         Dispatchers.setMain(StandardTestDispatcher())
         setupDispatchers(StandardTestDispatcher())
-        subject = subjectFactory()
+        testSubject = createSubject()
     }
 
     @AfterTest

@@ -14,28 +14,28 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class ViewModelTests : BaseTest<ViewModelTests.TestViewModel>()  {
 
-    override fun subjectFactory() = TestViewModel()
+    override fun createSubject() = TestViewModel()
 
     @Test
     fun `test StateViewModel actions handling waiting for all events`() = runTest {
-        subject.state.test {
+        testSubject.state.test {
             assertEquals(CombinedState(items = emptyList()), awaitItem())
-            subject.action1()
+            testSubject.action1()
             assertEquals(CombinedState(items = listOf(1)), awaitItem())
-            subject.action2()
+            testSubject.action2()
             assertEquals(CombinedState(items = listOf(1, 2)), awaitItem())
-            subject.action3()
+            testSubject.action3()
             assertEquals(CombinedState(items = listOf(1, 2, 3)), awaitItem())
         }
     }
 
     @Test
     fun `test StateViewModel actions handling not loses any event`() = runTest {
-        subject.state.test {
+        testSubject.state.test {
             assertEquals(CombinedState(items = emptyList()), awaitItem())
-            subject.action1()
-            subject.action2()
-            subject.action3()
+            testSubject.action1()
+            testSubject.action2()
+            testSubject.action3()
             assertEquals(CombinedState(items = listOf(1)), awaitItem())
             assertEquals(CombinedState(items = listOf(1, 2)), awaitItem())
             assertEquals(CombinedState(items = listOf(1, 2, 3)), awaitItem())

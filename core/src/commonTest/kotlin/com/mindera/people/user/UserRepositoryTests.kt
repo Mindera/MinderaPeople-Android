@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 
 class UserRepositoryTests : BaseTest<UserRepository>() {
 
-    override fun subjectFactory() = UserRepositoryImpl(
+    override fun createSubject() = UserRepositoryImpl(
         log = Logger(LoggerConfig.default),
         encryptedSettings = MapSettings()
     )
@@ -17,7 +17,7 @@ class UserRepositoryTests : BaseTest<UserRepository>() {
     @Test
     fun `test UserRepository save a given User properly`() {
         val user = User(email = "user@mail.com", name = "user")
-        subject.authenticateUser(user)
-        assertEquals(user, subject.authenticated)
+        testSubject.authenticateUser(user)
+        assertEquals(user, testSubject.authenticated)
     }
 }
