@@ -7,7 +7,7 @@ Project Dependencies:
 
 ## iOS -> XCFramework generation:
 
-For iOS part, this project uses the `com.chromaticnoise.multiplatform-swiftpackage`[https://github.com/ge-org/multiplatform-swiftpackage]
+For iOS part, this project uses the [com.chromaticnoise.multiplatform-swiftpackage](https://github.com/ge-org/multiplatform-swiftpackage])
 
 This is a 3rd part plugin that generates a XCFramework based on the KMM kotlin compiled code and creates a Swift Package.
 
