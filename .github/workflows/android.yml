@@ -75,9 +75,11 @@ jobs:
       if: github.ref == 'refs/heads/develop'
       run: |
         export FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json
+        echo $APPS_FIREBASE_DISTRIBUTION
         echo $APPS_FIREBASE_DISTRIBUTION > $FB_DIST_FILE
         export VERSION_CODE=$(git rev-list --count HEAD)
-        ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
+        ./gradlew --stop
+        ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
 
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
@@ -85,7 +87,8 @@ jobs:
         export FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json
         echo $APPS_FIREBASE_DISTRIBUTION > $FB_DIST_FILE
         export VERSION_CODE=$(git rev-list --count HEAD)
-        ./gradlew android:assembleBeta android:appDistributionUploadBeta
+        ./gradlew --stop
+        ./gradlew android:bundleBeta android:appDistributionUploadBeta
 
     - name: Build and Publish Release
       if: github.ref == 'refs/heads/main'
@@ -95,4 +98,5 @@ jobs:
         export FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json
         echo $APPS_FIREBASE_DISTRIBUTION > $FB_DIST_FILE
         export VERSION_CODE=$(git rev-list --count HEAD)
-        ./gradlew android:assembleRelease android:appDistributionUploadRelease
+        ./gradlew --stop
+        ./gradlew android:bundleRelease android:appDistributionUploadRelease

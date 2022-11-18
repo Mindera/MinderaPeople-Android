@@ -82,6 +82,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
 
             firebaseAppDistribution {
+                artifactType = "AAB"
                 groups = "release-group"
                 serviceCredentialsFile = System.getenv("FB_DIST_FILE")
             }
@@ -98,6 +99,7 @@ android {
             matchingFallbacks.add("release")
 
             firebaseAppDistribution {
+                artifactType = "AAB"
                 groups = "alpha-group"
                 serviceCredentialsFile = System.getenv("FB_DIST_FILE")
             }
@@ -114,6 +116,7 @@ android {
             matchingFallbacks.add("release")
 
             firebaseAppDistribution {
+                artifactType = "AAB"
                 groups = "beta-group"
                 serviceCredentialsFile = System.getenv("FB_DIST_FILE")
             }
