@@ -12,7 +12,8 @@ plugins {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21")
     implementation("com.android.tools.build:gradle:7.3.1")
     implementation("com.chromaticnoise.multiplatform-swiftpackage:com.chromaticnoise.multiplatform-swiftpackage.gradle.plugin:2.0.3")
+    implementation("co.touchlab.crashkios.crashlyticslink:co.touchlab.crashkios.crashlyticslink.gradle.plugin:0.8.1")
 }

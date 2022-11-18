@@ -53,7 +53,7 @@ jobs:
       run: ./gradlew android:testDebugUnitTest
 
   deploy:
-    if: github.event.pull_request.merged == true
+    if: contains(fromJson('["refs/heads/develop", "refs/heads/release", "refs/heads/main"]'), github.ref)
     needs: test
     runs-on: macOS-latest
 

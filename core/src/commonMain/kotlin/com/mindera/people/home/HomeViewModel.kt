@@ -21,7 +21,7 @@ class HomeViewModel(
         }
     }
 
-    override suspend fun processAction(action: Action, latestState: HomeState): Flow<HomeState> =
+    override fun processAction(action: Action, latestState: HomeState): Flow<HomeState> =
         when (action) {
             is Action.Authenticate -> processAuthentication(action.user)
             is Action.UserAuthenticationUpdate ->

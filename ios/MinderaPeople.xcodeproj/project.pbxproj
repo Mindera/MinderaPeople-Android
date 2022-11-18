@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6791AB362921B1F300293F18 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6791AB352921B1F300293F18 /* FirebaseCrashlytics */; };
 		67CBDEB428B6C75F002D5B1A /* MinderaPeopleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CBDEB328B6C75F002D5B1A /* MinderaPeopleApp.swift */; };
 		67CBDEB628B6C75F002D5B1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CBDEB528B6C75F002D5B1A /* ContentView.swift */; };
 		67CBDEB828B6C760002D5B1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67CBDEB728B6C760002D5B1A /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67CBDEED28B7673F002D5B1A /* MinderaPeopleKt in Frameworks */,
+				6791AB362921B1F300293F18 /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +167,7 @@
 			name = MinderaPeople;
 			packageProductDependencies = (
 				67CBDEEC28B7673F002D5B1A /* MinderaPeopleKt */,
+				6791AB352921B1F300293F18 /* FirebaseCrashlytics */,
 			);
 			productName = MinderaPeople;
 			productReference = 67CBDEB028B6C75F002D5B1A /* MinderaPeople.app */;
@@ -238,6 +241,9 @@
 				Base,
 			);
 			mainGroup = 67CBDEA728B6C75F002D5B1A;
+			packageReferences = (
+				6791AB342921B1F300293F18 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 67CBDEB128B6C75F002D5B1A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -601,7 +607,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		6791AB342921B1F300293F18 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		6791AB352921B1F300293F18 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6791AB342921B1F300293F18 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		67CBDEEC28B7673F002D5B1A /* MinderaPeopleKt */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MinderaPeopleKt;

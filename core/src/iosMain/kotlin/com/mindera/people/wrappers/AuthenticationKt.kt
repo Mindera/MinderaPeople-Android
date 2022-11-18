@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-object AuthenticationKt : KoinComponent {
+class AuthenticationKt : KoinComponent {
     private val mainScope = MainScope()
 
     private val viewModel: AuthViewModel by inject()

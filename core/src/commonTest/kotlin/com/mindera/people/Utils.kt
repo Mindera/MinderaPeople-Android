@@ -8,11 +8,17 @@ import kotlinx.coroutines.test.setMain
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 
-open class BaseTest {
+abstract class BaseTest<T: Any> {
+    protected lateinit var testSubject: T
+
+    /** the [testSubject] factory. */
+    abstract fun createSubject(): T
+
     @BeforeTest
     open fun setup() {
         Dispatchers.setMain(StandardTestDispatcher())
         setupDispatchers(StandardTestDispatcher())
+        testSubject = createSubject()
     }
 
     @AfterTest
