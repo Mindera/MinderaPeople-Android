@@ -59,7 +59,7 @@ jobs:
 
     environment: firebase-app-distribution
     env:
-      FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
+      FB_DIST_FILE: ${{ env.RUNNER_TEMP }}/fb-dist.json
       VERSION_CODE: git rev-list --count HEAD
 
     steps:
