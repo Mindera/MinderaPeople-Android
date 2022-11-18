@@ -74,14 +74,16 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
+        export FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json
+        echo $FB_DIST > $FB_DIST_FILE
         export VERSION_CODE=$(git rev-list --count HEAD)
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
 
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
-        echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
+        export FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json
+        echo $FB_DIST > $FB_DIST_FILE
         export VERSION_CODE=$(git rev-list --count HEAD)
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
 
@@ -90,6 +92,7 @@ jobs:
       run: |
         echo $RELEASE_KEYSTORE > release.keystore.asc
         gpd -d --passphrase "$RELEASE_KEYSTORE_PASS" --batch release.keystore.asc > android/keys/release.keystore
-        echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
+        export FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json
+        echo $FB_DIST > $FB_DIST_FILE
         export VERSION_CODE=$(git rev-list --count HEAD)
         ./gradlew android:assembleRelease android:appDistributionUploadRelease
