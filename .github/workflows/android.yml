@@ -59,7 +59,7 @@ jobs:
 
     environment: firebase-app-distribution
     env:
-      VERSION_CODE: git rev-list --count HEAD
+      VERSION_CODE: $(git rev-list --count HEAD)
 
     steps:
     - uses: actions/checkout@v3
