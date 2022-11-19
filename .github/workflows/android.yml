@@ -78,7 +78,7 @@ jobs:
         echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
         echo "FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json" >> $GITHUB_ENV
         export VERSION_CODE_DEF=$(git rev-list --count HEAD)
-        echo VERSION_CODE=$VERSION_CODE_DEF" >> $GITHUB_ENV
+        echo "VERSION_CODE=$VERSION_CODE_DEF" >> $GITHUB_ENV
         ./gradlew --stop
 
     - name: List Environment Variables
