@@ -94,7 +94,13 @@ jobs:
       if: github.ref == 'refs/heads/main'
       env:
         KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+        KEYSTORE_PASSPHRASE: ${{ secrets.RELEASE_KEYSTORE_PASS }}
+        RK_STORE_PASS: ${{ secrets.RK_STORE_PASS }}
+        RK_KEY_ALIAS: ${{ secrets.RK_KEY_ALIAS }}
+        RK_KEY_PASS: ${{ secrets.RK_KEY_PASS }}
       run: |
         echo $KEYSTORE > release.keystore.asc
-        gpd -d --passphrase "$RELEASE_KEYSTORE_PASS" --batch release.keystore.asc > android/keys/release.keystore
+        gpd -d --passphrase "$KEYSTORE_PASSPHRASE" --batch release.keystore.asc > $RUNNER_TEMP/release.keystore
+        echo "RK_FILE=$RUNNER_TEMP/release.keystore" >> $GITHUB_ENV
+        ./gradlew --stop
         ./gradlew android:assembleRelease android:appDistributionUploadRelease
