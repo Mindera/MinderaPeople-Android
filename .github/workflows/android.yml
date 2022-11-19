@@ -72,9 +72,13 @@ jobs:
       uses: android-actions/setup-android@v2
 
     - name: Setup Environment
+      env:
+        FB_DIST: ${{ secrets.APPS_FIREBASE_DISTRIBUTION }}
       run: |
         echo "FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json" >> $GITHUB_ENV
-        echo "VERSION_CODE=$(git rev-list --count HEAD)" >> $GITHUB_ENV
+        echo $FB_DIST > $FB_DIST_FILE
+        export VERSION_CODE_DEF=$(git rev-list --count HEAD)
+        echo "VERSION_CODE=$VERSION_CODE_DEF" >> $GITHUB_ENV
         ./gradlew --stop
 
     - name: List Environment Variables
