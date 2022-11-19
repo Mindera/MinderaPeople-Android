@@ -73,10 +73,8 @@ jobs:
 
     - name: Setup Environment
       run: |
-        export FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json
-        echo $APPS_FIREBASE_DISTRIBUTION
-        echo $APPS_FIREBASE_DISTRIBUTION > $FB_DIST_FILE
-        export VERSION_CODE=$(git rev-list --count HEAD)
+        echo "FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json" >> $GITHUB_ENV
+        echo "VERSION_CODE=$(git rev-list --count HEAD)" >> $GITHUB_ENV
         ./gradlew --stop
 
     - name: List Environment Variables
@@ -85,11 +83,13 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
+        echo $APPS_FIREBASE_DISTRIBUTION > $FB_DIST_FILE
         ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
 
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
+        echo $APPS_FIREBASE_DISTRIBUTION > $FB_DIST_FILE
         ./gradlew android:bundleBeta android:appDistributionUploadBeta
 
     - name: Build and Publish Release
