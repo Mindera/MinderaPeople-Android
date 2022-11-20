@@ -90,17 +90,43 @@ jobs:
       if: github.ref == 'refs/heads/release'
       run: ./gradlew android:assembleBeta android:appDistributionUploadBeta
 
-    - name: Build and Publish Release
-      if: github.ref == 'refs/heads/main'
-      env:
-        KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
-        KEYSTORE_PASSPHRASE: ${{ secrets.RELEASE_KEYSTORE_PASS }}
-        RK_STORE_PASS: ${{ secrets.RK_STORE_PASS }}
-        RK_KEY_ALIAS: ${{ secrets.RK_KEY_ALIAS }}
-        RK_KEY_PASS: ${{ secrets.RK_KEY_PASS }}
-      run: |
-        echo $KEYSTORE > release.keystore.asc
-        gpd -d --passphrase "$KEYSTORE_PASSPHRASE" --batch release.keystore.asc > $RUNNER_TEMP/release.keystore
-        echo "RK_FILE=$RUNNER_TEMP/release.keystore" >> $GITHUB_ENV
-        ./gradlew --stop
-        ./gradlew android:assembleRelease android:appDistributionUploadRelease
+  publish:
+    needs: build
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Build and Publish Release
+          if: github.ref == 'refs/heads/main'
+          env:
+            KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+            KEYSTORE_PASSPHRASE: ${{ secrets.RELEASE_KEYSTORE_PASS }}
+            RK_STORE_PASS: ${{ secrets.RK_STORE_PASS }}
+            RK_KEY_ALIAS: ${{ secrets.RK_KEY_ALIAS }}
+            RK_KEY_PASS: ${{ secrets.RK_KEY_PASS }}
+          run: |
+            echo $KEYSTORE > release.keystore.asc
+            gpd -d --passphrase "$KEYSTORE_PASSPHRASE" --batch release.keystore.asc > $RUNNER_TEMP/release.keystore
+            echo "RK_FILE=$RUNNER_TEMP/release.keystore" >> $GITHUB_ENV
+            ./gradlew --stop
+            ./gradlew android:assembleRelease android:appDistributionUploadRelease
+
+      - name: Upload Android Release to Play Store
+        uses: r0adkll/upload-google-play@v1.0.19
+        with:
+          serviceAccountJsonPlainText: ${{ SERVICE_ACCOUNT_JSON }}
+          packageName: org.mindera.peopleandroid
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          track: beta
+          status: inProgress
+          userFraction: 0.33
