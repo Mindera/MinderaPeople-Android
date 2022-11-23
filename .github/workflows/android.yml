@@ -90,6 +90,7 @@ jobs:
         export ALPHA_TAGS=$(git tag -l -n "alpha.v*" | wc -l)"
         echo "VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
         echo "VERSION_CODE=$(( $ALPHA_TAGS + 1 ))" >> $GITHUB_ENV
+        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
 
@@ -99,6 +100,7 @@ jobs:
         export BETA_TAGS=$(git tag -l -n "beta.v*" | wc -l)"
         echo "VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
         echo "VERSION_CODE=$(( $BETA_TAGS + 1 ))" >> $GITHUB_ENV
+        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
 
@@ -117,11 +119,12 @@ jobs:
         export RELEASE_TAGS=$(git tag -l -n "v*" | wc -l)"
         echo "VERSION_NAME=v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
         echo "VERSION_CODE=$(( $RELEASE_TAGS + 1 ))" >> $GITHUB_ENV
+        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleRelease android:appDistributionUploadRelease
 
     - name: Create Tag
       uses: rickstaa/action-create-tag@v1
       with:
-        tag: v$VERSION_NAME-$VERSION_CODE
-        message: "version  v$VERSION_NAME-$VERSION_CODE"
+        tag: $NEW_TAG_NAME
+        message: "version $NEW_TAG_NAME"
