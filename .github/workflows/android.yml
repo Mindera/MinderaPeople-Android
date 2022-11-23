@@ -161,7 +161,7 @@ jobs:
         track: internalsharing
 
     - name: Create Tag
-      uses: rickstaa/action-create-tag@v1
+      uses: simpleactions/create-tag@v1.0.0
       with:
         tag: $NEW_TAG_NAME
         message: "version $NEW_TAG_NAME"
