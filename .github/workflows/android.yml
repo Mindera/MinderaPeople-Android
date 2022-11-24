@@ -87,7 +87,7 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        echo "ALPHA_TAGS=$(git tag -l -n \"alpha.v*\" | wc -l)" >> $GITHUB_ENV
+        echo "ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)" >> $GITHUB_ENV
         echo "VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
         echo "VERSION_CODE=$(( $ALPHA_TAGS + 1 ))" >> $GITHUB_ENV
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
@@ -97,7 +97,7 @@ jobs:
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
-        echo "BETA_TAGS=$(git tag -l -n \"beta.v*\" | wc -l)" >> $GITHUB_ENV
+        echo "BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)" >> $GITHUB_ENV
         echo "VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
         echo "VERSION_CODE=$(( $BETA_TAGS + 1 ))" >> $GITHUB_ENV
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
@@ -105,7 +105,7 @@ jobs:
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
 
     - name: Create Tag
-      uses: rickstaa/action-create-tag@v1
+      uses: simpleactions/create-tag@v1.0.0
       with:
         tag: $NEW_TAG_NAME
         message: "version $NEW_TAG_NAME"
@@ -145,7 +145,7 @@ jobs:
         echo $KEYSTORE > release.keystore.asc
         gpd -d --passphrase "$KEYSTORE_PASSPHRASE" --batch release.keystore.asc > $RUNNER_TEMP/release.keystore
         echo "RK_FILE=$RUNNER_TEMP/release.keystore" >> $GITHUB_ENV
-        echo "RELEASE_TAGS=$(git tag -l -n \"v*\" | wc -l)" >> $GITHUB_ENV
+        echo "RELEASE_TAGS=$(git tag -l -n 'v*' | wc -l)" >> $GITHUB_ENV
         echo "VERSION_NAME=v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
         echo "VERSION_CODE=$(( $RELEASE_TAGS + 1 ))" >> $GITHUB_ENV
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
