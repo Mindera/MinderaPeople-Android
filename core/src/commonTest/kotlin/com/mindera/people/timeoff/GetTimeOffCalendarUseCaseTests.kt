@@ -2,6 +2,8 @@ package com.mindera.people.timeoff
 
 import app.cash.turbine.test
 import com.mindera.people.BaseTest
+import com.mindera.people.defaultPersonTimeOff
+import com.mindera.people.defaultTeamTimeOffList
 import com.mindera.people.utils.UiState
 import io.mockative.Mock
 import io.mockative.classOf
@@ -26,20 +28,20 @@ class GetTimeOffCalendarUseCaseTests : BaseTest() {
     }
 
     @Test
-    fun `when execute then returns expected TimeOff User`() {
+    fun `when execute then returns expected TimeOff Team`() {
         runBlocking {
             // Given
-            given(repository).coroutine { repository.getTimeOffCalendar("2") }
-                .thenReturn(Unit)
+            given(repository).coroutine { repository.getTeamTimeOffCalendar("2") }
+                .thenReturn(defaultTeamTimeOffList)
 
             // When
             useCase("2").test {
-                assertEquals(UiState.Success(Unit), awaitItem())
+                assertEquals(UiState.Success(defaultTeamTimeOffList), awaitItem())
                 awaitComplete()
             }
 
             // Then
-            verify(repository).coroutine { getTimeOffCalendar("2") }.wasInvoked(exactly = once)
+            verify(repository).coroutine { getTeamTimeOffCalendar("2") }.wasInvoked(exactly = once)
         }
     }
 }

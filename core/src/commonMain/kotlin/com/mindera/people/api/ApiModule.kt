@@ -1,13 +1,16 @@
 package com.mindera.people.api
 
 import com.mindera.people.user.UserRepository
+import com.mindera.people.utils.LocalDateKSerializer
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import org.koin.dsl.module
 
 val apiModule = module {
@@ -24,6 +27,9 @@ val apiModule = module {
                     prettyPrint = true
                     isLenient = true
                     ignoreUnknownKeys = true
+                    serializersModule = SerializersModule {
+                        contextual(LocalDate::class, LocalDateKSerializer)
+                    }
                 }
             }
 

@@ -69,6 +69,21 @@ data class PersonAllocation(
 )
 
 @Serializable
+data class TeamTimeOffList(
+    val parent: Int,
+    val data: List<TeamTimeOff>
+)
+
+@Serializable
+data class TeamTimeOff(
+    val id: Int,
+    val client: String?,
+    val parent: Int,
+    val isOpen: Boolean,
+    val data: PersonTimeOff
+)
+
+@Serializable
 data class PersonTimeOff(
     val id: Int,
     val startDate: String,

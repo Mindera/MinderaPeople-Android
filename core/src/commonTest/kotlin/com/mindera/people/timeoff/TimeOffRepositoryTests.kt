@@ -2,7 +2,9 @@ package com.mindera.people.timeoff
 
 import com.mindera.people.BaseTest
 import com.mindera.people.defaultApiPersonTimeOff
+import com.mindera.people.defaultApiTeamTimeOffList
 import com.mindera.people.defaultPersonTimeOff
+import com.mindera.people.defaultTeamTimeOffList
 import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
@@ -36,11 +38,20 @@ class TimeOffRepositoryTests : BaseTest() {
     }
 
     @Test
-    fun `test getTimeOffCalendar save a given Unit properly`() = runTest {
-        given(service).coroutine { getTimeOffCalendar("2") }.thenReturn(Unit)
+    fun `test getUserTimeOffCalendar save a given TeamTimeOffList properly`() = runTest {
+        given(service).coroutine { getUserTimeOffCalendar("2") }.thenReturn(defaultApiTeamTimeOffList)
 
-        val result = repository.getTimeOffCalendar("2")
+        val result = repository.getUserTimeOffCalendar("2")
 
-        assertEquals(Unit, result)
+        assertEquals(defaultTeamTimeOffList.hashCode(), result.hashCode())
+    }
+
+    @Test
+    fun `test getTeamTimeOffCalendar save a given TeamTimeOffList properly`() = runTest {
+        given(service).coroutine { getTeamTimeOffCalendar("2") }.thenReturn(defaultApiTeamTimeOffList)
+
+        val result = repository.getTeamTimeOffCalendar("2")
+
+        assertEquals(defaultTeamTimeOffList.hashCode(), result.hashCode())
     }
 }
