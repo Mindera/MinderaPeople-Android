@@ -87,9 +87,9 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
-        VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)
-        VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
+        export ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
+        export VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)
+        export VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
@@ -97,9 +97,9 @@ jobs:
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
-        BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
-        VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)
-        VERSION_CODE=$(( $BETA_TAGS + 1 ))
+        export BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
+        export VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)
+        export VERSION_CODE=$(( $BETA_TAGS + 1 ))
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
@@ -145,9 +145,9 @@ jobs:
         echo $KEYSTORE > release.keystore.asc
         gpd -d --passphrase "$KEYSTORE_PASSPHRASE" --batch release.keystore.asc > $RUNNER_TEMP/release.keystore
         echo "RK_FILE=$RUNNER_TEMP/release.keystore" >> $GITHUB_ENV
-        RELEASE_TAGS=$(git tag -l -n 'v*' | wc -l)
-        VERSION_NAME=v$(./gradlew -q android:printVersionName | tail -1)
-        VERSION_CODE=$(( $RELEASE_TAGS + 1 ))
+        export RELEASE_TAGS=$(git tag -l -n 'v*' | wc -l)
+        export VERSION_NAME=v$(./gradlew -q android:printVersionName | tail -1)
+        export VERSION_CODE=$(( $RELEASE_TAGS + 1 ))
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:bundleRelease
