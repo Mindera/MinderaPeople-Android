@@ -53,7 +53,7 @@ jobs:
       run: ./gradlew android:testDebugUnitTest
 
   deploy-firebase:
-    if: contains(fromJson('["refs/heads/develop", "refs/heads/release", "refs/heads/main"]'), github.ref)
+    if: contains(fromJson('["refs/heads/develop", "refs/heads/release"]'), github.ref)
     needs: test
     runs-on: macOS-latest
 
@@ -87,9 +87,9 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        echo "ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)" >> $GITHUB_ENV
-        echo "VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
-        echo "VERSION_CODE=$(( $ALPHA_TAGS + 1 ))" >> $GITHUB_ENV
+        echo "ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)"
+        echo "VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)"
+        echo "VERSION_CODE=$(( $ALPHA_TAGS + 1 ))"
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
@@ -97,9 +97,9 @@ jobs:
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
-        echo "BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)" >> $GITHUB_ENV
-        echo "VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)" >> $GITHUB_ENV
-        echo "VERSION_CODE=$(( $BETA_TAGS + 1 ))" >> $GITHUB_ENV
+        echo "BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)"
+        echo "VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)"
+        echo "VERSION_CODE=$(( $BETA_TAGS + 1 ))"
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
