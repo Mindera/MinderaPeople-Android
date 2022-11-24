@@ -87,7 +87,7 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l
+        ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
         VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)
         VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
         echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
