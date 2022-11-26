@@ -29,9 +29,7 @@ import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
 import com.mindera.people.android.utils.getWith
-import com.mindera.people.auth.AuthState
-import com.mindera.people.auth.AuthViewModel
-import com.mindera.people.user.User
+import com.mindera.people.auth.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

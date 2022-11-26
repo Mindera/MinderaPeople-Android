@@ -1,4 +1,4 @@
-package com.mindera.people.user
+package com.mindera.people.auth
 
 import kotlinx.serialization.Serializable
 

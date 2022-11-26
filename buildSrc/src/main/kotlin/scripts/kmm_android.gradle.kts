@@ -49,9 +49,7 @@ kotlin {
                 implementation(Dependencies.androidSecurityCrypto)
                 implementation(Dependencies.androidXAnnotation)
                 implementation(Dependencies.ktorClientOkHttp)
-                implementation(Dependencies.androidViewModel)
-                implementation(Dependencies.androidViewModelSavedState)
-                implementation(Dependencies.koinAndroid)
+                implementation(Dependencies.firebaseCrashlytics)
             }
         }
         val androidTest by getting {

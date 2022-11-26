@@ -1,7 +1,8 @@
-package com.mindera.people.utils
+package com.mindera.people.android.utils
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.viewModelScope
+import com.mindera.people.utils.safeLaunchIn
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,12 +11,13 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.zip
 
-expect open class ViewModel() {
-    open val mainDispatcher: CoroutineDispatcher
-    open val ioDispatcher: CoroutineDispatcher
-    val scope: CoroutineScope
+open class ViewModel : androidx.lifecycle.ViewModel() {
+    open val mainDispatcher = DispatchersProvider.main
+    open val ioDispatcher = DispatchersProvider.io
+    val scope get() = viewModelScope
 }
 
+@OptIn(FlowPreview::class)
 @Suppress("unused")
 abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     @Suppress("PropertyName")

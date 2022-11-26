@@ -1,4 +1,4 @@
-package com.mindera.people.user
+package com.mindera.people.auth
 
 import co.touchlab.kermit.Logger
 import com.mindera.people.utils.emailAddressRegex
@@ -8,17 +8,17 @@ import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
 import kotlinx.serialization.ExperimentalSerializationApi
 
-interface UserRepository {
+interface AuthRepository {
     val authenticated: User?
     fun authenticateUser(user: User)
     fun clearUser()
 }
 
 @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
-class UserRepositoryImpl(
+class AuthRepositoryImpl(
     private val log: Logger,
     private val encryptedSettings: Settings
-) : UserRepository {
+) : AuthRepository {
 
     override val authenticated: User?
         get() {

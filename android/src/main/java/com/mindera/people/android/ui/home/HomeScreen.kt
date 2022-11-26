@@ -15,9 +15,7 @@ import com.mindera.people.android.navigation.Navigator
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
 import com.mindera.people.android.utils.getWith
-import com.mindera.people.home.HomeState
-import com.mindera.people.home.HomeViewModel
-import com.mindera.people.user.User
+import com.mindera.people.auth.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

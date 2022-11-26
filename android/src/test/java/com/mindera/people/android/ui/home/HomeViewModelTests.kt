@@ -1,38 +1,33 @@
-package com.mindera.people.viewmodels
+package com.mindera.people.android.ui.home
 
 import app.cash.turbine.test
-import com.mindera.people.BaseTest
+import com.mindera.people.android.utils.BaseTest
+import com.mindera.people.auth.GetAuthenticatedUserUseCase
+import com.mindera.people.auth.SignInUseCase
+import com.mindera.people.auth.User
 import com.mindera.people.data.toError
-import com.mindera.people.home.HomeState
-import com.mindera.people.home.HomeViewModel
-import com.mindera.people.user.User
-import com.mindera.people.user.UserRepository
-import io.mockative.Mock
-import io.mockative.classOf
-import io.mockative.given
-import io.mockative.mock
-import io.mockative.thenDoNothing
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
 
 class HomeViewModelTests : BaseTest<HomeViewModel>() {
 
-    @Mock private val userRepository = mock(classOf<UserRepository>())
+    private val getAuthenticatedUserUseCase = mockk<GetAuthenticatedUserUseCase>()
+    private val signInUseCase = mockk<SignInUseCase>()
 
-    override fun createSubject() = HomeViewModel(userRepository)
+    override fun createSubject() = HomeViewModel(getAuthenticatedUserUseCase, signInUseCase)
 
-    @BeforeTest
+    @Before
     override fun setup() {
         super.setup()
-        given(userRepository).invocation { authenticated }.thenReturn(value = null)
+        every { getAuthenticatedUserUseCase() } returns null
     }
 
     @Test
     fun `test ViewModel emits AuthenticationState with no user when init`() = runTest {
-        given(userRepository).invocation { authenticated }.thenReturn(value = null)
-
         testSubject.state.test {
             // first state on ViewModel is Idle
             assertEquals(HomeState.Idle, awaitItem())
@@ -45,7 +40,7 @@ class HomeViewModelTests : BaseTest<HomeViewModel>() {
     fun `test ViewModel emits AuthenticationState with authenticated user when init`() = runTest {
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticated }.thenReturn(user)
+        every { getAuthenticatedUserUseCase() } returns user
 
         testSubject.state.test {
             // first state on ViewModel is Idle
@@ -57,10 +52,10 @@ class HomeViewModelTests : BaseTest<HomeViewModel>() {
 
     @Test
     fun `test ViewModel emits AuthenticationState with Error when setUser fails`() = runTest {
-        val throwable = Throwable("some crazy error!")
+        val error = Throwable("some crazy error!").toError()
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
+        every { signInUseCase(user) } returns Result.failure(error)
 
         testSubject.state.test {
             // first state on ViewModel is Idle
@@ -72,7 +67,7 @@ class HomeViewModelTests : BaseTest<HomeViewModel>() {
             // check ViewModel State emits Loading
             assertEquals(HomeState.Loading, awaitItem())
             // check ViewModel State emits no User authenticated and the Error
-            assertEquals(HomeState.AuthenticationState(user = null, error = throwable.toError()), awaitItem())
+            assertEquals(HomeState.AuthenticationState(user = null, error = error), awaitItem())
         }
     }
 
@@ -80,7 +75,7 @@ class HomeViewModelTests : BaseTest<HomeViewModel>() {
     fun `test ViewModel emits AuthenticationState with User when setUser success`() = runTest {
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenDoNothing()
+        every { signInUseCase(user) } returns Result.success(user)
 
         testSubject.state.test {
             // first state on ViewModel is Idle

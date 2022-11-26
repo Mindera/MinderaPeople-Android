@@ -1,33 +1,30 @@
-package com.mindera.people.viewmodels
+package com.mindera.people.android.ui.auth
 
 import app.cash.turbine.test
-import com.mindera.people.BaseTest
-import com.mindera.people.auth.AuthState
-import com.mindera.people.auth.AuthViewModel
+import com.mindera.people.android.utils.BaseTest
+import com.mindera.people.auth.SignInUseCase
+import com.mindera.people.auth.SignOutUseCase
+import com.mindera.people.auth.User
 import com.mindera.people.data.toError
-import com.mindera.people.user.User
-import com.mindera.people.user.UserRepository
-import io.mockative.Mock
-import io.mockative.classOf
-import io.mockative.given
-import io.mockative.mock
-import io.mockative.thenDoNothing
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class AuthViewModelTests : BaseTest<AuthViewModel>() {
 
-    @Mock private val userRepository = mock(classOf<UserRepository>())
+    private val signInUseCase = mockk<SignInUseCase>()
+    private val signOutUseCase = mockk<SignOutUseCase>()
 
-    override fun createSubject() = AuthViewModel(userRepository)
+    override fun createSubject() = AuthViewModel(signInUseCase, signOutUseCase)
 
     @Test
     fun `test ViewModel emits Error when authenticate fails`() = runTest {
-        val throwable = Throwable("some crazy error!")
+        val error = Throwable("some crazy error!").toError()
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
+        every { signInUseCase(user) } returns Result.failure(error)
 
         testSubject.state.test {
             // first state on ViewModel is Idle
@@ -37,7 +34,7 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
             // check ViewModel State emits Loading
             assertEquals(AuthState.Loading, awaitItem())
             // check if error is emit to the ViewModel State
-            assertEquals(AuthState.AuthError(throwable.toError()), awaitItem())
+            assertEquals(AuthState.AuthError(error), awaitItem())
         }
     }
 
@@ -45,7 +42,7 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
     fun `test ViewModel emits Success when authenticate complete`() = runTest {
         val user = User(email = "test@mail.com", name = "Test User")
 
-        given(userRepository).invocation { authenticateUser(user) }.thenDoNothing()
+        every { signInUseCase(user) } returns Result.success(user)
 
         testSubject.state.test {
             // first state on ViewModel is Idle
@@ -61,9 +58,9 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
 
     @Test
     fun `test ViewModel emits Error when clear fails`() = runTest {
-        val throwable = Throwable("some crazy error!")
+        val error = Throwable("some crazy error!").toError()
 
-        given(userRepository).invocation { clearUser() }.thenThrow(throwable)
+        every { signOutUseCase() } returns Result.failure(error)
 
         testSubject.state.test {
             // first state on ViewModel is Idle
@@ -71,13 +68,13 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
             // try cleat current user
             testSubject.clear()
             // check if error is emit to the ViewModel State
-            assertEquals(AuthState.AuthError(throwable.toError()), awaitItem())
+            assertEquals(AuthState.AuthError(error), awaitItem())
         }
     }
 
     @Test
     fun `test ViewModel emits UserCleared when clear complete`() = runTest {
-        given(userRepository).invocation { clearUser() }.thenDoNothing()
+        every { signOutUseCase() } returns Result.success(Unit)
 
         testSubject.state.test {
             // first state on ViewModel is Idle

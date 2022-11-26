@@ -1,4 +1,4 @@
-package com.mindera.people.user
+package com.mindera.people.auth
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
@@ -7,9 +7,9 @@ import com.russhwolf.settings.MapSettings
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class UserRepositoryTests : BaseTest<UserRepository>() {
+class UserRepositoryTests : BaseTest<AuthRepository>() {
 
-    override fun createSubject() = UserRepositoryImpl(
+    override fun createSubject() = AuthRepositoryImpl(
         log = Logger(LoggerConfig.default),
         encryptedSettings = MapSettings()
     )

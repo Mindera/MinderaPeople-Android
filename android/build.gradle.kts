@@ -179,8 +179,12 @@ dependencies {
  // implementation(platform(Dependencies.firebaseBoM))
  // implementation(Dependencies.firebaseAnalytics)
 
-    testImplementation(Dependencies.junit)
     testImplementation(Dependencies.androidCoreTesting)
+    testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.kotlinCoroutinesTest)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.robolectric)
+    testImplementation(Dependencies.turbine)
 
     androidTestImplementation(Dependencies.androidTestRunner)
     androidTestImplementation(Dependencies.androidJunit)

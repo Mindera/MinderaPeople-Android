@@ -1,7 +1,7 @@
-package com.mindera.people.home
+package com.mindera.people.android.ui.home
 
 import com.mindera.people.data.Error
-import com.mindera.people.user.User
+import com.mindera.people.auth.User
 
 sealed class HomeState {
     object Idle: HomeState()

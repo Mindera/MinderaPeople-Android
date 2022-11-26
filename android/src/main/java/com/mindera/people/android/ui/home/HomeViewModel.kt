@@ -1,9 +1,10 @@
-package com.mindera.people.home
+package com.mindera.people.android.ui.home
 
+import com.mindera.people.android.utils.StateViewModel
+import com.mindera.people.auth.GetAuthenticatedUserUseCase
+import com.mindera.people.auth.SignInUseCase
+import com.mindera.people.auth.User
 import com.mindera.people.data.toError
-import com.mindera.people.user.User
-import com.mindera.people.user.UserRepository
-import com.mindera.people.utils.StateViewModel
 import com.mindera.people.utils.safeLaunch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -11,13 +12,13 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 
 class HomeViewModel(
-    private val userRepository: UserRepository
+    private val getAuthenticatedUserUseCase: GetAuthenticatedUserUseCase,
+    private val signInUseCase: SignInUseCase
 ) : StateViewModel<HomeViewModel.Action, HomeState>(initialState = HomeState.Idle) {
 
     init {
         scope.safeLaunch {
-            val user = userRepository.authenticated
-            enqueueAction(Action.UserAuthenticationUpdate(user = user))
+            enqueueAction(Action.UserAuthenticationUpdate(user = getAuthenticatedUserUseCase()))
         }
     }
 
@@ -34,9 +35,10 @@ class HomeViewModel(
 
     private fun processAuthentication(user: User): Flow<HomeState> = flow {
         emit(HomeState.Loading)
-        runCatching { userRepository.authenticateUser(user) }
-            .fold(onSuccess = { emit(HomeState.AuthenticationState(user = user)) },
-                  onFailure = { emit(HomeState.AuthenticationState(error = it.toError())) })
+        signInUseCase(user).fold(
+            onSuccess = { emit(HomeState.AuthenticationState(user = user)) },
+            onFailure = { emit(HomeState.AuthenticationState(error = it.toError())) }
+        )
     }.flowOn(ioDispatcher)
 
     private fun processAuthenticationUpdate(user: User?, error: Throwable?): Flow<HomeState> =
