@@ -12,7 +12,7 @@ class SignInUseCase(
             .fold(onSuccess = { Result.success(user) },
                   onFailure = {
                       val error = it.toError()
-                      log.i { "Error when try sign-in: user=($user), error=($error)" }
+                      log.i(error) { "Error when try sign-in: user=($user)" }
                       Result.failure(error)
                   })
 }

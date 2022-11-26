@@ -12,7 +12,7 @@ class SignOutUseCase(
             .fold(onSuccess = { Result.success(Unit) },
                   onFailure = {
                       val error = it.toError()
-                      log.i { "Error when try sign-out current user: error=($error)" }
+                      log.i(error) { "Error when try sign-out current user" }
                       Result.failure(error)
                   })
 }
