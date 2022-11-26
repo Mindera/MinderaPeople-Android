@@ -1,7 +1,7 @@
 package com.mindera.people.data
 
 /**
- * A proper Error class that has support to comparation.
+ * A proper Error class that has comparison support.
  * The [kotlin.Error] class doesn't implement equals() and hashCode().
  */
 open class Error(override val cause: Throwable): Throwable(cause) {
