@@ -104,11 +104,19 @@ jobs:
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
 
+    - uses: ./
+      id: installationToken
+      with:
+        appId: 265615
+        installationId: 31564898
+        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
     - name: Create Tag
       uses: simpleactions/create-tag@v1.0.0
       with:
         tag: $NEW_TAG_NAME
         message: "version $NEW_TAG_NAME"
+        github_token: ${{ steps.installationToken.outputs.token }}
 
   deploy-googleplay:
     if: github.ref == 'refs/heads/main'
@@ -152,7 +160,7 @@ jobs:
         ./gradlew --stop
         ./gradlew android:bundleRelease
 
-    - name: Upload to Goolgle Play Store
+    - name: Upload to Google Play Store
       uses: r0adkll/upload-google-play@v1.0.19
       with:
         serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
@@ -160,8 +168,16 @@ jobs:
         releaseFiles: app/build/outputs/bundle/release/app-release.aab
         track: internalsharing
 
+    - uses: ./
+      id: installationToken
+      with:
+        appId: 265615
+        installationId: 31564898
+        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
     - name: Create Tag
       uses: simpleactions/create-tag@v1.0.0
       with:
         tag: $NEW_TAG_NAME
         message: "version $NEW_TAG_NAME"
+        github_token: ${{ steps.installationToken.outputs.token }}
