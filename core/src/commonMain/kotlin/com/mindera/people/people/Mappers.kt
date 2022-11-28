@@ -26,7 +26,7 @@ internal fun ApiPerson.toPerson(): Person =
 internal fun ApiPersonAddress.toPersonAddress(): PersonAddress =
     PersonAddress(
         id = this.id ?: 0,
-        type = this.type?.let { PersonAddress.Type.mapperEnum(it) } ?: PersonAddress.Type.ANOTHER,
+        type = PersonAddress.Type.mapperEnum(type),
         personId = this.personId ?: 0,
         street = this.street ?: "",
         state = this.state ?: "",

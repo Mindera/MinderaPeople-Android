@@ -38,8 +38,8 @@ data class PersonAddress(
         FISCAL, CURRENT, ANOTHER;
 
         companion object {
-            fun mapperEnum(data: String): Type = try {
-                valueOf(data)
+            fun mapperEnum(data: String?): Type = try {
+                data?.let { valueOf(it) } ?: ANOTHER
             } catch (exception: IllegalArgumentException) {
                 ANOTHER
             }

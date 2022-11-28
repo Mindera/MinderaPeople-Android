@@ -1,8 +1,11 @@
 package com.mindera.people.api
 
+import com.mindera.people.data.ApiError
+import com.mindera.people.data.toError
 import com.mindera.people.user.UserRepository
 import com.mindera.people.utils.LocalDateKSerializer
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
@@ -29,6 +32,15 @@ val apiModule = module {
                     ignoreUnknownKeys = true
                     serializersModule = SerializersModule {
                         contextual(LocalDate::class, LocalDateKSerializer)
+                    }
+                }
+
+                HttpResponseValidator {
+                    validateResponse { response ->
+                        val error: Error = response.body()
+                        error.cause?.let {
+                            throw it
+                        }
                     }
                 }
             }

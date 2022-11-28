@@ -7,8 +7,8 @@ enum class TimeOffTypes {
     ANOTHER;
 
     companion object {
-        fun mapperEnum(data: String): TimeOffTypes = try {
-            valueOf(data)
+        fun mapperEnum(data: String?): TimeOffTypes = try {
+            data?.let { valueOf(it) } ?: ANOTHER
         } catch (exception: IllegalArgumentException) {
             ANOTHER
         }
@@ -19,8 +19,8 @@ enum class TimeOffStatus {
     APPROVED, ANOTHER;
 
     companion object {
-        fun mapperEnum(data: String): TimeOffStatus = try {
-            valueOf(data)
+        fun mapperEnum(data: String?): TimeOffStatus = try {
+            data?.let { valueOf(it) } ?: ANOTHER
         } catch (exception: IllegalArgumentException) {
             ANOTHER
         }
