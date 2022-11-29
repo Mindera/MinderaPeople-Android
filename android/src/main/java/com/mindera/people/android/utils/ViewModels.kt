@@ -1,8 +1,7 @@
 package com.mindera.people.android.utils
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.mindera.people.android.BuildConfig
+import co.touchlab.kermit.Logger
 import com.mindera.people.utils.safeLaunchIn
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -27,21 +26,20 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     @Suppress("PropertyName")
     private val _action = MutableSharedFlow<A>(extraBufferCapacity = Int.MAX_VALUE)
 
+    private val logger: Logger by injectWith(this::class.simpleName)
+
     val state: StateFlow<S> = _state
 
     init {
         _action.zip(_state, ::processAction)
             .flatMapConcat { it }
-            .onEach {
-                //if (BuildConfig.DEBUG) {
-                Log.d("StateViewModel", "state = $it")
-                //}
-                _state.value = it
-            }
+            .onEach { logger.d { "state = $it" } }
+            .onEach { _state.value = it }
             .safeLaunchIn(scope)
     }
 
     fun enqueueAction(action: A) {
+        logger.d { "enqueueing action = $action" }
         _action.tryEmit(action)
     }
 
