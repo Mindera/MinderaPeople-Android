@@ -27,7 +27,7 @@ android {
         minSdk = 21
         targetSdk = 33
         versionCode = System.getenv("VERSION_CODE")?.toInt() ?: 1
-        versionName = "2.0.0"
+        versionName = project.extra.get("appVersion")?.toString()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -185,8 +185,4 @@ dependencies {
     androidTestImplementation(Dependencies.androidTestRunner)
     androidTestImplementation(Dependencies.androidJunit)
     androidTestImplementation(Dependencies.androidExpressoCore)
-}
-
-tasks.register("printVersionName") {
-    println(android.defaultConfig.versionName)
 }

@@ -13,6 +13,8 @@ struct MinderaPeopleApp: App {
 
     init() {
         MinderaPeopleAppKt.shared.start()
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        print(appVersion)
     }
 
     var body: some Scene {

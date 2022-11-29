@@ -15,9 +15,10 @@ buildscript {
 }
 
 allprojects {
-    // the only place where HostManager could be instantiated
     project.extra.apply {
+        // the only place where HostManager could be instantiated
         set("hostManager", hostManager)
+        set("appVersion", "2.0.0")
     }
 
     repositories {
@@ -28,4 +29,8 @@ allprojects {
 
 tasks.register<Delete>("clean") {
     delete(rootProject.buildDir)
+}
+
+tasks.register("printVersionName") {
+    println(project.extra.get("appVersion"))
 }

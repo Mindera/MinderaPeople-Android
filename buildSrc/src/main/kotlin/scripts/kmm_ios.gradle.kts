@@ -44,4 +44,10 @@ kotlin {
     }
 }
 
+tasks.register<Exec>("setVersionOniOSProject") {
+    val version = project.extra.get("appVersion")
+    println("setting iOS App version to $version")
+    commandLine("cd", "./ios", "&&", "xcrun", "agvtool", "new-marketing-version", version)
+}
+
 }
