@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.mindera.people.android.ui.auth.AUTH_ROUTE
 import com.mindera.people.android.ui.home.HOME_ROUTE
@@ -28,11 +29,17 @@ class NavigatorImpl(
     override fun goBack() { controller.navigateUp() }
 
     override fun getBackHome() {
-        controller.popBackStack(route = HOME_ROUTE, inclusive = false)
+        controller.navigate(route = HOME_ROUTE) {
+            popUpTo(controller.graph.findStartDestination().id) { inclusive = true }
+            launchSingleTop = true
+        }
     }
 
     override fun navigateToAuthentication() {
-        controller.popBackStack(route = AUTH_ROUTE, inclusive = false)
+        controller.navigate(route = AUTH_ROUTE) {
+            popUpTo(controller.graph.findStartDestination().id) { inclusive = true }
+            launchSingleTop = true
+        }
     }
 
     override fun openSystemAppSettings() {

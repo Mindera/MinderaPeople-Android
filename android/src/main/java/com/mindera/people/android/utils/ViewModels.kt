@@ -1,6 +1,8 @@
 package com.mindera.people.android.utils
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.mindera.people.android.BuildConfig
 import com.mindera.people.utils.safeLaunchIn
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +32,12 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     init {
         _action.zip(_state, ::processAction)
             .flatMapConcat { it }
-            .onEach { _state.value = it }
+            .onEach {
+                //if (BuildConfig.DEBUG) {
+                Log.d("StateViewModel", "state = $it")
+                //}
+                _state.value = it
+            }
             .safeLaunchIn(scope)
     }
 
