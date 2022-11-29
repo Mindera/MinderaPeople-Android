@@ -24,11 +24,15 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     logger: Logger = getWith("HomeScreen")
 ) {
+    val context = LocalContext.current
     val viewModel = koinViewModel<HomeViewModel>()
     val homeState by remember(viewModel) { viewModel.state }.collectAsState()
 
-    GoogleSignIn.getLastSignedInAccount(LocalContext.current)?.run {
-        email?.run { viewModel.setUser(User(email = this, name = displayName)) }
+    LaunchedEffect(true) {
+        GoogleSignIn.getLastSignedInAccount(context)?.run {
+            logger.d { "GoogleSignIn.getLastSignedInAccount email=($email)" }
+            email?.run { viewModel.setUser(User(email = this, name = displayName)) }
+        }
     }
 
     if (homeState is HomeState.AuthenticationState) {
