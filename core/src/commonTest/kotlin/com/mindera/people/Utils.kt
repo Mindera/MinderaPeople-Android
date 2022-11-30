@@ -1,6 +1,5 @@
 package com.mindera.people
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -17,7 +16,6 @@ abstract class BaseTest<T: Any> {
     @BeforeTest
     open fun setup() {
         Dispatchers.setMain(StandardTestDispatcher())
-        setupDispatchers(StandardTestDispatcher())
         testSubject = createSubject()
     }
 
@@ -26,5 +24,3 @@ abstract class BaseTest<T: Any> {
         Dispatchers.resetMain()
     }
 }
-
-expect fun setupDispatchers(testDispatcher: CoroutineDispatcher)
