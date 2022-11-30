@@ -64,7 +64,7 @@ jobs:
 
   deploy-firebase:
     if: contains(fromJson('["refs/heads/develop", "refs/heads/release"]'), github.ref)
-    needs: test
+    needs: build
     runs-on: macOS-latest
 
     environment: firebase-app-distribution
