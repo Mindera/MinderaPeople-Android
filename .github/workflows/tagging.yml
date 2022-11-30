@@ -2,11 +2,12 @@ name: Tagging
 
 on:
   workflow_run:
-    # unfortunately, `workflows` def wait for the first workflow complete
+    # List of dependent workflows to allow this one run.
+    # However, the `workflows` key wait for the first workflow complete
     # to run this workflow, which doesn't make sense.¯\_(ツ)_/¯
     # There is an Issue opened to fix this behaviour:
     # https://github.com/community/community/discussions/16059
-    workflows: [MinderaPeople Android] #, MinderaPeople iOS
+    workflows: [MinderaPeople Android] # , MinderaPeople iOS -> removed from the list for while.
     types: [completed]
     branches: [ main, release, develop ]
 

@@ -44,10 +44,12 @@ kotlin {
     }
 }
 
-tasks.register<Exec>("setVersionOniOSProject") {
+exec {
+    val xCodeProj = "MinderaPeople.xcodeproj"
     val version = project.extra.get("appVersion")
     println("setting iOS App version to $version")
-    commandLine("cd", "./ios", "&&", "xcrun", "agvtool", "new-marketing-version", version)
+    workingDir("${rootDir}/ios")
+    commandLine("sed", "-i", "''", "-e", "s/MARKETING_VERSION \\= [^\\\\;]*\\;/MARKETING_VERSION = $version;/", "$xCodeProj/project.pbxproj")
 }
 
 }

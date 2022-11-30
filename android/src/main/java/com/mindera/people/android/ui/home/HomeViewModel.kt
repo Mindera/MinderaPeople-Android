@@ -1,5 +1,6 @@
 package com.mindera.people.android.ui.home
 
+import androidx.lifecycle.viewModelScope
 import com.mindera.people.android.utils.StateViewModel
 import com.mindera.people.auth.GetAuthenticatedUserUseCase
 import com.mindera.people.auth.SignInUseCase
@@ -17,7 +18,7 @@ class HomeViewModel(
 ) : StateViewModel<HomeViewModel.Action, HomeState>(initialState = HomeState.Idle) {
 
     init {
-        scope.safeLaunch {
+        viewModelScope.safeLaunch {
             enqueueAction(Action.UserAuthenticationUpdate(user = getAuthenticatedUserUseCase()))
         }
     }
