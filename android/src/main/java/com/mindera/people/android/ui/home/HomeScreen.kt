@@ -15,9 +15,7 @@ import com.mindera.people.android.navigation.Navigator
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
 import com.mindera.people.android.utils.getWith
-import com.mindera.people.home.HomeState
-import com.mindera.people.home.HomeViewModel
-import com.mindera.people.user.User
+import com.mindera.people.auth.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -26,11 +24,15 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     logger: Logger = getWith("HomeScreen")
 ) {
+    val context = LocalContext.current
     val viewModel = koinViewModel<HomeViewModel>()
     val homeState by remember(viewModel) { viewModel.state }.collectAsState()
 
-    GoogleSignIn.getLastSignedInAccount(LocalContext.current)?.run {
-        email?.run { viewModel.setUser(User(email = this, name = displayName)) }
+    LaunchedEffect(true) {
+        GoogleSignIn.getLastSignedInAccount(context)?.run {
+            logger.d { "GoogleSignIn.getLastSignedInAccount email=($email)" }
+            email?.run { viewModel.setUser(User(email = this, name = displayName)) }
+        }
     }
 
     if (homeState is HomeState.AuthenticationState) {

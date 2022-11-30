@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,9 +30,7 @@ import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
 import com.mindera.people.android.utils.getWith
-import com.mindera.people.auth.AuthState
-import com.mindera.people.auth.AuthViewModel
-import com.mindera.people.user.User
+import com.mindera.people.auth.User
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -43,6 +42,7 @@ fun AuthScreen(
     val signInRequestCode = 511
     val viewModel = koinViewModel<AuthViewModel>()
     val authState by remember(viewModel) { viewModel.state }.collectAsState()
+    val hasHomeAlreadyNavigated = remember { mutableStateOf(false) }
 
     val authResultLauncher = rememberLauncherForActivityResult(
         contract = GoogleSignInApiContract()
@@ -67,8 +67,9 @@ fun AuthScreen(
         modifier = modifier
     )
 
-    if (authState is AuthState.AuthSuccess) {
+    if (authState is AuthState.AuthSuccess && !hasHomeAlreadyNavigated.value) {
         navigator.getBackHome()
+        hasHomeAlreadyNavigated.value = true
     }
 }
 

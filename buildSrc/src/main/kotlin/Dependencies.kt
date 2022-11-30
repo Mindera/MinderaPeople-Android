@@ -64,8 +64,9 @@ object Dependencies {
 
     // region Firebase libraries
     const val firebaseBoM = "com.google.firebase:firebase-bom:30.5.0"
-    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics"
-    const val firebaseAnalytics = "com.google.firebase:firebase-analytics"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics:18.3.2"
+    const val firebaseCrashlyticsBoM = "com.google.firebase:firebase-crashlytics"
+    const val firebaseAnalyticsBoM = "com.google.firebase:firebase-analytics"
     // endregion
 
     // region google libraries
@@ -85,7 +86,8 @@ object Dependencies {
     const val junit = "junit:junit:4.13.2"
     const val turbine = "app.cash.turbine:turbine:0.12.0"
     const val robolectric = "org.robolectric:robolectric:4.8.1"
-    // Mock library
+    // Mock libraries
+    const val mockk = "io.mockk:mockk:1.13.2"
     private const val mockativeVersion = "1.2.6"
     const val mockative = "io.mockative:mockative:$mockativeVersion"
     const val mockativeProcessor = "io.mockative:mockative-processor:$mockativeVersion"

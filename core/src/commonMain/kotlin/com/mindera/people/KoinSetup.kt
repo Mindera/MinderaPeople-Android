@@ -1,7 +1,7 @@
 package com.mindera.people
 
+import com.mindera.people.auth.authModule
 import com.mindera.people.data.dataModule
-import com.mindera.people.user.userModule
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.parameter.parametersOf
@@ -10,7 +10,7 @@ import org.koin.dsl.KoinAppDeclaration
 
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
-    modules(platformModule, dataModule, userModule)
+    modules(platformModule, dataModule, authModule)
 }
 
 inline fun <reified T> Scope.getWith(vararg params: Any?): T =

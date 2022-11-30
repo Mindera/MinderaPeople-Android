@@ -14,19 +14,19 @@ import com.mindera.people.android.ui.home.HOME_ROUTE
 import com.mindera.people.android.ui.home.HomeRoute
 import com.mindera.people.android.ui.user.USER_ROUTE
 import com.mindera.people.android.ui.user.UserRoute
-import com.mindera.people.user.UserRepository
+import com.mindera.people.auth.GetAuthenticatedUserUseCase
 import org.koin.androidx.compose.get
 
 @Composable
 fun NavGraph(
     modifier: Modifier = Modifier,
     controller: NavHostController = rememberNavController(),
-    userRepository: UserRepository = get()
+    getAuthenticatedUserUseCase: GetAuthenticatedUserUseCase = get()
 ) {
     val context = LocalContext.current
     val navigator = remember(controller) { NavigatorImpl(context, controller) }
 
-    val start = if (userRepository.authenticated != null) HOME_ROUTE else AUTH_ROUTE
+    val start = if (getAuthenticatedUserUseCase() != null) HOME_ROUTE else AUTH_ROUTE
 
     NavHost(
         navController = controller,
