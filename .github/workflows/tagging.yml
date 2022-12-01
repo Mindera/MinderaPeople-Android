@@ -16,9 +16,41 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
-    environment: tagging
+    environment: github
 
     steps:
+    - name: Download artifact
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             run_id: context.payload.workflow_run.id,
+          });
+          let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+             return artifact.name == "tag_type"
+          })[0];
+          let download = await github.rest.actions.downloadArtifact({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             artifact_id: matchArtifact.id,
+             archive_format: 'zip',
+          });
+          let fs = require('fs');
+          fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/tag_type.zip`, Buffer.from(download.data));
+
+    - name: Unzip artifact
+      run: unzip tag_type.zip
+
+    - name: Get Tag Type
+      id: get-tag-type
+      with:
+        script: |
+          let fs = require('fs');
+          return fs.readFileSync('./tag_type');
+        result-encoding: string
+
     - uses: actions/checkout@v3
 
     - name: Setup JDK
@@ -42,11 +74,7 @@ jobs:
 
     - name: Define new Tag
       run: |
-        case "${{ github.ref }}" in
-            "refs/heads/develop") TAG_TYPE="alpha.v" ;;
-            "refs/heads/release") TAG_TYPE="beta.v" ;;
-            *) TAG_TYPE="v" ;;
-        esac
+        TAG_TYPE=${{ steps.get-tag-type.outputs.result }}
         TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
         VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
         VERSION_CODE=$(( $TAGS + 1 ))
