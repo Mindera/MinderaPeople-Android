@@ -18,7 +18,7 @@ allprojects {
     project.extra.apply {
         // the only place where HostManager could be instantiated
         set("hostManager", hostManager)
-        // define the version for both Android and iOS apps
+        // define the version for both Android and iOS app
         set("appVersion", "2.0.0")
     }
 

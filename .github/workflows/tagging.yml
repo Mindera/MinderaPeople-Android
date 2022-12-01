@@ -43,8 +43,8 @@ jobs:
       run: |
         CURRENT_BRANCH=$(git name-rev --name-only HEAD)
         case "$CURRENT_BRANCH" in
-            "develop") TAG_TYPE="alpha.v" ;;
-            "release") TAG_TYPE="beta.v" ;;
+            "refs/heads/develop") TAG_TYPE="alpha.v" ;;
+            "refs/heads/release") TAG_TYPE="beta.v" ;;
             *) TAG_TYPE="v" ;;
         esac
         TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
