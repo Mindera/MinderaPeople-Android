@@ -32,10 +32,15 @@ jobs:
 
     - name: Define new Tag
       run: |
-        export TAG_TYPE=$(case $(git name-rev --name-only HEAD) in "develop") echo "alpha.v";; "release") echo "beta.v";; *) echo "v.";; esac)
-        export TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
-        export VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
-        export VERSION_CODE=$(( $TAGS + 1 ))
+        CURRENT_BRANCH=$(git name-rev --name-only HEAD)
+        case "$CURRENT_BRANCH" in
+            "develop") TAG_TYPE="alpha.v" ;;
+            "release") TAG_TYPE="beta.v" ;;
+            *) TAG_TYPE="v";;
+        esac
+        TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
+        VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
+        VERSION_CODE=$(( $TAGS + 1 ))
         echo "NEW_TAG=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
 
     - name: Apply Tag
