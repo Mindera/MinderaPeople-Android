@@ -14,7 +14,7 @@ on:
 jobs:
   create-tag:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
 
     environment: tagging
 
@@ -42,7 +42,7 @@ jobs:
 
     - name: Define new Tag
       run: |
-        CURRENT_BRANCH=$(git name-rev --name-only HEAD)
+        CURRENT_BRANCH=${{ github.ref }}
         case "$CURRENT_BRANCH" in
             "refs/heads/develop") TAG_TYPE="alpha.v" ;;
             "refs/heads/release") TAG_TYPE="beta.v" ;;
