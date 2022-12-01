@@ -20,12 +20,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: ./
+    - name: Generate Install Token
+      uses: getsentry/action-github-app-token@v2.0.0
       id: installationToken
       with:
-        appId: 265615
-        installationId: 31564898
-        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+        app_id: 265615
+        private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
     - name: Fetch Tags
       run: git fetch --tags origin
