@@ -20,27 +20,33 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: ./
+    - name: Generate Install Token
+      uses: getsentry/action-github-app-token@v2.0.0
       id: installationToken
       with:
-        appId: 265615
-        installationId: 31564898
-        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+        app_id: 265615
+        private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
     - name: Fetch Tags
       run: git fetch --tags origin
 
     - name: Define new Tag
       run: |
-        export TAG_TYPE=$(case $(git name-rev --name-only HEAD) in "develop") echo "alpha.v";; "release") echo "beta.v";; *) echo "v.";; esac)
-        export TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
-        export VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
-        export VERSION_CODE=$(( $TAGS + 1 ))
+        CURRENT_BRANCH=$(git name-rev --name-only HEAD)
+        case "$CURRENT_BRANCH" in
+            "develop") TAG_TYPE="alpha.v" ;;
+            "release") TAG_TYPE="beta.v" ;;
+            *) TAG_TYPE="v" ;;
+        esac
+        TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
+        VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
+        VERSION_CODE=$(( $TAGS + 1 ))
         echo "NEW_TAG=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
+        echo $VERSION_NAME-$VERSION_CODE
 
     - name: Apply Tag
       uses: simpleactions/create-tag@v1.0.0
       with:
-        tag: $NEW_TAG
+        tag: ${{ env.NEW_TAG }}
         message: "version $NEW_TAG_NAME"
         github_token: ${{ steps.installationToken.outputs.token }}

@@ -96,7 +96,7 @@ jobs:
       - name: Build and Publish Alpha
         if: github.ref == 'refs/heads/develop'
         run: |
-          export ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
+          ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
           export BUILD_NUMBER=$(( $ALPHA_TAGS + 1 ))
           sed -i '' -e 's/CURRENT_PROJECT_VERSION \= [^\\;]*\;/CURRENT_PROJECT_VERSION = $VERSION_CODE;/' ios/MinderaPeople.xcodeproj/project.pbxproj
           echo $BUILD_NUMBER
@@ -105,7 +105,7 @@ jobs:
       - name: Build and Publish Beta
         if: github.ref == 'refs/heads/release'
         run: |
-          export BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
+          BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
           export BUILD_NUMBER=$(( $BETA_TAGS + 1 ))
           sed -i '' -e 's/CURRENT_PROJECT_VERSION \= [^\\;]*\;/CURRENT_PROJECT_VERSION = $VERSION_CODE;/' ios/MinderaPeople.xcodeproj/project.pbxproj
           echo $BUILD_NUMBER
