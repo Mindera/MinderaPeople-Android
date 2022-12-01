@@ -20,6 +20,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
     - name: Generate Install Token
       uses: getsentry/action-github-app-token@v2.0.0
       id: installationToken
