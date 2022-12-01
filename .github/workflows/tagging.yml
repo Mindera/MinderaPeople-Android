@@ -14,49 +14,49 @@ on:
 jobs:
   create-tag:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
 
     environment: tagging
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Setup JDK
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'adopt'
-        java-version: 17
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: 17
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
 
-    - name: Generate Install Token
-      uses: getsentry/action-github-app-token@v2.0.0
-      id: installationToken
-      with:
-        app_id: 265615
-        private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - name: Generate Install Token
+        uses: getsentry/action-github-app-token@v2.0.0
+        id: installationToken
+        with:
+          app_id: 265615
+          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
-    - name: Fetch Tags
-      run: git fetch --tags origin
+      - name: Fetch Tags
+        run: git fetch --tags origin
 
-    - name: Define new Tag
-      run: |
-        CURRENT_BRANCH=$(git name-rev --name-only HEAD)
-        case "$CURRENT_BRANCH" in
-            "refs/heads/develop") TAG_TYPE="alpha.v" ;;
-            "refs/heads/release") TAG_TYPE="beta.v" ;;
-            *) TAG_TYPE="v" ;;
-        esac
-        TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
-        VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
-        VERSION_CODE=$(( $TAGS + 1 ))
-        echo "NEW_TAG=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
-        echo $VERSION_NAME-$VERSION_CODE
+      - name: Define new Tag
+        run: |
+          CURRENT_BRANCH=${{ github.ref }}
+          case "$CURRENT_BRANCH" in
+              "refs/heads/develop") TAG_TYPE="alpha.v" ;;
+              "refs/heads/release") TAG_TYPE="beta.v" ;;
+              *) TAG_TYPE="v" ;;
+          esac
+          TAGS=$(git tag -l -n "$TAG_TYPE*" | wc -l)
+          VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
+          VERSION_CODE=$(( $TAGS + 1 ))
+          echo "NEW_TAG=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
+          echo $VERSION_NAME-$VERSION_CODE
 
-    - name: Apply Tag
-      uses: simpleactions/create-tag@v1.0.0
-      with:
-        tag: ${{ env.NEW_TAG }}
-        message: "version $NEW_TAG_NAME"
-        github_token: ${{ steps.installationToken.outputs.token }}
+      - name: Apply Tag
+        uses: simpleactions/create-tag@v1.0.0
+        with:
+          tag: ${{ env.NEW_TAG }}
+          message: "version $NEW_TAG_NAME"
+          github_token: ${{ steps.installationToken.outputs.token }}
