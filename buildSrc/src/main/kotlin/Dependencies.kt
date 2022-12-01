@@ -52,7 +52,7 @@ object Dependencies {
     const val androidXAppCompact = "androidx.appcompat:appcompat:1.5.1"
     const val androidXAnnotation = "androidx.annotation:annotation:1.5.0"
     const val androidXCoreKtx = "androidx.core:core-ktx:1.9.0"
-    const val androidSecurityCrypto = "androidx.security:security-crypto:1.1.0-alpha03"
+    const val androidSecurityCrypto = "androidx.security:security-crypto:1.1.0-alpha04"
     const val androidViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
     const val androidViewModelSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1"
 
