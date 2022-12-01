@@ -85,7 +85,7 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        export ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
+        ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
         export VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
@@ -93,7 +93,7 @@ jobs:
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
-        export BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
+        BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
         export VERSION_CODE=$(( $BETA_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
