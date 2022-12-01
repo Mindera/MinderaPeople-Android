@@ -7,7 +7,7 @@ on:
     # to run this workflow, which doesn't make sense.¯\_(ツ)_/¯
     # There is an Issue opened to fix this behaviour:
     # https://github.com/community/community/discussions/16059
-    workflows: [MinderaPeople Android] # , MinderaPeople iOS -> removed from the list for while.
+    workflows: ["MinderaPeople Android"] # , "MinderaPeople iOS" -> removed from the list for while.
     types: [completed]
     branches: [ main, release, develop ]
 
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  create-tag:
+  on-success:
     runs-on: macOS-latest
 
     environment: tagging
