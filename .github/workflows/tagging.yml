@@ -42,8 +42,7 @@ jobs:
 
     - name: Define new Tag
       run: |
-        CURRENT_BRANCH=${{ github.ref }}
-        case "$CURRENT_BRANCH" in
+        case "${{ github.ref }}" in
             "refs/heads/develop") TAG_TYPE="alpha.v" ;;
             "refs/heads/release") TAG_TYPE="beta.v" ;;
             *) TAG_TYPE="v" ;;
