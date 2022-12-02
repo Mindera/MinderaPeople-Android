@@ -49,7 +49,7 @@ jobs:
       with:
         script: |
           let fs = require('fs');
-          return fs.readFileSync('./tag_type');
+          return fs.readFileSync('./tag_type').toString().replace(/\n$/, "");
         result-encoding: string
 
     - uses: actions/checkout@v3
