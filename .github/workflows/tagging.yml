@@ -81,7 +81,7 @@ jobs:
             *) TAG_PREFIX="v" ;;
         esac
         TAGS_COUNT=$(git tag -l -n "$TAG_PREFIX*" | wc -l)
-        VERSION_NAME=$TAG_TYPE$(./gradlew -q printVersionName | tail -1)
+        VERSION_NAME=$TAG_PREFIX$(./gradlew -q printVersionName | tail -1)
         VERSION_CODE=$(( $TAGS_COUNT + 1 ))
         echo "NEW_TAG=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         echo $VERSION_NAME-$VERSION_CODE
