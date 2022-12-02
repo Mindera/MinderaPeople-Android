@@ -89,7 +89,7 @@ jobs:
         export VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
-      # define tag artifact for `tagging` workflow
+#        define tag artifact for `tagging` workflow
         mkdir -p ./tag
         echo alpha > ./tag/tag_type
 
@@ -100,7 +100,7 @@ jobs:
         export VERSION_CODE=$(( $BETA_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
-      # define tag artifact for `tagging` workflow
+#      define tag artifact for `tagging` workflow
         mkdir -p ./tag
         echo beta > ./tag/tag_type
 
