@@ -144,7 +144,6 @@ jobs:
         export VERSION_CODE=$(( $RELEASE_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:bundleRelease
-      # define tag artifact for `tagging` workflow
         mkdir -p ./tag
         echo release > ./tag/tag_type
 
