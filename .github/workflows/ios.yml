@@ -100,8 +100,7 @@ jobs:
         export BUILD_NUMBER=$(( $ALPHA_TAGS + 1 ))
         sed -i '' -e 's/CURRENT_PROJECT_VERSION \= [^\\;]*\;/CURRENT_PROJECT_VERSION = $VERSION_CODE;/' ios/MinderaPeople.xcodeproj/project.pbxproj
         echo $BUILD_NUMBER
-#        ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
-#        define tag artifact for `tagging` workflow
+      # ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
         mkdir -p ./tag
         echo alpha > ./tag/tag_type
 
@@ -112,8 +111,7 @@ jobs:
         export BUILD_NUMBER=$(( $BETA_TAGS + 1 ))
         sed -i '' -e 's/CURRENT_PROJECT_VERSION \= [^\\;]*\;/CURRENT_PROJECT_VERSION = $VERSION_CODE;/' ios/MinderaPeople.xcodeproj/project.pbxproj
         echo $BUILD_NUMBER
-#        ./gradlew android:assembleBeta android:appDistributionUploadBeta
-#        define tag artifact for `tagging` workflow
+      # ./gradlew android:assembleBeta android:appDistributionUploadBeta
         mkdir -p ./tag
         echo beta > ./tag/tag_type
 
