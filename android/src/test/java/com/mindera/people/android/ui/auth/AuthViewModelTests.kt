@@ -1,6 +1,7 @@
 package com.mindera.people.android.ui.auth
 
 import app.cash.turbine.test
+import com.mindera.people.android.navigation.Navigator
 import com.mindera.people.android.utils.BaseTest
 import com.mindera.people.auth.SignInUseCase
 import com.mindera.people.auth.SignOutUseCase
@@ -16,11 +17,14 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
 
     private val signInUseCase = mockk<SignInUseCase>()
     private val signOutUseCase = mockk<SignOutUseCase>()
+    private val navigator = mockk<Navigator>() {
+        every { navigateToHome() } returns Unit
+    }
 
-    override fun createSubject() = AuthViewModel(signInUseCase, signOutUseCase)
+    override fun createSubject() = AuthViewModel(signInUseCase, signOutUseCase, navigator)
 
     @Test
-    fun `test ViewModel emits Error when authenticate fails`() = runTest {
+    fun `test ViewModel emits Error when authentication validation fails`() = runTest {
         val error = Throwable("some crazy error!").toError()
         val user = User(email = "test@mail.com", name = "Test User")
 
@@ -30,16 +34,14 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
             // try authenticate [user]
-            testSubject.authenticate(user)
-            // check ViewModel State emits Loading
-            assertEquals(AuthState.Loading, awaitItem())
+            testSubject.validateAuthentication(user)
             // check if error is emit to the ViewModel State
             assertEquals(AuthState.AuthError(error), awaitItem())
         }
     }
 
     @Test
-    fun `test ViewModel emits Success when authenticate complete`() = runTest {
+    fun `test ViewModel emits Success when authentication validation completes`() = runTest {
         val user = User(email = "test@mail.com", name = "Test User")
 
         every { signInUseCase(user) } returns Result.success(user)
@@ -48,9 +50,7 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
             // try authenticate [user]
-            testSubject.authenticate(user)
-            // check ViewModel State emits Loading
-            assertEquals(AuthState.Loading, awaitItem())
+            testSubject.validateAuthentication(user)
             // check if success is emit to the ViewModel State
             assertEquals(AuthState.AuthSuccess(user), awaitItem())
         }
@@ -73,7 +73,7 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
     }
 
     @Test
-    fun `test ViewModel emits UserCleared when clear complete`() = runTest {
+    fun `test ViewModel emits UserCleared when clear completes`() = runTest {
         every { signOutUseCase() } returns Result.success(Unit)
 
         testSubject.state.test {
@@ -83,6 +83,19 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
             testSubject.clear()
             // check no events is emitted
             assertEquals(AuthState.UserCleared, awaitItem())
+        }
+    }
+
+    @Test
+    fun `test ViewModel emits Loading when authentication is started`() = runTest {
+        testSubject.state.test {
+            // first state on ViewModel is Idle
+            assertEquals(AuthState.Idle, awaitItem())
+            // then start authentication is called
+            testSubject.startAuthentication()
+            // check ViewModel State emits Loading
+            assertEquals(AuthState.Loading, awaitItem())
+
         }
     }
 }

@@ -22,7 +22,8 @@ open class ViewModel : androidx.lifecycle.ViewModel() {
 @Suppress("unused")
 abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     @Suppress("PropertyName")
-    private val _state = MutableStateFlow(value = initialState)
+    internal val _state = MutableStateFlow(value = initialState)
+
     @Suppress("PropertyName")
     private val _action = MutableSharedFlow<A>(extraBufferCapacity = Int.MAX_VALUE)
 
@@ -33,7 +34,6 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     init {
         _action.zip(_state, ::processAction)
             .flatMapConcat { it }
-            .onEach { logger.d { "state = $it" } }
             .onEach { _state.value = it }
             .safeLaunchIn(scope)
     }

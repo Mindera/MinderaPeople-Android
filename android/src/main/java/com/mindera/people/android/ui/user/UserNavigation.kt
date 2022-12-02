@@ -10,8 +10,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mindera.people.android.navigation.AppNavigator
 import com.mindera.people.android.navigation.Navigator
-import com.mindera.people.android.navigation.NavigatorImpl
 
 // region Keys
 const val USER_ROUTE = "user"
@@ -38,7 +38,7 @@ class UserNavigatorImpl(
     private val context: Context,
     private val navigator: Navigator,
     private val controller: NavHostController
-) : UserNavigator, Navigator by NavigatorImpl(context, controller) {
+) : UserNavigator, Navigator by AppNavigator(context, controller) {
 
     override fun navigateToUserEditScreen() {
         controller.navigate(USER_EDIT_ROUTE)
