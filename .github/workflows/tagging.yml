@@ -78,7 +78,8 @@ jobs:
         case "${{ steps.get-tag-type.outputs.result }}" in
             "alpha") TAG_PREFIX="alpha.v" ;;
             "beta") TAG_PREFIX="beta.v" ;;
-            *) TAG_PREFIX="v" ;;
+            "release") TAG_PREFIX="v" ;;
+            *) echo "tag type not defined!" && exit 1 ;;
         esac
         TAGS_COUNT=$(git tag -l -n "$TAG_PREFIX*" | wc -l)
         VERSION_NAME=$TAG_PREFIX$(./gradlew -q printVersionName | tail -1)
