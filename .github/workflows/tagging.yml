@@ -64,7 +64,7 @@ jobs:
       uses: android-actions/setup-android@v2
 
     - name: Generate Install Token
-      uses: getsentry/action-github-app-token@v2
+      uses: getsentry/action-github-app-token@v2.0.0
       id: installationToken
       with:
         app_id: 265615
@@ -87,7 +87,7 @@ jobs:
         echo $VERSION_NAME-$VERSION_CODE
 
     - name: Apply Tag
-      uses: simpleactions/create-tag@v1
+      uses: simpleactions/create-tag@v1.0.0
       with:
         tag: ${{ env.NEW_TAG }}
         message: "version $NEW_TAG_NAME"
