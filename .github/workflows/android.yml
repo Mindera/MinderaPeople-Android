@@ -89,6 +89,9 @@ jobs:
         export VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
+      # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo alpha > ./tag/tag_type
 
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
@@ -97,6 +100,14 @@ jobs:
         export VERSION_CODE=$(( $BETA_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
+      # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo beta > ./tag/tag_type
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: tag_type
+        path: tag/
 
   deploy-googleplay:
     if: github.ref == 'refs/heads/main'
@@ -135,6 +146,9 @@ jobs:
         export VERSION_CODE=$(( $RELEASE_TAGS + 1 ))
         ./gradlew --stop
         ./gradlew android:bundleRelease
+      # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo release > ./tag/tag_type
 
     - name: Upload to Google Play Store
       uses: r0adkll/upload-google-play@v1.0.19
@@ -143,3 +157,8 @@ jobs:
         packageName: org.mindera.peopleandroid
         releaseFiles: app/build/outputs/bundle/release/app-release.aab
         track: internalsharing
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: tag_type
+        path: tag/
