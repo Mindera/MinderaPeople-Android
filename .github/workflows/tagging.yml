@@ -44,6 +44,7 @@ jobs:
       run: unzip tag_type.zip
 
     - name: Get Tag Type
+      uses: actions/github-script@v6
       id: get-tag-type
       with:
         script: |
