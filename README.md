@@ -7,23 +7,17 @@ Project Dependencies:
 
 ## iOS -> XCFramework generation:
 
-For iOS part, this project uses the [com.chromaticnoise.multiplatform-swiftpackage](https://github.com/ge-org/multiplatform-swiftpackage])
+For iOS part, the KMM library is distribute as a Swift Package.
+See [core/swiftpackage](./core/swiftpackage) folder. 
 
-This is a 3rd part plugin that generates a XCFramework based on the KMM kotlin compiled code and creates a Swift Package.
+There is a gradle tasks `core:assembleXCFramework` that generates the XCFramework that is delivered by the Swift Package.
+Please, check the content of the [core/swiftpackage/Package.swift](./core/swiftpackage/Package.swift).
 
-This plugin has 2 gradle tasks:
-- createSwiftPackage
-- createXCFramework
-
-The `createSwiftPackage` automatically runs the `createXCFramework` task.
-
-For every code change on KMM module, it is necessary to re-run `createXCFramework` task to update the framework for iOS project.
+For every code change on KMM module, it is necessary to re-run gradle task to update the framework for iOS project.
 
 This is mandatory to have the latest changes available for iOS project on Swift.
 
-For now, the generated XCFramework is being committed on this repository, but is not mandatory.
-
-The iOS pipeline file, runs the `createSwiftPackage`task.
+The iOS pipeline file, runs the `core:assembleXCFramework` task.
 
 ## Android -> Navigation:
 
