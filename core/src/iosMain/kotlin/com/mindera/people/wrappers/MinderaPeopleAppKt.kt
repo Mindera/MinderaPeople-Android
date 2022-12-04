@@ -8,6 +8,7 @@ import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
 import co.touchlab.kermit.crashlytics.setCrashlyticsUnhandledExceptionHook
 import com.mindera.people.initKoin
 import com.mindera.people.utils.MainScope
+import com.mindera.people.utils.injectWith
 import org.koin.core.component.KoinComponent
 import org.koin.dsl.module
 
@@ -15,12 +16,15 @@ import org.koin.dsl.module
 object MinderaPeopleAppKt : KoinComponent {
     private val mainScope = MainScope()
 
+    private val logger: Logger by injectWith(this::class.simpleName)
+
 //    private val konnection = Konnection(enableDebugLog = true)
 //
 //    fun hasNetworkConnection(): Boolean = konnection.isConnected()
 
     fun start() {
         setupKoin()
+        logger.d { "start done!" }
     }
 
     fun stop() {
