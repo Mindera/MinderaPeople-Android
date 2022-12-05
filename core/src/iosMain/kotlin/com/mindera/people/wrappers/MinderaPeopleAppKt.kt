@@ -4,6 +4,8 @@ import co.touchlab.kermit.CommonWriter
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
+import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
+import co.touchlab.kermit.crashlytics.setCrashlyticsUnhandledExceptionHook
 import com.mindera.people.initKoin
 import com.mindera.people.utils.MainScope
 import org.koin.core.component.KoinComponent
@@ -40,10 +42,10 @@ object MinderaPeopleAppKt : KoinComponent {
                 module {
                     val baseLogger = Logger(
                         config = LoggerConfig.default.copy(
-                            logWriterList = listOf(CommonWriter() /*, CrashlyticsLogWriter()*/)
+                            logWriterList = listOf(CommonWriter() , CrashlyticsLogWriter())
                         ),
                         tag = "MinderaPeople"
-                    )/*.also { setCrashlyticsUnhandledExceptionHook() }*/
+                    ).also { setCrashlyticsUnhandledExceptionHook() }
                     factory { (tag: String?) -> tag?.let { baseLogger.withTag(it) } ?: baseLogger }
                 }
             )

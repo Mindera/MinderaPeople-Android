@@ -52,18 +52,20 @@ jobs:
     - name: Run android Unit Tests
       run: ./gradlew android:testDebugUnitTest
 
-  deploy:
-    if: github.event.pull_request.merged == true
+  deploy-firebase:
+    if: contains(fromJson('["refs/heads/develop", "refs/heads/release"]'), github.ref)
     needs: test
     runs-on: macOS-latest
 
     environment: firebase-app-distribution
-    env:
-      FB_DIST_FILE: $RUNNER_TEMP/fb-dist.json
-      VERSION_CODE: git rev-list --count HEAD
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Fetch Tags
+      run: git fetch --tags origin
 
     - name: Setup JDK
       uses: actions/setup-java@v3
@@ -74,22 +76,108 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
 
+    - name: Setup Environment
+      env:
+        FB_DIST: ${{ secrets.APPS_FIREBASE_DISTRIBUTION }}
+      run: |
+        echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
+        echo "FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json" >> $GITHUB_ENV
+        ./gradlew --stop
+
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        echo $FB_DIST > $FB_DIST_FILE
-        ./gradlew android:bundleAlpha android:appDistributionUploadAlpha
+        export ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
+        export VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)
+        export VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
+        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
+        ./gradlew --stop
+        ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
 
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
-        echo $FB_DIST > $FB_DIST_FILE
-        ./gradlew android:bundleBeta android:appDistributionUploadBeta
+        export BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
+        export VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)
+        export VERSION_CODE=$(( $BETA_TAGS + 1 ))
+        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
+        ./gradlew --stop
+        ./gradlew android:assembleBeta android:appDistributionUploadBeta
 
-    - name: Build and Publish Release
-      if: github.ref == 'refs/heads/main'
+    - uses: ./
+      id: installationToken
+      with:
+        appId: 265615
+        installationId: 31564898
+        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+    - name: Create Tag
+      uses: simpleactions/create-tag@v1.0.0
+      with:
+        tag: $NEW_TAG_NAME
+        message: "version $NEW_TAG_NAME"
+        github_token: ${{ steps.installationToken.outputs.token }}
+
+  deploy-googleplay:
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: macOS-latest
+
+    environment: google-play
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Fetch Tags
+      run: git fetch --tags origin
+
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Build Release
+      env:
+        KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+        KEYSTORE_PASSPHRASE: ${{ secrets.RELEASE_KEYSTORE_PASS }}
+        RK_STORE_PASS: ${{ secrets.RK_STORE_PASS }}
+        RK_KEY_ALIAS: ${{ secrets.RK_KEY_ALIAS }}
+        RK_KEY_PASS: ${{ secrets.RK_KEY_PASS }}
       run: |
-        echo $RELEASE_KEYSTORE > release.keystore.asc
-        gpd -d --passphrase "$RELEASE_KEYSTORE_PASS" --batch release.keystore.asc > android/keys/release.keystore
-        echo $FB_DIST > $FB_DIST_FILE
-        ./gradlew android:bundleRelease android:appDistributionUploadRelease
+        echo $KEYSTORE > release.keystore.asc
+        gpd -d --passphrase "$KEYSTORE_PASSPHRASE" --batch release.keystore.asc > $RUNNER_TEMP/release.keystore
+        echo "RK_FILE=$RUNNER_TEMP/release.keystore" >> $GITHUB_ENV
+        export RELEASE_TAGS=$(git tag -l -n 'v*' | wc -l)
+        export VERSION_NAME=v$(./gradlew -q android:printVersionName | tail -1)
+        export VERSION_CODE=$(( $RELEASE_TAGS + 1 ))
+        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
+        ./gradlew --stop
+        ./gradlew android:bundleRelease
+
+    - name: Upload to Google Play Store
+      uses: r0adkll/upload-google-play@v1.0.19
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+        packageName: org.mindera.peopleandroid
+        releaseFiles: app/build/outputs/bundle/release/app-release.aab
+        track: internalsharing
+
+    - uses: ./
+      id: installationToken
+      with:
+        appId: 265615
+        installationId: 31564898
+        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+    - name: Create Tag
+      uses: simpleactions/create-tag@v1.0.0
+      with:
+        tag: $NEW_TAG_NAME
+        message: "version $NEW_TAG_NAME"
+        github_token: ${{ steps.installationToken.outputs.token }}

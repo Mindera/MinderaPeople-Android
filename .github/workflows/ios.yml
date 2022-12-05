@@ -4,9 +4,9 @@ name: MinderaPeople iOS
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ main, release, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, release, develop ]
 
 # Ensures that only one deploy task per branch/environment will run at a time
 concurrency:

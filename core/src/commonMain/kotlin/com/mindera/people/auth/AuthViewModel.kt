@@ -21,7 +21,7 @@ class AuthViewModel(
         enqueueAction(Action.Clear)
     }
 
-    override suspend fun processAction(action: Action, latestState: AuthState): Flow<AuthState> =
+    override fun processAction(action: Action, latestState: AuthState): Flow<AuthState> =
         when (action) {
             is Action.Authenticate -> processAuthentication(action.user)
             is Action.Clear -> processClear()

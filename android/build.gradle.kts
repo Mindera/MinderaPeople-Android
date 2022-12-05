@@ -40,7 +40,7 @@ android {
             keyPassword = "android"
         }
         create("release") {
-            storeFile = file("./keys/release.keystore")
+            storeFile = file(System.getenv("RK_FILE") ?: "./keys/release.keystore")
             storePassword = System.getenv("RK_STORE_PASS")
             keyAlias = System.getenv("RK_KEY_ALIAS")
             keyPassword = System.getenv("RK_KEY_PASS")
@@ -186,4 +186,8 @@ dependencies {
     androidTestImplementation(Dependencies.androidTestRunner)
     androidTestImplementation(Dependencies.androidJunit)
     androidTestImplementation(Dependencies.androidExpressoCore)
+}
+
+tasks.register("printVersionName") {
+    println(android.defaultConfig.versionName)
 }
