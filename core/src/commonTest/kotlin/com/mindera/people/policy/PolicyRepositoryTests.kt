@@ -1,15 +1,10 @@
 package com.mindera.people.policy
 
 import com.mindera.people.BaseTest
-import com.mindera.people.defaultApiPerson
-import com.mindera.people.defaultApiPersonAddress
 import com.mindera.people.defaultApiPolicy
-import com.mindera.people.defaultPerson
-import com.mindera.people.defaultPersonAddress
 import com.mindera.people.defaultPolicy
-import com.mindera.people.people.PeopleRepository
-import com.mindera.people.people.PeopleRepositoryImpl
-import com.mindera.people.people.PeopleService
+import com.mindera.people.settings.policy.PolicyRepository
+import com.mindera.people.settings.policy.PolicyRepositoryImpl
 import com.mindera.people.timeoff.TimeOffService
 import io.mockative.Mock
 import io.mockative.classOf

@@ -1,4 +1,4 @@
-package com.mindera.people.policy
+package com.mindera.people.settings.policy
 
 import com.mindera.people.timeoff.TimeOffService
 

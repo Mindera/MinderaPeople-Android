@@ -3,6 +3,8 @@ package com.mindera.people.policy
 import app.cash.turbine.test
 import com.mindera.people.BaseTest
 import com.mindera.people.defaultPolicy
+import com.mindera.people.settings.policy.GetPolicyUseCase
+import com.mindera.people.settings.policy.PolicyRepository
 import com.mindera.people.utils.UiState
 import io.mockative.Mock
 import io.mockative.classOf

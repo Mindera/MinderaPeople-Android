@@ -9,7 +9,6 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
 import org.koin.core.parameter.parametersOf
 import com.mindera.people.api.model.PersonTimeOff as ApiPersonTimeOff
 import com.mindera.people.api.model.Policy as ApiPolicy

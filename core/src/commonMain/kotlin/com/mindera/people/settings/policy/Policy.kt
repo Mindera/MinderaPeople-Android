@@ -1,4 +1,4 @@
-package com.mindera.people.policy
+package com.mindera.people.settings.policy
 
 import kotlinx.serialization.Serializable
 

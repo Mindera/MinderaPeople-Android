@@ -1,7 +1,5 @@
 package com.mindera.people.api
 
-import com.mindera.people.data.ApiError
-import com.mindera.people.data.toError
 import com.mindera.people.user.UserRepository
 import com.mindera.people.utils.LocalDateKSerializer
 import io.ktor.client.*

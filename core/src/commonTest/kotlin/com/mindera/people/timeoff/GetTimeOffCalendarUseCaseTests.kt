@@ -2,7 +2,6 @@ package com.mindera.people.timeoff
 
 import app.cash.turbine.test
 import com.mindera.people.BaseTest
-import com.mindera.people.defaultPersonTimeOff
 import com.mindera.people.defaultTeamTimeOffList
 import com.mindera.people.utils.UiState
 import io.mockative.Mock

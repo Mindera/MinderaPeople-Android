@@ -3,7 +3,12 @@ package com.mindera.people
 import com.mindera.people.api.apiModule
 import com.mindera.people.data.dataModule
 import com.mindera.people.people.peopleModule
-import com.mindera.people.policy.policyModule
+import com.mindera.people.settings.country.countryModule
+import com.mindera.people.settings.location.locationModule
+import com.mindera.people.settings.office.officeModule
+import com.mindera.people.settings.policy.policyModule
+import com.mindera.people.settings.role.roleModule
+import com.mindera.people.settings.skill.skillModule
 import com.mindera.people.timeoff.timeOffModule
 import com.mindera.people.user.userModule
 import org.koin.core.context.startKoin
@@ -20,8 +25,13 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
         apiModule,
         userModule,
         peopleModule,
+        timeOffModule,
         policyModule,
-        timeOffModule
+        roleModule,
+        skillModule,
+        officeModule,
+        locationModule,
+        countryModule
     )
 }
 

@@ -1,6 +1,6 @@
 package com.mindera.people.people
 
-import com.mindera.people.policy.Policy
+import com.mindera.people.settings.policy.Policy
 import com.mindera.people.timeoff.TimeOffStatus
 import com.mindera.people.timeoff.TimeOffTypes
 import kotlinx.serialization.Serializable

@@ -3,10 +3,10 @@ package com.mindera.people.timeoff
 import com.mindera.people.people.PersonTimeOff
 import com.mindera.people.people.TeamTimeOff
 import com.mindera.people.people.TeamTimeOffList
-import com.mindera.people.policy.toPolicy
+import com.mindera.people.settings.policy.toPolicy
 import com.mindera.people.api.model.PersonTimeOff as ApiPersonTimeOff
-import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
 import com.mindera.people.api.model.TeamTimeOff as ApiTeamTimeOff
+import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
 
 
 internal fun ApiTeamTimeOffList.toTeamTimeOffList(): TeamTimeOffList =

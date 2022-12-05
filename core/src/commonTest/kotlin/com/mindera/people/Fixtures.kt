@@ -5,16 +5,15 @@ import com.mindera.people.people.PersonAddress
 import com.mindera.people.people.PersonTimeOff
 import com.mindera.people.people.TeamTimeOff
 import com.mindera.people.people.TeamTimeOffList
-import com.mindera.people.policy.Policy
+import com.mindera.people.settings.policy.Policy
 import com.mindera.people.timeoff.TimeOffStatus
 import com.mindera.people.timeoff.TimeOffTypes
-
 import com.mindera.people.api.model.Person as ApiPerson
 import com.mindera.people.api.model.PersonAddress as ApiPersonAddress
-import com.mindera.people.api.model.Policy as ApiPolicy
 import com.mindera.people.api.model.PersonTimeOff as ApiPersonTimeOff
-import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
+import com.mindera.people.api.model.Policy as ApiPolicy
 import com.mindera.people.api.model.TeamTimeOff as ApiTeamTimeOff
+import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
 
 // region Policy
 val defaultPolicy = Policy(

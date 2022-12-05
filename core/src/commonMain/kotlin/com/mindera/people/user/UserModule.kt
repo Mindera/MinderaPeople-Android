@@ -10,4 +10,8 @@ val userModule = module {
         UserRepositoryImpl(log = getWith("UserRepo"),
                            encryptedSettings = get(named(encryptedSettings)))
     }
+
+    factory<UserService> {
+        UserServiceImpl(get())
+    }
 }
