@@ -2,6 +2,7 @@ package com.mindera.people.android.utils
 
 import app.cash.turbine.test
 import com.mindera.people.android.utils.ViewModelTests.TestViewModel.Action
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -11,6 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import kotlin.time.Duration.Companion.milliseconds
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ViewModelTests : BaseTest<ViewModelTests.TestViewModel>()  {
 
     override fun createSubject() = TestViewModel()
