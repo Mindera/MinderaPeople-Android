@@ -4,5 +4,5 @@ import com.mindera.people.utils.UseCaseOut
 
 class GetLocationUseCase(
     private val repository: LocationRepository,
-    override val block: suspend () -> Location = { repository.getLocation() }
-) : UseCaseOut<Location>()
+    override val block: suspend () -> List<Location> = { repository.getLocations() }
+) : UseCaseOut<List<Location>>()

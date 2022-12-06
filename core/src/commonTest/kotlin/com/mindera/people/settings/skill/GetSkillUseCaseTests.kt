@@ -27,16 +27,16 @@ class GetSkillUseCaseTests {
     @Test
     fun `when execute then returns expected Skill`() = runTest {
         // Given
-        given(repository).coroutine { repository.getSkill() }
-            .thenReturn(defaultSkill)
+        given(repository).coroutine { repository.getSkills() }
+            .thenReturn(listOf(defaultSkill))
 
         // When
         useCase().test {
-            assertEquals(UiState.Success(defaultSkill), awaitItem())
+            assertEquals(UiState.Success(listOf(defaultSkill)), awaitItem())
             awaitComplete()
         }
 
         // Then
-        verify(repository).coroutine { getSkill() }.wasInvoked(exactly = once)
+        verify(repository).coroutine { getSkills() }.wasInvoked(exactly = once)
     }
 }

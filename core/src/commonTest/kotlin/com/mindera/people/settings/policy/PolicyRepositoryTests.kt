@@ -25,11 +25,11 @@ class PolicyRepositoryTests {
 
     @Test
     fun `test getSummary save a given Policy properly`() = runTest {
-        given(service).coroutine { getPolicy() }.thenReturn(defaultApiPolicy)
+        given(service).coroutine { getPolicies() }.thenReturn(listOf(defaultApiPolicy))
 
-        val result = repository.getPolicy()
+        val result = repository.getPolicies()
 
-        assertEquals(defaultPolicy, result)
+        assertEquals(listOf(defaultPolicy), result)
     }
 
 }

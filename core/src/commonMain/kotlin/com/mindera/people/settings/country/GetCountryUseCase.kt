@@ -4,5 +4,5 @@ import com.mindera.people.utils.UseCaseOut
 
 class GetCountryUseCase(
     private val repository: CountryRepository,
-    override val block: suspend () -> Country = { repository.getCountry() }
-) : UseCaseOut<Country>()
+    override val block: suspend () -> List<Country> = { repository.getCountries() }
+) : UseCaseOut<List<Country>>()

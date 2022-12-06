@@ -7,12 +7,12 @@ import io.ktor.client.request.*
 import com.mindera.people.api.model.Skill as ApiSkill
 
 interface SkillService {
-    suspend fun getSkill(): ApiSkill
+    suspend fun getSkills(): List<ApiSkill>
 }
 
 internal class SkillServiceImpl(private val client: HttpClient) : SkillService {
 
-    override suspend fun getSkill(): ApiSkill {
+    override suspend fun getSkills(): List<ApiSkill> {
         return client.get(URL_SKILLS).body()
     }
 }

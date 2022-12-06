@@ -7,12 +7,12 @@ import io.ktor.client.request.*
 import com.mindera.people.api.model.Country as ApiCountry
 
 interface CountryService {
-    suspend fun getCountry(): ApiCountry
+    suspend fun getCountries(): List<ApiCountry>
 }
 
 internal class CountryServiceImpl(private val client: HttpClient) : CountryService {
 
-    override suspend fun getCountry(): ApiCountry {
+    override suspend fun getCountries(): List<ApiCountry> {
         return client.get(URL_COUNTRIES).body()
     }
 }

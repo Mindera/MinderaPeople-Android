@@ -1,16 +1,10 @@
-package com.mindera.people.location
+package com.mindera.people.settings.location
 
-import com.mindera.people.BaseTest
 import com.mindera.people.defaultApiLocation
-import com.mindera.people.defaultApiPolicy
 import com.mindera.people.defaultLocation
-import com.mindera.people.defaultPolicy
 import com.mindera.people.settings.location.LocationRepository
 import com.mindera.people.settings.location.LocationRepositoryImpl
 import com.mindera.people.settings.location.LocationService
-import com.mindera.people.settings.policy.PolicyRepository
-import com.mindera.people.settings.policy.PolicyRepositoryImpl
-import com.mindera.people.timeoff.TimeOffService
 import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
@@ -34,11 +28,11 @@ class LocationLocationTests {
 
     @Test
     fun `test getLocation save a given Policy properly`() = runTest {
-        given(service).coroutine { getLocation() }.thenReturn(defaultApiLocation)
+        given(service).coroutine { getLocations() }.thenReturn(listOf(defaultApiLocation))
 
-        val result = repository.getLocation()
+        val result = repository.getLocations()
 
-        assertEquals(defaultLocation, result)
+        assertEquals(listOf(defaultLocation), result)
     }
 
 }

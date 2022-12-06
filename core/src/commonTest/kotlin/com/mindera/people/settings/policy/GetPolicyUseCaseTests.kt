@@ -1,10 +1,7 @@
 package com.mindera.people.settings.policy
 
 import app.cash.turbine.test
-import com.mindera.people.BaseTest
 import com.mindera.people.defaultPolicy
-import com.mindera.people.settings.policy.GetPolicyUseCase
-import com.mindera.people.settings.policy.PolicyRepository
 import com.mindera.people.utils.UiState
 import io.mockative.Mock
 import io.mockative.classOf
@@ -30,16 +27,16 @@ class GetPolicyUseCaseTests {
     @Test
     fun `when execute then returns expected Policy`() = runTest {
         // Given
-        given(repository).coroutine { repository.getPolicy() }
-            .thenReturn(defaultPolicy)
+        given(repository).coroutine { repository.getPolicies() }
+            .thenReturn(listOf(defaultPolicy))
 
         // When
         useCase().test {
-            assertEquals(UiState.Success(defaultPolicy), awaitItem())
+            assertEquals(UiState.Success(listOf(defaultPolicy)), awaitItem())
             awaitComplete()
         }
 
         // Then
-        verify(repository).coroutine { getPolicy() }.wasInvoked(exactly = once)
+        verify(repository).coroutine { getPolicies() }.wasInvoked(exactly = once)
     }
 }

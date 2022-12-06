@@ -1,4 +1,4 @@
-package com.mindera.people.location
+package com.mindera.people.settings.location
 
 import app.cash.turbine.test
 import com.mindera.people.defaultLocation
@@ -29,16 +29,16 @@ class GetLocationUseCaseTests {
     @Test
     fun `when execute then returns expected Location`() = runTest {
         // Given
-        given(repository).coroutine { repository.getLocation() }
-            .thenReturn(defaultLocation)
+        given(repository).coroutine { repository.getLocations() }
+            .thenReturn(listOf(defaultLocation))
 
         // When
         useCase().test {
-            assertEquals(UiState.Success(defaultLocation), awaitItem())
+            assertEquals(UiState.Success(listOf(defaultLocation)), awaitItem())
             awaitComplete()
         }
 
         // Then
-        verify(repository).coroutine { getLocation() }.wasInvoked(exactly = once)
+        verify(repository).coroutine { getLocations() }.wasInvoked(exactly = once)
     }
 }

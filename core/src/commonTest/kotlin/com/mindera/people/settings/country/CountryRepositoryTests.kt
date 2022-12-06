@@ -1,13 +1,7 @@
 package com.mindera.people.settings.country
 
-import com.mindera.people.BaseTest
 import com.mindera.people.defaultApiCountry
-import com.mindera.people.defaultApiPolicy
 import com.mindera.people.defaultCountry
-import com.mindera.people.defaultPolicy
-import com.mindera.people.settings.policy.PolicyRepository
-import com.mindera.people.settings.policy.PolicyRepositoryImpl
-import com.mindera.people.timeoff.TimeOffService
 import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
@@ -31,11 +25,11 @@ class CountryRepositoryTests {
 
     @Test
     fun `test getCountry save a given Policy properly`() = runTest {
-        given(service).coroutine { getCountry() }.thenReturn(defaultApiCountry)
+        given(service).coroutine { getCountries() }.thenReturn(listOf(defaultApiCountry))
 
-        val result = repository.getCountry()
+        val result = repository.getCountries()
 
-        assertEquals(defaultCountry, result)
+        assertEquals(listOf(defaultCountry), result)
     }
 
 }

@@ -2,6 +2,8 @@ package com.mindera.people.settings.policy
 
 import com.mindera.people.api.model.Policy as ApiPolicy
 
+internal fun List<ApiPolicy>.toPolicies(): List<Policy> = this.map { it.toPolicy() }
+
 internal fun ApiPolicy.toPolicy(): Policy =
     Policy(
         id = this.id ?: 0,

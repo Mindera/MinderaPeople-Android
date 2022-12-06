@@ -7,12 +7,12 @@ import io.ktor.client.request.*
 import com.mindera.people.api.model.Location as ApiLocation
 
 interface LocationService {
-    suspend fun getLocation(): ApiLocation
+    suspend fun getLocations(): List<ApiLocation>
 }
 
 internal class LocationServiceImpl(private val client: HttpClient) : LocationService {
 
-    override suspend fun getLocation(): ApiLocation {
+    override suspend fun getLocations(): List<ApiLocation> {
         return client.get(URL_LOCATIONS).body()
     }
 }

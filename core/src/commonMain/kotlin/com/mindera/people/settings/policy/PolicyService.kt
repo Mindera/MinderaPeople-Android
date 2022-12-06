@@ -7,12 +7,12 @@ import io.ktor.client.request.*
 import com.mindera.people.api.model.Policy as ApiPolicy
 
 interface PolicyService {
-    suspend fun getPolicy(): ApiPolicy
+    suspend fun getPolicies(): List<ApiPolicy>
 }
 
 internal class PolicyServiceImpl(private val client: HttpClient) : PolicyService {
 
-    override suspend fun getPolicy(): ApiPolicy{
+    override suspend fun getPolicies(): List<ApiPolicy>{
         return client.get(URL_POLICES).body()
     }
 }

@@ -7,12 +7,12 @@ import io.ktor.client.request.*
 import com.mindera.people.api.model.Office as ApiOffice
 
 interface OfficeService {
-    suspend fun getOffice(): ApiOffice
+    suspend fun getOffices(): List<ApiOffice>
 }
 
 internal class OfficeServiceImpl(private val client: HttpClient) : OfficeService {
 
-    override suspend fun getOffice(): ApiOffice {
+    override suspend fun getOffices(): List<ApiOffice> {
         return client.get(URL_OFFICES).body()
     }
 }

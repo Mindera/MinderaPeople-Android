@@ -2,9 +2,9 @@ package com.mindera.people.settings.role
 
 
 interface RoleRepository {
-    suspend fun getRole(): Role
+    suspend fun getRoles(): List<Role>
 }
 
 internal class RoleRepositoryImpl(private val roleService: RoleService) : RoleRepository {
-    override suspend fun getRole(): Role = roleService.getRole().toRole()
+    override suspend fun getRoles(): List<Role> = roleService.getRoles().toRoles()
 }

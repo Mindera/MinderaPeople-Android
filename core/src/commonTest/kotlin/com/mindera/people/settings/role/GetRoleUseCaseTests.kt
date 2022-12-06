@@ -1,4 +1,4 @@
-package com.mindera.people.role
+package com.mindera.people.settings.role
 
 import app.cash.turbine.test
 import com.mindera.people.defaultRole
@@ -29,16 +29,16 @@ class GetRoleUseCaseTests {
     @Test
     fun `when execute then returns expected Role`() = runTest {
         // Given
-        given(repository).coroutine { repository.getRole() }
-            .thenReturn(defaultRole)
+        given(repository).coroutine { repository.getRoles() }
+            .thenReturn(listOf(defaultRole))
 
         // When
         useCase().test {
-            assertEquals(UiState.Success(defaultRole), awaitItem())
+            assertEquals(UiState.Success(listOf(defaultRole)), awaitItem())
             awaitComplete()
         }
 
         // Then
-        verify(repository).coroutine { getRole() }.wasInvoked(exactly = once)
+        verify(repository).coroutine { getRoles() }.wasInvoked(exactly = once)
     }
 }

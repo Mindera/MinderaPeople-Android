@@ -27,16 +27,16 @@ class GetCountryUseCaseTests {
     @Test
     fun `when execute then returns expected Country`() = runTest {
         // Given
-        given(repository).coroutine { repository.getCountry() }
-            .thenReturn(defaultCountry)
+        given(repository).coroutine { repository.getCountries() }
+            .thenReturn(listOf( defaultCountry))
 
         // When
         useCase().test {
-            assertEquals(UiState.Success(defaultCountry), awaitItem())
+            assertEquals(UiState.Success(listOf(defaultCountry)), awaitItem())
             awaitComplete()
         }
 
         // Then
-        verify(repository).coroutine { getCountry() }.wasInvoked(exactly = once)
+        verify(repository).coroutine { getCountries() }.wasInvoked(exactly = once)
     }
 }

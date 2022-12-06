@@ -7,12 +7,12 @@ import io.ktor.client.request.*
 import com.mindera.people.api.model.Role as ApiRole
 
 interface RoleService {
-    suspend fun getRole(): ApiRole
+    suspend fun getRoles(): List<ApiRole>
 }
 
 internal class RoleServiceImpl(private val client: HttpClient) : RoleService {
 
-    override suspend fun getRole(): ApiRole{
+    override suspend fun getRoles(): List<ApiRole> {
         return client.get(URL_ROLES).body()
     }
 }

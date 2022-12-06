@@ -1,4 +1,4 @@
-package com.mindera.people.office
+package com.mindera.people.settings.office
 
 import app.cash.turbine.test
 import com.mindera.people.defaultOffice
@@ -29,16 +29,16 @@ class GetOfficeUseCaseTests {
     @Test
     fun `when execute then returns expected Office`() = runTest {
         // Given
-        given(repository).coroutine { repository.getOffice() }
-            .thenReturn(defaultOffice)
+        given(repository).coroutine { repository.getOffices() }
+            .thenReturn(listOf(defaultOffice))
 
         // When
         useCase().test {
-            assertEquals(UiState.Success(defaultOffice), awaitItem())
+            assertEquals(UiState.Success(listOf(defaultOffice)), awaitItem())
             awaitComplete()
         }
 
         // Then
-        verify(repository).coroutine { getOffice() }.wasInvoked(exactly = once)
+        verify(repository).coroutine { getOffices() }.wasInvoked(exactly = once)
     }
 }

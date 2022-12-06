@@ -4,5 +4,5 @@ import com.mindera.people.utils.UseCaseOut
 
 class GetRoleUseCase(
     private val repository: RoleRepository,
-    override val block: suspend () -> Role = { repository.getRole() }
-) : UseCaseOut<Role>()
+    override val block: suspend () -> List<Role> = { repository.getRoles() }
+) : UseCaseOut<List<Role>>()

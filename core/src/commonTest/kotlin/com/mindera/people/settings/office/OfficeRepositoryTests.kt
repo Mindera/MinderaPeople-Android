@@ -1,16 +1,10 @@
-package com.mindera.people.office
+package com.mindera.people.settings.office
 
-import com.mindera.people.BaseTest
 import com.mindera.people.defaultApiOffice
-import com.mindera.people.defaultApiPolicy
 import com.mindera.people.defaultOffice
-import com.mindera.people.defaultPolicy
 import com.mindera.people.settings.office.OfficeRepository
 import com.mindera.people.settings.office.OfficeRepositoryImpl
 import com.mindera.people.settings.office.OfficeService
-import com.mindera.people.settings.policy.PolicyRepository
-import com.mindera.people.settings.policy.PolicyRepositoryImpl
-import com.mindera.people.timeoff.TimeOffService
 import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
@@ -34,11 +28,11 @@ class OfficeRepositoryTests {
 
     @Test
     fun `test getOffice save a given Policy properly`() = runTest {
-        given(service).coroutine { getOffice() }.thenReturn(defaultApiOffice)
+        given(service).coroutine { getOffices() }.thenReturn(listOf(defaultApiOffice))
 
-        val result = repository.getOffice()
+        val result = repository.getOffices()
 
-        assertEquals(defaultOffice, result)
+        assertEquals(listOf(defaultOffice), result)
     }
 
 }
