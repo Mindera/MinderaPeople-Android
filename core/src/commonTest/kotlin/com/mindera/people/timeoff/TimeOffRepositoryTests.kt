@@ -2,8 +2,10 @@ package com.mindera.people.timeoff
 
 import com.mindera.people.BaseTest
 import com.mindera.people.defaultApiPersonTimeOff
+import com.mindera.people.defaultApiPolicy
 import com.mindera.people.defaultApiTeamTimeOffList
 import com.mindera.people.defaultPersonTimeOff
+import com.mindera.people.defaultPolicy
 import com.mindera.people.defaultTeamTimeOffList
 import io.mockative.Mock
 import io.mockative.classOf
@@ -15,7 +17,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 
-class TimeOffRepositoryTests : BaseTest() {
+class TimeOffRepositoryTests{
     @Mock
     private val service = mock(classOf<TimeOffService>())
 
@@ -23,8 +25,7 @@ class TimeOffRepositoryTests : BaseTest() {
     private lateinit var repository: TimeOffRepository
 
     @BeforeTest
-    override fun setup() {
-        super.setup()
+    fun setup() {
         repository = TimeOffRepositoryImpl(service)
     }
 
@@ -53,5 +54,14 @@ class TimeOffRepositoryTests : BaseTest() {
         val result = repository.getTeamTimeOffCalendar("2")
 
         assertEquals(defaultTeamTimeOffList.hashCode(), result.hashCode())
+    }
+
+    @Test
+    fun `test getSummary save a given TeamTimeOffList properly`() = runTest {
+        given(service).coroutine { getSummary("2") }.thenReturn(defaultApiPolicy)
+
+        val result = repository.getSummary("2")
+
+        assertEquals(defaultPolicy.hashCode(), result.hashCode())
     }
 }

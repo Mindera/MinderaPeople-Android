@@ -15,14 +15,13 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class GetTimeOffCalendarUseCaseTests : BaseTest() {
+class GetTimeOffCalendarUseCaseTests {
     @Mock private val repository = mock(classOf<TimeOffRepository>())
 
     private lateinit var useCase: GetTimeOffCalendarUseCase
 
     @BeforeTest
-    override fun setup() {
-        super.setup()
+    fun setup() {
         useCase = GetTimeOffCalendarUseCase(repository)
     }
 

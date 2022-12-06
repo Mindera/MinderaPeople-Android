@@ -12,7 +12,7 @@ class PeopleViewModel(
         enqueueAction(Action.Get(id))
     }
 
-    override suspend fun processAction(action: Action, latestState: UiState<Person>) =
+    override fun processAction(action: Action, latestState: UiState<Person>) =
         when (action) {
             is Action.Get -> processGetPerson(action.id)
         }

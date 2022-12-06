@@ -16,7 +16,7 @@ class UserRepositoryTests : BaseTest<UserRepository>() {
 
     @Test
     fun `test UserRepository save a given User properly`() {
-        val user = User(email = "user@mail.com", name = "user")
+        val user = User(email = "user@mail.com", name = "user", token = "crazyToken]")
         testSubject.authenticateUser(user)
         assertEquals(user, testSubject.authenticated)
     }

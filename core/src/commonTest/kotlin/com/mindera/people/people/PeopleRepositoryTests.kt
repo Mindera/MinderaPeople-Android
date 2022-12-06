@@ -15,7 +15,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 
-class PeopleRepositoryTests : BaseTest() {
+class PeopleRepositoryTests {
     @Mock
     private val service = mock(classOf<PeopleService>())
 
@@ -23,8 +23,7 @@ class PeopleRepositoryTests : BaseTest() {
     private lateinit var repository: PeopleRepository
 
     @BeforeTest
-    override fun setup() {
-        super.setup()
+    fun setup() {
         repository = PeopleRepositoryImpl(service)
     }
 

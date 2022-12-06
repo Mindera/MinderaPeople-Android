@@ -3,9 +3,9 @@ package com.mindera.people.settings.policy
 import com.mindera.people.timeoff.TimeOffService
 
 interface PolicyRepository {
-    suspend fun getSummary(id: String): Policy
+    suspend fun getPolicy(): Policy
 }
 
-internal class PolicyRepositoryImpl(private val timeOffService: TimeOffService) : PolicyRepository {
-    override suspend fun getSummary(id: String): Policy = timeOffService.getSummary(id).toPolicy()
+internal class PolicyRepositoryImpl(private val policyService: PolicyService) : PolicyRepository {
+    override suspend fun getPolicy(): Policy = policyService.getPolicy().toPolicy()
 }

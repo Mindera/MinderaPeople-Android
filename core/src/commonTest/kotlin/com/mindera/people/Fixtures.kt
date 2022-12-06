@@ -5,7 +5,12 @@ import com.mindera.people.people.PersonAddress
 import com.mindera.people.people.PersonTimeOff
 import com.mindera.people.people.TeamTimeOff
 import com.mindera.people.people.TeamTimeOffList
+import com.mindera.people.settings.country.Country
+import com.mindera.people.settings.location.Location
+import com.mindera.people.settings.office.Office
 import com.mindera.people.settings.policy.Policy
+import com.mindera.people.settings.role.Role
+import com.mindera.people.settings.skill.Skill
 import com.mindera.people.timeoff.TimeOffStatus
 import com.mindera.people.timeoff.TimeOffTypes
 import com.mindera.people.api.model.Person as ApiPerson
@@ -14,6 +19,11 @@ import com.mindera.people.api.model.PersonTimeOff as ApiPersonTimeOff
 import com.mindera.people.api.model.Policy as ApiPolicy
 import com.mindera.people.api.model.TeamTimeOff as ApiTeamTimeOff
 import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
+import com.mindera.people.api.model.Role as ApiRole
+import com.mindera.people.api.model.Skill as ApiSkill
+import com.mindera.people.api.model.Office as ApiOffice
+import com.mindera.people.api.model.Location as ApiLocation
+import com.mindera.people.api.model.Country as ApiCountry
 
 // region Policy
 val defaultPolicy = Policy(
@@ -161,7 +171,7 @@ val defaultApiTeamTimeOffList = ApiTeamTimeOffList(
     data = listOf(
         ApiTeamTimeOff(
             id = 123,
-            client = "",
+            client = "mindera",
             parent = 123,
             open = false,
             data = defaultApiPersonTimeOff
@@ -171,7 +181,7 @@ val defaultApiTeamTimeOffList = ApiTeamTimeOffList(
 
 val defaultApiTeamTimeOff = ApiTeamTimeOff(
     id = 123,
-    client = "",
+    client = "mindera",
     parent = 123,
     open = false,
     data = defaultApiPersonTimeOff
@@ -181,7 +191,7 @@ val defaultTeamTimeOffList = TeamTimeOffList(
     parent = 123,
     data = listOf(TeamTimeOff(
         id = 123,
-        client = "",
+        client = "mindera",
         parent = 123,
         isOpen = false,
         data = defaultPersonTimeOff
@@ -195,6 +205,79 @@ val defaultTeamTimeOff = TeamTimeOff(
     isOpen = false,
     data = defaultPersonTimeOff
 )
+
+val defaultRole = Role(
+    id = 123456,
+    organizationId = 12,
+    description = "description",
+    code = "code",
+    roleGroup = "roleGroup"
+)
+
+val defaultApiRole = ApiRole(
+    id = 123456,
+    organizationId = 12,
+    description = "description",
+    code = "code",
+    roleGroup = "roleGroup"
+)
+
+val defaultSkill = Skill(
+    id = 123456,
+    organizationId = 12,
+    skill = "skill"
+)
+
+val defaultApiSkill = ApiSkill(
+    id = 123456,
+    organizationId = 12,
+    skill = "skill"
+)
+
+
+val defaultOffice = Office(
+    id = 123456,
+    organizationId = 12,
+    name = "name",
+    maxCapacity = 10,
+    locationId = 1
+)
+
+val defaultApiOffice = ApiOffice(
+    id = 123456,
+    organizationId = 12,
+    name = "name",
+    maxCapacity = 10,
+    locationId = 1
+)
+
+val defaultLocation = Location(
+    id = 123456,
+    organizationId = 12,
+    name = "name",
+    country = "country",
+    countryId = 1
+)
+
+val defaultApiLocation = ApiLocation(
+    id = 123456,
+    organizationId = 12,
+    name = "name",
+    country = "country",
+    countryId = 1
+)
+
+
+val defaultCountry = Country(
+    id = 123456,
+    value = "value",
+)
+
+val defaultApiCountry = ApiCountry(
+    id = 123456,
+    value = "value",
+)
+
 
 
 // endregion

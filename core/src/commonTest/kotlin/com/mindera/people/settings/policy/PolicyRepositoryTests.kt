@@ -1,11 +1,7 @@
-package com.mindera.people.policy
+package com.mindera.people.settings.policy
 
-import com.mindera.people.BaseTest
 import com.mindera.people.defaultApiPolicy
 import com.mindera.people.defaultPolicy
-import com.mindera.people.settings.policy.PolicyRepository
-import com.mindera.people.settings.policy.PolicyRepositoryImpl
-import com.mindera.people.timeoff.TimeOffService
 import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
@@ -15,24 +11,23 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class PolicyRepositoryTests : BaseTest() {
+class PolicyRepositoryTests {
     @Mock
-    private val service = mock(classOf<TimeOffService>())
+    private val service = mock(classOf<PolicyService>())
 
 
     private lateinit var repository: PolicyRepository
 
     @BeforeTest
-    override fun setup() {
-        super.setup()
+    fun setup() {
         repository = PolicyRepositoryImpl(service)
     }
 
     @Test
     fun `test getSummary save a given Policy properly`() = runTest {
-        given(service).coroutine { getSummary("2") }.thenReturn(defaultApiPolicy)
+        given(service).coroutine { getPolicy() }.thenReturn(defaultApiPolicy)
 
-        val result = repository.getSummary("2")
+        val result = repository.getPolicy()
 
         assertEquals(defaultPolicy, result)
     }

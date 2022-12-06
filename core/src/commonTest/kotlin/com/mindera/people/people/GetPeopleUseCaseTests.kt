@@ -15,14 +15,13 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class GetPeopleUseCaseTests : BaseTest() {
+class GetPeopleUseCaseTests {
     @Mock private val repository = mock(classOf<PeopleRepository>())
 
     private lateinit var useCase: GetPersonUseCase
 
     @BeforeTest
-    override fun setup() {
-        super.setup()
+    fun setup() {
         useCase = GetPersonUseCase(repository)
     }
 
