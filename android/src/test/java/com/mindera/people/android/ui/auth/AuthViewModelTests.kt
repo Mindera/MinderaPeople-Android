@@ -8,6 +8,7 @@ import com.mindera.people.auth.User
 import com.mindera.people.data.toError
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -72,6 +73,7 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
         }
     }
 
+    @ExperimentalCoroutinesApi
     @Test
     fun `test ViewModel emits UserCleared when clear complete`() = runTest {
         every { signOutUseCase() } returns Result.success(Unit)
