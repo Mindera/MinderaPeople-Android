@@ -5,7 +5,7 @@ Project Dependencies:
 - Android Studio
 - XCode (need to create iPhone 12 Simulator to run the Unit Tests)
 
-## iOS -> XCFramework generation:
+## iOS -> XCFramework generation
 
 For iOS part, the KMM library is distribute as a Swift Package.
 See [core/swiftpackage](./core/swiftpackage) folder. 
@@ -19,7 +19,7 @@ This is mandatory to have the latest changes available for iOS project on Swift.
 
 The iOS pipeline file, runs the `core:assembleXCFramework` task.
 
-## Android -> Navigation:
+## Android -> Navigation
 
 The Android Navigation follows the Graph and Sub-Graph principle:
 - The main navigator (App navigator) only knows how to go to a `feature route`.
