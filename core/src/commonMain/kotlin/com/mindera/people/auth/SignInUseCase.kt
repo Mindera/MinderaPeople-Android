@@ -6,8 +6,8 @@ import com.mindera.people.data.toError
 class SignInUseCase(
     private val authRepository: AuthRepository,
     private val log: Logger
-) {
-    operator fun invoke(user: User): Result<User> =
+): (User) -> Result<User> {
+    override operator fun invoke(user: User): Result<User> =
         runCatching { authRepository.authenticateUser(user) }
             .fold(onSuccess = { Result.success(user) },
                   onFailure = {

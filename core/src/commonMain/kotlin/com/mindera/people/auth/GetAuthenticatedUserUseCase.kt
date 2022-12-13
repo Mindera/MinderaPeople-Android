@@ -5,8 +5,8 @@ import co.touchlab.kermit.Logger
 class GetAuthenticatedUserUseCase(
     private val authRepository: AuthRepository,
     private val log: Logger
-) {
-    operator fun invoke(): User? =
+): () -> User? {
+    override operator fun invoke(): User? =
         authRepository.authenticated.also {
             log.i { "Authenticated user=($it)" }
         }
