@@ -37,6 +37,7 @@ class AuthViewModel(
     private fun processAuthenticationToken(token: String): Flow<AuthState> = flow {
         signInUseCase(token).fold(
             onSuccess = {
+                emit(AuthState.AuthSuccess)
                 navigator.navigateToHome()
             },
             onFailure = {

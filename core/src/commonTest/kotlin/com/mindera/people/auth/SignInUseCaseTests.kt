@@ -23,7 +23,7 @@ class SignInUseCaseTests : BaseTest<SignInUseCase>() {
 
     @Test
     fun `test SignInUseCase when clearing success`() {
-        val token = "fdsjfdsjfdsnflnfklmalfdslkmflaks"
+        val token = "crazyToken!"
         given(authRepository).invocation { authenticateToken(token) }.thenDoNothing()
         assertEquals(Result.success(Unit), testSubject(token))
     }
@@ -31,7 +31,7 @@ class SignInUseCaseTests : BaseTest<SignInUseCase>() {
     @Test
     fun `test SignInUseCase when authentication fails`() {
         val throwable = Throwable("some crazy error!")
-        val token = "fdsjfdsjfdsnflnfklmalfdslkmflaks"
+        val token = "crazyToken!"
 
         given(authRepository).invocation { authenticateToken(token) }.thenThrow(throwable)
 

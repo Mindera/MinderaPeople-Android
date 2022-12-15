@@ -30,11 +30,11 @@ class GetMyUserUseCaseTests {
     @Test
     fun `When execute then returns expected User`() = runTest {
         // Given
-        given(repository).coroutine { getUser() }
-            .thenReturn(defaultUser)
-
-        given(repositoryAuth).coroutine { authenticateUser(defaultUser) }
+        given(repositoryAuth).coroutine { repositoryAuth.authenticateUser(defaultUser) }
             .thenReturn(Unit)
+
+        given(repository).coroutine { repository.getUser() }
+            .thenReturn(defaultUser)
 
         // When
         useCase().test {

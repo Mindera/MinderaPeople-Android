@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.zip
 open class ViewModel : androidx.lifecycle.ViewModel() {
     open val mainDispatcher = DispatchersProvider.main
     open val ioDispatcher = DispatchersProvider.io
-    val scope get() = viewModelScope
+    protected val logger: Logger by injectWith(this::class.simpleName)
 }
 
 @OptIn(FlowPreview::class)
@@ -27,15 +27,13 @@ abstract class StateViewModel<A, S>(initialState: S): ViewModel() {
     @Suppress("PropertyName")
     private val _action = MutableSharedFlow<A>(extraBufferCapacity = Int.MAX_VALUE)
 
-    private val logger: Logger by injectWith(this::class.simpleName)
-
     val state: StateFlow<S> = _state
 
     init {
         _action.zip(_state, ::processAction)
             .flatMapConcat { it }
             .onEach { _state.value = it }
-            .safeLaunchIn(scope)
+            .safeLaunchIn(viewModelScope)
     }
 
     fun enqueueAction(action: A) {

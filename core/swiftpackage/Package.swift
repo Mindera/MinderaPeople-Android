@@ -9,13 +9,21 @@ let package = Package(
     products: [
         .library(
             name: "MinderaPeopleKt",
-            targets: ["MinderaPeopleKt"]
+            targets: ["core"] // "coreDebug", "coreRelease"
         ),
     ],
     targets: [
         .binaryTarget(
-            name: "MinderaPeopleKt",
-            path: "./MinderaPeopleKt.xcframework"
+            name: "core",
+            path: "../build/XCFrameworks/release/core.xcframework"
         ),
+//         .binaryTarget(
+//             name: "coreDebug",
+//             path: "../build/XCFrameworks/debug/core.xcframework"
+//         ),
+//         .binaryTarget(
+//             name: "coreRelease",
+//             path: "../build/XCFrameworks/release/core.xcframework"
+//         ),
     ]
 )

@@ -38,7 +38,7 @@ class PreviewAuthState : PreviewParameterProvider<AuthState> {
     override val values = sequenceOf(
         AuthState.Idle,
         AuthState.Loading,
-        AuthState.AuthSuccess(User(id = 123, email = "email", photo = "photo", name = "name")),
+        AuthState.AuthSuccess,
         AuthState.AuthError(
             ApiError(Exception())
         )

@@ -9,6 +9,7 @@ import com.mindera.people.auth.User
 import com.mindera.people.data.toError
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -16,25 +17,24 @@ import org.junit.Test
 class AuthViewModelTests : BaseTest<AuthViewModel>() {
 
     private val signInUseCase = mockk<SignInUseCase>()
-    private val signOutUseCase = mockk<SignOutUseCase>()
     private val navigator = mockk<Navigator>() {
         every { navigateToHome() } returns Unit
     }
 
-    override fun createSubject() = AuthViewModel(signInUseCase, signOutUseCase, navigator)
+    override fun createSubject() = AuthViewModel(navigator = navigator, signInUseCase = signInUseCase)
 
     @Test
     fun `test ViewModel emits Error when authentication validation fails`() = runTest {
         val error = Throwable("some crazy error!").toError()
-        val user = User(email = "test@mail.com", name = "Test User")
+        val token = "crazyToken!"
 
-        every { signInUseCase(user) } returns Result.failure(error)
+        every { signInUseCase(token) } returns Result.failure(error)
 
         testSubject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
-            // try authenticate [user]
-            testSubject.validateAuthentication(user)
+            // try authenticate [token]
+            testSubject.validateAuthentication(token)
             // check if error is emit to the ViewModel State
             assertEquals(AuthState.AuthError(error), awaitItem())
         }
@@ -42,47 +42,17 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
 
     @Test
     fun `test ViewModel emits Success when authentication validation completes`() = runTest {
-        val user = User(email = "test@mail.com", name = "Test User")
+        val token = "crazyToken!"
 
-        every { signInUseCase(user) } returns Result.success(user)
+        every { signInUseCase(token) } returns Result.success(Unit)
 
         testSubject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
-            // try authenticate [user]
-            testSubject.validateAuthentication(user)
+            // try authenticate [token]
+            testSubject.validateAuthentication(token)
             // check if success is emit to the ViewModel State
-            assertEquals(AuthState.AuthSuccess(user), awaitItem())
-        }
-    }
-
-    @Test
-    fun `test ViewModel emits Error when clear fails`() = runTest {
-        val error = Throwable("some crazy error!").toError()
-
-        every { signOutUseCase() } returns Result.failure(error)
-
-        testSubject.state.test {
-            // first state on ViewModel is Idle
-            assertEquals(AuthState.Idle, awaitItem())
-            // try cleat current user
-            testSubject.clear()
-            // check if error is emit to the ViewModel State
-            assertEquals(AuthState.AuthError(error), awaitItem())
-        }
-    }
-
-    @Test
-    fun `test ViewModel emits UserCleared when clear completes`() = runTest {
-        every { signOutUseCase() } returns Result.success(Unit)
-
-        testSubject.state.test {
-            // first state on ViewModel is Idle
-            assertEquals(AuthState.Idle, awaitItem())
-            // try cleat current user
-            testSubject.clear()
-            // check no events is emitted
-            assertEquals(AuthState.UserCleared, awaitItem())
+            assertEquals(AuthState.AuthSuccess, awaitItem())
         }
     }
 

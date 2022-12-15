@@ -47,8 +47,8 @@ jobs:
     - name: Build KMM library
       run: ./gradlew :core:iosX64Test
 
-    - name: Create Swift Package
-      run: ./gradlew :core:createSwiftPackage
+    - name: Create XCFramework
+      run: ./gradlew :core:assembleXCFramework
 
     #- name: create simulator
     #  run: xcrun simctl create "iPhone 8" "com.apple.CoreSimulator.SimDeviceType.iPhone-8" "com.apple.CoreSimulator.SimRuntime.iOS-15-2"
@@ -61,3 +61,63 @@ jobs:
         destination: name=iPhone 8
         configuration: Debug
         action: build
+
+  deploy-firebase:
+    if: contains(fromJson('["refs/heads/develop", "refs/heads/release"]'), github.ref)
+    needs: build
+    runs-on: macOS-latest
+
+    environment: firebase-app-distribution
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Fetch Tags
+      run: git fetch --tags origin
+
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Setup Environment
+      env:
+        FB_DIST: ${{ secrets.APPS_FIREBASE_DISTRIBUTION }}
+      run: |
+        echo $FB_DIST > $RUNNER_TEMP/fb-dist.json
+        echo "FB_DIST_FILE=$RUNNER_TEMP/fb-dist.json" >> $GITHUB_ENV
+
+    - name: Build and Publish Alpha
+      if: github.ref == 'refs/heads/develop'
+      run: |
+        ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
+        export BUILD_NUMBER=$(( $ALPHA_TAGS + 1 ))
+        sed -i '' -e 's/CURRENT_PROJECT_VERSION \= [^\\;]*\;/CURRENT_PROJECT_VERSION = $VERSION_CODE;/' ios/MinderaPeople.xcodeproj/project.pbxproj
+        echo $BUILD_NUMBER
+        # ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
+        # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo alpha > ./tag/tag_type
+
+    - name: Build and Publish Beta
+      if: github.ref == 'refs/heads/release'
+      run: |
+        BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
+        export BUILD_NUMBER=$(( $BETA_TAGS + 1 ))
+        sed -i '' -e 's/CURRENT_PROJECT_VERSION \= [^\\;]*\;/CURRENT_PROJECT_VERSION = $VERSION_CODE;/' ios/MinderaPeople.xcodeproj/project.pbxproj
+        echo $BUILD_NUMBER
+        # ./gradlew android:assembleBeta android:appDistributionUploadBeta
+        # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo beta > ./tag/tag_type
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: tag_type
+        path: tag/

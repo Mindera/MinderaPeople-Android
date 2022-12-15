@@ -15,9 +15,11 @@ buildscript {
 }
 
 allprojects {
-    // the only place where HostManager could be instantiated
     project.extra.apply {
+        // the only place where HostManager could be instantiated
         set("hostManager", hostManager)
+        // define the version for both Android and iOS app
+        set("appVersion", "2.0.0")
     }
 
     repositories {
@@ -28,4 +30,8 @@ allprojects {
 
 tasks.register<Delete>("clean") {
     delete(rootProject.buildDir)
+}
+
+tasks.register("printVersionName") {
+    println(project.extra.get("appVersion"))
 }

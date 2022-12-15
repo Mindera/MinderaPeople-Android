@@ -23,7 +23,7 @@ class AuthRepositoryTests : BaseTest<AuthRepository>() {
 
     @Test
     fun `test AuthRepository save a given Token properly`() {
-        val token = "fdsafdsamfkldsajfldsafdlskmfkldsamflkmdaklfms"
+        val token = "crazyToken!"
         testSubject.authenticateToken(token)
         assertEquals(token, testSubject.token)
     }

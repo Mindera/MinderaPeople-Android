@@ -1,5 +1,6 @@
 package com.mindera.people.android.ui.home
 
+import androidx.lifecycle.viewModelScope
 import com.mindera.people.android.utils.StateViewModel
 import com.mindera.people.auth.User
 import com.mindera.people.people.GetMyUserUseCase
@@ -12,7 +13,7 @@ class HomeViewModel(
 ) : StateViewModel<HomeViewModel.Action, UiState<User>>(initialState = UiState.Idle) {
 
     init {
-        scope.safeLaunch {
+        viewModelScope.safeLaunch {
             enqueueAction(Action.Authenticate)
         }
     }
