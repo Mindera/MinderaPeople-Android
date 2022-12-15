@@ -37,6 +37,12 @@ class AuthRepositoryImpl(
         }
 
     override fun authenticateUser(user: User) {
+        if (user.email.isBlank() || !emailAddressRegex.matches(user.email)) {
+            val error = IllegalArgumentException("User $user is invalid!")
+            log.d(error) { "error when try authenticateUser" }
+            throw error
+        }
+        log.d { "authenticate user $user" }
         encryptedSettings.encodeValue(User.serializer(), USER_SETTING, user)
     }
 

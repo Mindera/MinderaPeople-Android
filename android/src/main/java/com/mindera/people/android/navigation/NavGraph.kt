@@ -24,7 +24,7 @@ fun NavGraph(
     getAuthenticatedUserUseCase: GetAuthenticatedUserUseCase = get()
 ) {
     val context = LocalContext.current
-    val navigator = remember(controller) { AppNavigator(context, controller) }
+    val navigator = remember(controller) { NavigatorImpl(context, controller) }
 
     val start = if (getAuthenticatedUserUseCase() != null) HOME_ROUTE else AUTH_ROUTE
 

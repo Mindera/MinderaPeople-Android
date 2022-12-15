@@ -5,17 +5,10 @@
     <string name="retry">Retry</string>
     <string name="auth_error_msg">Something went wrong…</string>
 
-    <!-- LOGIN -->
-    <string name="login_btn_label">Login with Google Account</string>
-    <string name="login_btn_label_desc">Login with Google Account</string>
-    <string name="login_img_cont_desc">Mindera logo</string>
+    <string name="sign_in_google">Sign in With Google</string>
+    <string name="sign_in_google_icon_desc">Google Login</string>
 
-    <!-- HOME -->
-    <string name="empty_screen_title">Please be patient</string>
-    <string name="empty_screen_description">We are preparing your space</string>
-    <string name="empty_screen_img_cont_desc">Minder meditating</string>
-
-    <!--    <string name="google_cloud_server_client_id" translatable="false">856677742822-vdq7toqtgkdhb4jfguokcua701cp2uio.apps.googleusercontent.com</string>-->
+    <string name="google_cloud_server_client_id" translatable="false">856677742822-vdq7toqtgkdhb4jfguokcua701cp2uio.apps.googleusercontent.com</string>
 
     <string name="prompt_info_title">Re-authentication \n Mindera People</string>
     <string name="prompt_info_subtitle">Please login to get access</string>
