@@ -7,7 +7,9 @@ import com.mindera.people.utils.UseCaseOut
 class GetMyUserUseCase(
     private val repository: PeopleRepository,
     private val repositoryAuth: AuthRepository,
-    override val block: suspend () -> User = { repository.getUser().also {
-        repositoryAuth.authenticateUser(it)
-    } }
+    override val block: suspend () -> User = {
+        repository.getUser().also {
+            repositoryAuth.authenticateUser(it)
+        }
+    }
 ) : UseCaseOut<User>()

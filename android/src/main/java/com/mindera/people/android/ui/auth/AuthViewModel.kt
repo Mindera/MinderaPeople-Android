@@ -19,12 +19,7 @@ class AuthViewModel(
     }
 
     fun validateAuthentication(token: String) {
-        _state.value = AuthState.Loading
         enqueueAction(Action.AuthenticateToken(token))
-    }
-
-    fun handleError(throwable: Throwable?) {
-        enqueueAction(Action.HandleError(throwable ?: Throwable()))
     }
 
     override fun processAction(action: Action, latestState: AuthState): Flow<AuthState> =

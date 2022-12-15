@@ -33,9 +33,9 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
         testSubject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
-            // try authenticate [token]
+            // then start authentication is called
             testSubject.validateAuthentication(token)
-            // check if error is emit to the ViewModel State
+            // check ViewModel State emits Loading
             assertEquals(AuthState.AuthError(error), awaitItem())
         }
     }
@@ -61,11 +61,10 @@ class AuthViewModelTests : BaseTest<AuthViewModel>() {
         testSubject.state.test {
             // first state on ViewModel is Idle
             assertEquals(AuthState.Idle, awaitItem())
-            // then start authentication is called
+            // try authenticate [token]
             testSubject.startAuthentication()
-            // check ViewModel State emits Loading
-            assertEquals(AuthState.Loading, awaitItem())
-
+            // check if error is emit to the ViewModel State
+            assertEquals(AuthState.AuthWebView, awaitItem())
         }
     }
 }
