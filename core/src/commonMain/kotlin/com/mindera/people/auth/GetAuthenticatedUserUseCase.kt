@@ -6,8 +6,5 @@ class GetAuthenticatedUserUseCase(
     private val authRepository: AuthRepository,
     private val log: Logger
 ) {
-    operator fun invoke(): User? =
-        authRepository.authenticated.also {
-            log.i { "Authenticated user=($it)" }
-        }
+    operator fun invoke(): User? = authRepository.authenticated
 }

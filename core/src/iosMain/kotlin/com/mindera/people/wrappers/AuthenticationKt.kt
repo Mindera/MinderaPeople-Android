@@ -2,9 +2,9 @@ package com.mindera.people.wrappers
 
 import com.mindera.people.auth.SignInUseCase
 import com.mindera.people.auth.SignOutUseCase
+import com.mindera.people.auth.User
 import com.mindera.people.data.Error
 import com.mindera.people.data.toError
-import com.mindera.people.auth.User
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

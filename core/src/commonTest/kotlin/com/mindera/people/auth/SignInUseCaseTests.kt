@@ -22,21 +22,19 @@ class SignInUseCaseTests : BaseTest<SignInUseCase>() {
     )
 
     @Test
-    fun `test SignInUseCase when authentication success`() {
-        val user = User(email = "user@mail.com", name = "user")
-
-        given(authRepository).invocation { authenticateUser(user) }.thenDoNothing()
-
-        assertEquals(Result.success(user), testSubject(user))
+    fun `test SignInUseCase when clearing success`() {
+        val token = "fdsjfdsjfdsnflnfklmalfdslkmflaks"
+        given(authRepository).invocation { authenticateToken(token) }.thenDoNothing()
+        assertEquals(Result.success(Unit), testSubject(token))
     }
 
     @Test
     fun `test SignInUseCase when authentication fails`() {
         val throwable = Throwable("some crazy error!")
-        val user = User(email = "user@mail.com", name = "user")
+        val token = "fdsjfdsjfdsnflnfklmalfdslkmflaks"
 
-        given(authRepository).invocation { authenticateUser(user) }.thenThrow(throwable)
+        given(authRepository).invocation { authenticateToken(token) }.thenThrow(throwable)
 
-        assertEquals(Result.failure(throwable.toError()), testSubject(user))
+        assertEquals(Result.failure(throwable.toError()), testSubject(token))
     }
 }

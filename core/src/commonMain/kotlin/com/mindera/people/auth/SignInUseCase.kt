@@ -7,12 +7,12 @@ class SignInUseCase(
     private val authRepository: AuthRepository,
     private val log: Logger
 ) {
-    operator fun invoke(user: User): Result<User> =
-        runCatching { authRepository.authenticateUser(user) }
-            .fold(onSuccess = { Result.success(user) },
-                  onFailure = {
-                      val error = it.toError()
-                      log.i(error) { "Error when try sign-in: user=($user)" }
-                      Result.failure(error)
-                  })
+    operator fun invoke(token: String): Result<Unit> =
+        runCatching { authRepository.authenticateToken(token) }
+            .fold(onSuccess = { Result.success(Unit) },
+                onFailure = {
+                    val error = it.toError()
+                    log.i(error) { "Error when try sign-in:($error)" }
+                    Result.failure(error)
+                })
 }

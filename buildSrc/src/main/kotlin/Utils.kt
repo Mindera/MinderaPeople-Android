@@ -1,5 +1,5 @@
 import org.jetbrains.kotlin.konan.target.HostManager
-import java.util.Locale
+import java.util.*
 
 val experimentalAnnotations = listOf(
     "kotlin.experimental.ExperimentalTypeInference",

@@ -1,5 +1,6 @@
 package scripts
 
+import Dependencies
 import isMacOsMachine
 import org.jetbrains.kotlin.gradle.plugin.mpp.BitcodeEmbeddingMode
 

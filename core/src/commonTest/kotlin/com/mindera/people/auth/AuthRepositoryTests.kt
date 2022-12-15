@@ -7,7 +7,7 @@ import com.russhwolf.settings.MapSettings
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class UserRepositoryTests : BaseTest<AuthRepository>() {
+class AuthRepositoryTests : BaseTest<AuthRepository>() {
 
     override fun createSubject() = AuthRepositoryImpl(
         log = Logger(LoggerConfig.default),
@@ -15,9 +15,16 @@ class UserRepositoryTests : BaseTest<AuthRepository>() {
     )
 
     @Test
-    fun `test UserRepository save a given User properly`() {
-        val user = User(email = "user@mail.com", name = "user")
+    fun `test AuthRepository save a given User properly`() {
+        val user = User(id = 1, email = "user@mail.com", name = "user", photo = "photo")
         testSubject.authenticateUser(user)
         assertEquals(user, testSubject.authenticated)
+    }
+
+    @Test
+    fun `test AuthRepository save a given Token properly`() {
+        val token = "fdsafdsamfkldsajfldsafdlskmfkldsamflkmdaklfms"
+        testSubject.authenticateToken(token)
+        assertEquals(token, testSubject.token)
     }
 }

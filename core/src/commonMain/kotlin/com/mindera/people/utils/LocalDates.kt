@@ -1,11 +1,24 @@
 package com.mindera.people.utils
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
+import kotlinx.datetime.number
 import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+
+const val API_PARTNER = "YYYY-MM-DD"
 
 /**
  * Returns this date with another day of month.
@@ -51,3 +64,27 @@ private val DayOfWeek.value: Int
         DayOfWeek.SUNDAY -> 7
         else -> 0
     }
+
+@OptIn(ExperimentalSerializationApi::class)
+@Serializer(forClass = LocalDate::class)
+object LocalDateKSerializer : KSerializer<LocalDate> {
+    override val descriptor = PrimitiveSerialDescriptor("kotlinx.datetime.LocalDate", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: LocalDate) {
+        encoder.encodeString("${value.year}-${value.month.number.plus(1)}-${value.dayOfMonth}")
+    }
+
+    override fun deserialize(decoder: Decoder): LocalDate {
+        return LocalDate.parse(decoder.decodeString())
+    }
+}
+
+private val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+
+fun LocalDate.Companion.today(): LocalDate {
+    return LocalDate(today.year, today.month.number, today.dayOfMonth)
+}
+
+fun LocalDate.Companion.plusOneMonth(): LocalDate {
+    return LocalDate(today.year, (today.month.number + 1), today.dayOfMonth)
+}

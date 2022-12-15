@@ -1,5 +1,6 @@
 package com.mindera.people.android.ui.home
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -23,14 +23,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.mindera.people.android.R
 import com.mindera.people.android.navigation.Navigator
 import com.mindera.people.android.ui.theme.MinderaTheme
 import com.mindera.people.android.ui.theme.typography
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
+import com.mindera.people.android.utils.PreviewUiState
 import com.mindera.people.android.utils.getWith
 import com.mindera.people.auth.User
+import com.mindera.people.utils.UiState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -39,22 +40,17 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     logger: Logger = getWith("HomeScreen")
 ) {
-    val context = LocalContext.current
     val viewModel = koinViewModel<HomeViewModel>()
     val homeState by remember(viewModel) { viewModel.state }.collectAsState()
 
-    LaunchedEffect(true) {
-        GoogleSignIn.getLastSignedInAccount(context)?.run {
-            logger.d { "GoogleSignIn.getLastSignedInAccount email=($email)" }
-            email?.run { viewModel.setUser(User(email = this, name = displayName)) }
-        }
-    }
-
-    EmptyHomeView()
+    EmptyHomeView(modifier, homeState)
 }
 
 @Composable
-private fun EmptyHomeView() {
+private fun EmptyHomeView(
+    modifier: Modifier = Modifier,
+    state: UiState<User>,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,22 +66,33 @@ private fun EmptyHomeView() {
             contentDescription = stringResource(id = R.string.empty_screen_img_cont_desc),
         )
         Text(text = stringResource(id = R.string.empty_screen_title), style = typography.body2)
-        Text(text = stringResource(id = R.string.empty_screen_description), style = typography.body1)
+        Text(
+            text = stringResource(id = R.string.empty_screen_description),
+            style = typography.body1
+        )
     }
+    if (state is UiState.Success)
+        Toast.makeText(
+            LocalContext.current,
+            "${state.data.name} \n ${state.data.email}",
+            Toast.LENGTH_SHORT
+        ).show()
 }
 
 @Preview
 @Composable
-private fun PreviewHomeScreen() {
+private fun PreviewHomeScreen(
+    @PreviewParameter(PreviewUiState::class) state: UiState<User>
+) {
     MinderaTheme {
-        EmptyHomeView()
+        EmptyHomeView(state = state)
     }
 }
 
 @Preview(name = "home")
 @Composable
 private fun HomePreview(
-    @PreviewParameter(PreviewNavigatorWithoutBack::class) navigator: Navigator
+    @PreviewParameter(PreviewNavigatorWithoutBack::class) navigator: Navigator,
 ) {
     MinderaTheme {
         HomeScreen(navigator)

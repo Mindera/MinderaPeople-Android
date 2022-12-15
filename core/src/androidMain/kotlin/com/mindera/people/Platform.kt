@@ -29,6 +29,7 @@ fun startSdk(app: Application, appModule: Module = module {  }) {
                 )
                 factory { (tag: String?) -> tag?.let { baseLogger.withTag(it) } ?: baseLogger }
             }
+            + featureModules
             + appModule
         )
     }
@@ -52,4 +53,12 @@ actual val platformModule: Module = module {
     single<Settings>(named(unencryptedSettings)) {
         SharedPreferencesSettings.Factory(get()).create(name = STORAGE_NAME)
     }
+}
+
+private val featureModules = module {
+    // authentication
+//    viewModelOf(::AuthViewModel)
+
+    // home
+//    viewModelOf(::HomeViewModel)
 }

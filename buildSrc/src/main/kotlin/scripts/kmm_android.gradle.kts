@@ -48,8 +48,11 @@ kotlin {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation(Dependencies.androidSecurityCrypto)
                 implementation(Dependencies.androidXAnnotation)
-                implementation(Dependencies.firebaseCrashlytics)
                 implementation(Dependencies.ktorClientOkHttp)
+                implementation(Dependencies.ktorClientAndroid)
+                implementation(Dependencies.androidViewModel)
+                implementation(Dependencies.androidViewModelSavedState)
+                implementation(Dependencies.koinAndroid)
             }
         }
         val androidTest by getting {

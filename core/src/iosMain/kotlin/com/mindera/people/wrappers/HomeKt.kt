@@ -16,8 +16,8 @@ object HomeKt : KoinComponent {
 
     val user: User? get() = getAuthenticatedUserUseCase()
 
-    fun setUser(user: User, callback: (Result) -> Unit) {
-        signInUseCase(user).fold(
+    fun setUser(token: String, callback: (Result) -> Unit) {
+        signInUseCase(token).fold(
             onSuccess = { callback.invoke(Result.AuthenticationState(user = user)) },
             onFailure = { callback.invoke(Result.AuthenticationState(error = it.toError())) }
         )

@@ -1,7 +1,8 @@
 package com.mindera.people.android.ui.auth
 
-import androidx.activity.compose.ManagedActivityResultLauncher
-import androidx.activity.compose.rememberLauncherForActivityResult
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,9 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomAppBar
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -28,21 +31,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import co.touchlab.kermit.Logger
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.mindera.people.android.R
 import com.mindera.people.android.components.FullScreenLoaderComponent
 import com.mindera.people.android.components.SimpleButton
+import com.mindera.people.android.components.WebViewComponent
 import com.mindera.people.android.components.buildErrorSnackbarHost
 import com.mindera.people.android.navigation.Navigator
-import com.mindera.people.android.services.GoogleSignInApiContract
 import com.mindera.people.android.ui.theme.MinderaTheme
+import com.mindera.people.android.utils.Constants.authURL
+import com.mindera.people.android.utils.Constants.mathUrlPickToken
 import com.mindera.people.android.utils.PreviewAuthState
 import com.mindera.people.android.utils.PreviewNavigatorWithoutBack
 import com.mindera.people.android.utils.getWith
-import com.mindera.people.auth.User
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -55,13 +57,10 @@ fun AuthScreen(
 ) {
     val viewModel = koinViewModel<AuthViewModel> { parametersOf(navigator) }
     val authState by remember(viewModel) { viewModel.state }.collectAsState()
-    val authResultLauncher = AuthLaunchBuilder({ viewModel.validateAuthentication(it) }, { viewModel.handleError(it) })
 
     AuthView(
-        onClick = {
-            viewModel.startAuthentication()
-            authResultLauncher.launch(511)
-        },
+        onClick = { viewModel.startAuthentication() },
+        resultHandler = { viewModel.validateAuthentication(it) },
         state = authState,
         modifier = modifier
     )
@@ -72,6 +71,7 @@ private fun AuthView(
     modifier: Modifier = Modifier,
     state: AuthState,
     onClick: () -> Unit = {},
+    resultHandler: (String) -> Unit = {}
 ) {
     val scope = rememberCoroutineScope()
     val scaffoldState: ScaffoldState = rememberScaffoldState()
@@ -106,22 +106,28 @@ private fun AuthView(
             }
         }
     }
+
+    if (state is AuthState.AuthWebView) {
+        Scaffold(
+            topBar = { TopAppBar(backgroundColor = MaterialTheme.colors.primary) { } },
+            bottomBar = { BottomAppBar(backgroundColor = MaterialTheme.colors.primary) { } },
+            content = {
+                WebViewComponent(
+                    url = authURL,
+                    webViewClient = authWebViewClient(resultHandler = resultHandler)
+                )
+            }
+        )
+    }
 }
 
-@Composable
-private fun AuthLaunchBuilder(
-    resultHandler: (User) -> Unit,
-    errorHandler: (Throwable) -> Unit
-): ManagedActivityResultLauncher<Int, Task<GoogleSignInAccount>?> {
-    return rememberLauncherForActivityResult(
-        contract = GoogleSignInApiContract()
-    ) { task ->
-        try {
-            val account = task?.getResult(ApiException::class.java)
-            resultHandler(User(email = account?.email, name = account?.displayName))
-        } catch (error: ApiException) {
-            errorHandler(error)
+private fun authWebViewClient(resultHandler: (String) -> Unit) = object : WebViewClient() {
+    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+        if (url.contains(mathUrlPickToken)) {
+            resultHandler(url.replace(mathUrlPickToken, ""))
+            return true
         }
+        return false
     }
 }
 
@@ -155,6 +161,35 @@ private fun AuthBehaviorView(
         )
     }
 }
+
+//@Composable
+//fun WebViewComponent(
+//    state: AuthState,
+//    resultHandler: (String) -> Unit
+//) {
+//    AndroidView(factory = {
+//        WebView(it).apply {
+//            settings.userAgentString = "http.agent"
+//            settings.javaScriptEnabled = true
+//            layoutParams = ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT
+//            )
+//            webViewClient = object : WebViewClient() {
+//
+//                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+//                    if (url.contains(mathUrlPickToken)) {
+//                        resultHandler(url.replace(mathUrlPickToken, ""))
+//                        return true
+//                    }
+//                    return false
+//                }
+//            }
+//
+//            loadUrl(authURL)
+//        }
+//    })
+//}
 
 @Preview(name = "home")
 @Composable

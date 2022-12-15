@@ -18,6 +18,11 @@ object Dependencies {
     const val ktorClientCore = "io.ktor:ktor-client-core:$ktorVersion"
     const val ktorClientOkHttp = "io.ktor:ktor-client-okhttp:$ktorVersion"
     const val ktorClientDarwin = "io.ktor:ktor-client-darwin:$ktorVersion"
+    const val ktorClientAndroid = "io.ktor:ktor-client-android:$ktorVersion"
+    const val ktorClientContentNegotiation = "io.ktor:ktor-client-content-negotiation:$ktorVersion"
+    const val ktorClientLogging = "io.ktor:ktor-client-logging:$ktorVersion"
+    const val ktorClientSerialization = "io.ktor:ktor-client-serialization:$ktorVersion"
+    const val ktorSerialization = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
     // endregion
 
     // region Koin libraries
