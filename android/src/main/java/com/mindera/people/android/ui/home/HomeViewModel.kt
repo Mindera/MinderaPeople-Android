@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
-
 class HomeViewModel(
     private val getAuthenticatedUserUseCase: GetAuthenticatedUserUseCase,
     private val signInUseCase: SignInUseCase
@@ -23,12 +22,14 @@ class HomeViewModel(
         }
     }
 
-    override fun processAction(action: Action, latestState: HomeState): Flow<HomeState> =
-        when (action) {
+    override fun processAction(action: Action, latestState: HomeState): Flow<HomeState> {
+
+        return when (action) {
             is Action.Authenticate -> processAuthentication(action.user)
             is Action.UserAuthenticationUpdate ->
                 processAuthenticationUpdate(user = action.user, error = action.error)
         }
+    }
 
     fun setUser(user: User) {
         enqueueAction(Action.Authenticate(user))
@@ -53,3 +54,4 @@ class HomeViewModel(
         ) : Action()
     }
 }
+

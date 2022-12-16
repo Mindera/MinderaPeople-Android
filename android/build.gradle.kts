@@ -189,4 +189,5 @@ dependencies {
     androidTestImplementation(Dependencies.androidTestRunner)
     androidTestImplementation(Dependencies.androidJunit)
     androidTestImplementation(Dependencies.androidExpressoCore)
+    androidTestImplementation(Dependencies.androidComposeTest)
 }

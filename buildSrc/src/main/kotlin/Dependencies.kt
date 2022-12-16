@@ -60,6 +60,7 @@ object Dependencies {
     const val androidTestRunner = "androidx.test:runner:1.4.0"
     const val androidJunit = "androidx.test.ext:junit:1.1.3"
     const val androidExpressoCore = "androidx.test.espresso:espresso-core:3.4.0"
+    const val androidComposeTest = "androidx.compose.ui:ui-test-junit4"
     // endregion
 
     // region Firebase libraries
