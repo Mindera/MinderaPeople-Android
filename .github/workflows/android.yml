@@ -61,8 +61,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
 
     - name: Fetch Tags
       run: git fetch --tags origin
@@ -87,36 +85,29 @@ jobs:
     - name: Build and Publish Alpha
       if: github.ref == 'refs/heads/develop'
       run: |
-        export ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
-        export VERSION_NAME=alpha.v$(./gradlew -q android:printVersionName | tail -1)
+        ALPHA_TAGS=$(git tag -l -n 'alpha.v*' | wc -l)
         export VERSION_CODE=$(( $ALPHA_TAGS + 1 ))
-        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleAlpha android:appDistributionUploadAlpha
+        # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo alpha > ./tag/tag_type
 
     - name: Build and Publish Beta
       if: github.ref == 'refs/heads/release'
       run: |
-        export BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
-        export VERSION_NAME=beta.v$(./gradlew -q android:printVersionName | tail -1)
+        BETA_TAGS=$(git tag -l -n 'beta.v*' | wc -l)
         export VERSION_CODE=$(( $BETA_TAGS + 1 ))
-        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:assembleBeta android:appDistributionUploadBeta
+        # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo beta > ./tag/tag_type
 
-    - uses: ./
-      id: installationToken
+    - uses: actions/upload-artifact@v3
       with:
-        appId: 265615
-        installationId: 31564898
-        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
-
-    - name: Create Tag
-      uses: simpleactions/create-tag@v1.0.0
-      with:
-        tag: $NEW_TAG_NAME
-        message: "version $NEW_TAG_NAME"
-        github_token: ${{ steps.installationToken.outputs.token }}
+        name: tag_type
+        path: tag/
 
   deploy-googleplay:
     if: github.ref == 'refs/heads/main'
@@ -127,8 +118,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
 
     - name: Fetch Tags
       run: git fetch --tags origin
@@ -152,13 +141,14 @@ jobs:
       run: |
         echo $KEYSTORE > release.keystore.asc
         gpd -d --passphrase "$KEYSTORE_PASSPHRASE" --batch release.keystore.asc > $RUNNER_TEMP/release.keystore
-        echo "RK_FILE=$RUNNER_TEMP/release.keystore" >> $GITHUB_ENV
+        export RK_FILE=$RUNNER_TEMP/release.keystore
         export RELEASE_TAGS=$(git tag -l -n 'v*' | wc -l)
-        export VERSION_NAME=v$(./gradlew -q android:printVersionName | tail -1)
         export VERSION_CODE=$(( $RELEASE_TAGS + 1 ))
-        echo "NEW_TAG_NAME=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
         ./gradlew --stop
         ./gradlew android:bundleRelease
+        # define tag artifact for `tagging` workflow
+        mkdir -p ./tag
+        echo release > ./tag/tag_type
 
     - name: Upload to Google Play Store
       uses: r0adkll/upload-google-play@v1.0.19
@@ -168,16 +158,7 @@ jobs:
         releaseFiles: app/build/outputs/bundle/release/app-release.aab
         track: internalsharing
 
-    - uses: ./
-      id: installationToken
+    - uses: actions/upload-artifact@v3
       with:
-        appId: 265615
-        installationId: 31564898
-        privateKey: ${{ secrets.GH_APP_PRIVATE_KEY }}
-
-    - name: Create Tag
-      uses: simpleactions/create-tag@v1.0.0
-      with:
-        tag: $NEW_TAG_NAME
-        message: "version $NEW_TAG_NAME"
-        github_token: ${{ steps.installationToken.outputs.token }}
+        name: tag_type
+        path: tag/

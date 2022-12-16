@@ -1,0 +1,95 @@
+name: Tagging
+
+on:
+  workflow_run:
+    # List of dependent workflows to allow this one run.
+    # However, the `workflows` key wait for the first workflow complete
+    # to run this workflow, which doesn't make sense.¯\_(ツ)_/¯
+    # There is an Issue opened to fix this behaviour:
+    # https://github.com/community/community/discussions/16059
+    workflows: ["MinderaPeople Android"] # , "MinderaPeople iOS" -> removed from the list for while.
+    types: [completed]
+    branches: [ main, release, develop ]
+
+jobs:
+  create-tag:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    environment: github
+
+    steps:
+    - name: Download Tag Type artifact
+      uses: actions/github-script@v6
+      with:
+        script: |
+          let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             run_id: context.payload.workflow_run.id,
+          });
+          let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+             return artifact.name == "tag_type"
+          })[0];
+          let download = await github.rest.actions.downloadArtifact({
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             artifact_id: matchArtifact.id,
+             archive_format: 'zip',
+          });
+          let fs = require('fs');
+          fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/tag_type.zip`, Buffer.from(download.data));
+
+    - name: Unzip artifact
+      run: unzip tag_type.zip
+
+    - name: Get Tag Type
+      uses: actions/github-script@v6
+      id: get-tag-type
+      with:
+        script: |
+          let fs = require('fs');
+          return fs.readFileSync('./tag_type').toString().replace(/\n$/, "");
+        result-encoding: string
+
+    - uses: actions/checkout@v3
+
+    - name: Setup JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Generate Install Token
+      uses: getsentry/action-github-app-token@v2.0.0
+      id: installationToken
+      with:
+        app_id: 265615
+        private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+    - name: Fetch Tags
+      run: git fetch --tags origin
+
+    - name: Define new Tag
+      run: |
+        case "${{ steps.get-tag-type.outputs.result }}" in
+            "alpha") TAG_PREFIX="alpha.v" ;;
+            "beta") TAG_PREFIX="beta.v" ;;
+            "release") TAG_PREFIX="v" ;;
+            *) echo "tag type not defined!" && exit 1 ;;
+        esac
+        TAGS_COUNT=$(git tag -l -n "$TAG_PREFIX*" | wc -l)
+        VERSION_NAME=$TAG_PREFIX$(./gradlew -q printVersionName | tail -1)
+        VERSION_CODE=$(( $TAGS_COUNT + 1 ))
+        echo "NEW_TAG=$VERSION_NAME-$VERSION_CODE" >> $GITHUB_ENV
+        echo $VERSION_NAME-$VERSION_CODE
+
+    - name: Apply Tag
+      uses: simpleactions/create-tag@v1.0.0
+      with:
+        tag: ${{ env.NEW_TAG }}
+        message: "version $NEW_TAG_NAME"
+        github_token: ${{ steps.installationToken.outputs.token }}
