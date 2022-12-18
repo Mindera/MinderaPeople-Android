@@ -29,6 +29,7 @@ android {
         versionCode = System.getenv("VERSION_CODE")?.toInt() ?: 1
         versionName = project.extra.get("appVersion")?.toString()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        resourceConfigurations.addAll(listOf("en", "pt"))
     }
 
     signingConfigs {
