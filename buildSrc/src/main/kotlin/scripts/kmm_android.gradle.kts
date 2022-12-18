@@ -50,6 +50,9 @@ kotlin {
                 implementation(Dependencies.androidXAnnotation)
                 implementation(Dependencies.firebaseCrashlytics)
                 implementation(Dependencies.ktorClientOkHttp)
+                implementation(Dependencies.androidViewModel)
+                implementation(Dependencies.androidViewModelSavedState)
+                implementation(Dependencies.koinAndroid)
             }
         }
         val androidTest by getting {

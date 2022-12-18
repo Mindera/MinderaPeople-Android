@@ -1,6 +1,13 @@
 package com.mindera.people
 
-import java.util.Enumeration
+import com.mindera.people.utils.DispatchersProvider
+import kotlinx.coroutines.CoroutineDispatcher
+import java.util.*
+
+actual fun setupDispatchers(testDispatcher: CoroutineDispatcher) {
+    DispatchersProvider.main = testDispatcher
+    DispatchersProvider.io = testDispatcher
+}
 
 /**
  * Extension function for converting a {@link List} to an {@link Enumeration}
