@@ -15,11 +15,11 @@ val LightColorPalette = lightColors(
     surface = white,
     error = red600,
     background = grayBlue,
-    onPrimary = grayBlue900,
+    onPrimary = grayBlue500,
     onSecondary = white,
-    onSurface = grayBlue900,
+    onSurface = grayBlue500,
     onBackground = grayBlue900,
-    onError = white
+    onError = white,
 )
 
 // FIXME define dark theme colors

@@ -9,5 +9,7 @@ interface Navigator {
 
     fun navigateToAuthentication()
 
+    fun navigateToMainScreen()
+
     fun openSystemAppSettings()
 }
