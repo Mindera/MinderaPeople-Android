@@ -4,6 +4,7 @@
     <string name="loading">Loading&#8230;</string>
     <string name="retry">Retry</string>
     <string name="auth_error_msg">Something went wrong…</string>
+    <string name="view_all">View all</string>
 
     <!-- LOGIN -->
     <string name="login_btn_label">Login with Google Account</string>
@@ -25,4 +26,14 @@
     <string name="navigation_dashboard_title">Dashboard</string>
     <string name="navigation_calendar_title">Calendar</string>
     <string name="navigation_profile_title">My Profile</string>
+
+    <!-- DASHBOARD -->
+    <string name="dashboard_hello">Hello, %s</string>
+    <string name="dashboard_card_vacations">\nVacations</string>
+    <string name="dashboard_card_vacations_days">/ %d days</string>
+    <string name="dashboard_card_vacations_description">Don’t forget to take\nsome days to rest.</string>
+    <string name="dashboard_icon_content_description">Minder listen to music</string>
+
+    <string name="dashboard_upcoming_events">My Upcoming Events</string>
+
 </resources>

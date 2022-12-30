@@ -1,5 +1,8 @@
 package com.mindera.people.android.ui.bottomNavigation
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,6 +24,7 @@ import com.mindera.people.android.ui.calendar.CalendarScreen
 import com.mindera.people.android.ui.dashboard.DashboardScreen
 import com.mindera.people.android.ui.profile.ProfileScreen
 import com.mindera.people.android.utils.getWith
+import com.mindera.people.android.utils.navigationBarsPadding
 
 const val MAIN_ROUTE = "main"
 
@@ -36,9 +40,10 @@ fun MainScreen(
 fun MainScreenView() {
     val navController = rememberNavController()
     Scaffold(
+        modifier = Modifier.navigationBarsPadding(),
         bottomBar = { BottomNavigation(navController = navController) }
     ) {
-        NavigationGraph(navController = navController)
+            NavigationGraph(navController = navController)
     }
 }
 
@@ -53,7 +58,12 @@ fun BottomNavigation(navController: NavController) {
         val currentRoute = navBackStackEntry?.destination?.route
         getNavItems().forEach { item ->
             BottomNavigationItem(
-                icon = { Icon(painterResource(id = item.icon), contentDescription = stringResource(item.title)) },
+                icon = {
+                    Icon(
+                        painterResource(id = item.icon),
+                        contentDescription = stringResource(item.title)
+                    )
+                },
                 label = {
                     Text(
                         text = stringResource(item.title),
