@@ -1,8 +1,6 @@
 package com.mindera.people.android.ui.bottomNavigation
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,7 +22,6 @@ import com.mindera.people.android.ui.calendar.CalendarScreen
 import com.mindera.people.android.ui.dashboard.DashboardScreen
 import com.mindera.people.android.ui.profile.ProfileScreen
 import com.mindera.people.android.utils.getWith
-import com.mindera.people.android.utils.navigationBarsPadding
 
 const val MAIN_ROUTE = "main"
 
@@ -33,17 +30,17 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     logger: Logger = getWith("MainScreen")
 ) {
-    MainScreenView()
+    MainScreenView(modifier)
 }
 
 @Composable
-fun MainScreenView() {
+fun MainScreenView(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold(
         modifier = Modifier.navigationBarsPadding(),
         bottomBar = { BottomNavigation(navController = navController) }
     ) {
-            NavigationGraph(navController = navController)
+            NavigationGraph(navController = navController, modifier = modifier)
     }
 }
 
@@ -92,10 +89,10 @@ fun BottomNavigation(navController: NavController) {
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(navController: NavHostController, modifier: Modifier) {
     NavHost(navController, startDestination = BottomNavItem.Dashboard.screen_route) {
         composable(BottomNavItem.Dashboard.screen_route) {
-            DashboardScreen()
+            DashboardScreen(modifier= modifier)
         }
         composable(BottomNavItem.Calendar.screen_route) {
             CalendarScreen()

@@ -1,17 +1,16 @@
 package com.mindera.people.android.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mindera.people.android.ui.theme.black400
 
 @Composable
 fun LoaderComponent(
@@ -23,7 +22,8 @@ fun LoaderComponent(
             .height(80.dp)
     ) {
         CircularProgressIndicator(
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
+            color = MaterialTheme.colors.secondary
         )
     }
 }
@@ -38,5 +38,5 @@ fun LoaderComponent(
 )
 @Composable
 fun PreviewLoaderComponent() {
-    FullScreenLoaderComponent()
+    LoaderComponent()
 }

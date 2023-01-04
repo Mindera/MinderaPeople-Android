@@ -1,11 +1,6 @@
 package com.mindera.people.timeoff
 
-import com.mindera.people.defaultApiPersonTimeOff
-import com.mindera.people.defaultApiPolicy
-import com.mindera.people.defaultApiTeamTimeOffList
-import com.mindera.people.defaultPersonTimeOff
-import com.mindera.people.defaultPolicy
-import com.mindera.people.defaultTeamTimeOffList
+import com.mindera.people.*
 import io.mockative.Mock
 import io.mockative.classOf
 import io.mockative.given
@@ -16,7 +11,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 
-class TimeOffRepositoryTests{
+class TimeOffRepositoryTests {
     @Mock
     private val service = mock(classOf<TimeOffService>())
 
@@ -29,17 +24,18 @@ class TimeOffRepositoryTests{
     }
 
     @Test
-    fun `test getUser save a given UserTimeOff properly`() = runTest {
-        given(service).coroutine { getUser() }.thenReturn(defaultApiPersonTimeOff)
+    fun `test getTimeOffEvents save a given UserTimeOff properly`() = runTest {
+        given(service).coroutine { getTimeOffEvents(2) }.thenReturn(listOf(defaultApiPersonTimeOff))
 
-        val result = repository.getUser()
+        val result = repository.getTimeOffEvents(2)
 
-        assertEquals(defaultPersonTimeOff, result)
+        assertEquals(listOf(defaultPersonTimeOff), result)
     }
 
     @Test
     fun `test getUserTimeOffCalendar save a given TeamTimeOffList properly`() = runTest {
-        given(service).coroutine { getUserTimeOffCalendar("2") }.thenReturn(defaultApiTeamTimeOffList)
+        given(service).coroutine { getUserTimeOffCalendar("2") }
+            .thenReturn(defaultApiTeamTimeOffList)
 
         val result = repository.getUserTimeOffCalendar("2")
 
@@ -48,7 +44,8 @@ class TimeOffRepositoryTests{
 
     @Test
     fun `test getTeamTimeOffCalendar save a given TeamTimeOffList properly`() = runTest {
-        given(service).coroutine { getTeamTimeOffCalendar("2") }.thenReturn(defaultApiTeamTimeOffList)
+        given(service).coroutine { getTeamTimeOffCalendar("2") }
+            .thenReturn(defaultApiTeamTimeOffList)
 
         val result = repository.getTeamTimeOffCalendar("2")
 
@@ -57,10 +54,20 @@ class TimeOffRepositoryTests{
 
     @Test
     fun `test getSummary save a given TeamTimeOffList properly`() = runTest {
-        given(service).coroutine { getSummary("2") }.thenReturn(defaultApiPolicy)
+        given(service).coroutine { getSummary(2) }.thenReturn(defaultApiSummaryList)
 
-        val result = repository.getSummary("2")
+        val result = repository.getSummary(2)
 
-        assertEquals(defaultPolicy.hashCode(), result.hashCode())
+        assertEquals(defaultSummary, result)
+    }
+
+    @Test
+    fun `test deleteEvent save a given delete timeOff event properly`() = runTest {
+        given(service).coroutine { deleteTimeOff(timeOffID = 2, personID = 2) }
+            .thenReturn(defaultApiPersonTimeOff)
+
+        val result = repository.deleteTimeOff(timeOffID = 2, personID = 2)
+
+        assertEquals(defaultPersonTimeOff, result)
     }
 }

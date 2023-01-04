@@ -27,16 +27,16 @@ class GetTimeOffUseCaseTests {
     @Test
     fun `when execute then returns expected TimeOff User`() = runTest {
         // Given
-        given(repository).coroutine { getUser() }
-            .thenReturn(defaultPersonTimeOff)
+        given(repository).coroutine { getTimeOffEvents(2) }
+            .thenReturn(listOf(defaultPersonTimeOff))
 
         // When
-        useCase().test {
-            assertEquals(UiState.Success(defaultPersonTimeOff), awaitItem())
+        useCase(2).test {
+            assertEquals(UiState.Success(listOf(defaultPersonTimeOff)), awaitItem())
             awaitComplete()
         }
 
         // Then
-        verify(repository).coroutine { getUser() }.wasInvoked(exactly = once)
+        verify(repository).coroutine { getTimeOffEvents(2) }.wasInvoked(exactly = once)
     }
 }

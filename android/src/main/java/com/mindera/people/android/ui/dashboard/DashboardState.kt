@@ -8,8 +8,8 @@ import com.mindera.people.utils.UiState
 
 sealed class DashboardState {
     object Idle: DashboardState()
-    data class UserData(val user: User) : DashboardState()
-    data class TimeOffData(val timeOffData: UiState<Summary>): DashboardState()
-    data class MyTimeOffList(val myTimeOffList: UiState<List<PersonTimeOff>>): DashboardState()
+    data class AllData(val user: User,
+                       val timeOffData: UiState<Summary>,
+                       val myTimeOffList: UiState<List<PersonTimeOff>>) : DashboardState()
     data class DashboardError(val error: String?): DashboardState()
 }

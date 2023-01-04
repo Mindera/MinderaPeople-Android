@@ -9,4 +9,5 @@ val timeOffModule = module {
     factory { GetTimeOffUseCase(get()) }
     factory { GetTimeOffSummaryUseCase(get()) }
     factory { GetTimeOffCalendarUseCase(get()) }
+    factory { DeleteTimeOffUseCase(get()) }
 }

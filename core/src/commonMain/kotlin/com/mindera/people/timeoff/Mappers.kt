@@ -10,7 +10,7 @@ import com.mindera.people.api.model.TeamTimeOff as ApiTeamTimeOff
 import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
 
 internal fun List<ApiSummaryList>.toSummary(): Summary =
-    first { it.id == 5279 }.summaryList?.first()?.run {
+    first { isVacationSummary(id = it.id) }.summary?.run {
         Summary(
             allowedAllowance = allowedAllowance.toString(),
             used = used.toString()
@@ -49,3 +49,5 @@ internal fun ApiPersonTimeOff.toPersonTimeOff(): PersonTimeOff =
         hours = this.hours ?: 0,
         timeOffPolicy = this.timeOffPolicy?.toPolicy(),
     )
+
+private fun isVacationSummary(id: Int?) = id == 5279
