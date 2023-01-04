@@ -10,6 +10,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mindera.people.android.ui.auth.AUTH_ROUTE
 import com.mindera.people.android.ui.auth.AuthRoute
+import com.mindera.people.android.ui.bottomNavigation.BottomNavigation
+import com.mindera.people.android.ui.bottomNavigation.MAIN_ROUTE
+import com.mindera.people.android.ui.bottomNavigation.MainScreen
 import com.mindera.people.android.ui.home.HOME_ROUTE
 import com.mindera.people.android.ui.home.HomeRoute
 import com.mindera.people.android.ui.user.USER_ROUTE
@@ -26,7 +29,7 @@ fun NavGraph(
     val context = LocalContext.current
     val navigator = remember(controller) { AppNavigator(context, controller) }
 
-    val start = if (getAuthenticatedUserUseCase() != null) HOME_ROUTE else AUTH_ROUTE
+    val start = if (getAuthenticatedUserUseCase() != null) MAIN_ROUTE else MAIN_ROUTE
 
     NavHost(
         navController = controller,
@@ -47,11 +50,9 @@ fun NavGraph(
             )
         }
 
-        composable(USER_ROUTE) {
-            UserRoute(
-                navigator = navigator,
-                navBackStackEntry = it
-            )
+        composable(MAIN_ROUTE) {
+            MainScreen()
         }
+
     }
 }

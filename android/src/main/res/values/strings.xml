@@ -21,4 +21,8 @@
     <string name="prompt_info_subtitle">Please login to get access</string>
     <string name="prompt_info_description">Mindera People is using Android biometric authentication</string>
     <string name="prompt_info_go_back">Leave</string>
+
+    <string name="navigation_dashboard_title">Dashboard</string>
+    <string name="navigation_calendar_title">Calendar</string>
+    <string name="navigation_profile_title">My Profile</string>
 </resources>

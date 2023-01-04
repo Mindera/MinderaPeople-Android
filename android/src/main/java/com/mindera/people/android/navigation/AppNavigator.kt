@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.navigation.NavHostController
 import com.mindera.people.android.ui.auth.AUTH_ROUTE
+import com.mindera.people.android.ui.bottomNavigation.MAIN_ROUTE
 import com.mindera.people.android.ui.home.HOME_ROUTE
 
 
@@ -30,6 +31,12 @@ class AppNavigator(
     override fun navigateToAuthentication() {
         controller.navigate(route = AUTH_ROUTE) {
             popUpTo(HOME_ROUTE) { inclusive = true }
+            launchSingleTop = true
+        }
+    }
+
+    override fun navigateToMainScreen() {
+        controller.navigate(route = MAIN_ROUTE) {
             launchSingleTop = true
         }
     }

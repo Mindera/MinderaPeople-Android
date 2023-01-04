@@ -3,6 +3,9 @@ package com.mindera.people.android
 import android.app.Application
 import com.mindera.people.android.ui.auth.AuthViewModel
 import com.mindera.people.android.ui.home.HomeViewModel
+import com.mindera.people.android.ui.dashboard.DashboardViewModel
+import com.mindera.people.android.ui.calendar.CalendarViewModel
+import com.mindera.people.android.ui.profile.ProfileViewModel
 import com.mindera.people.startSdk
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
@@ -20,6 +23,9 @@ class MinderaPeopleApp : Application() {
             appModule = module {
                 viewModelOf(::AuthViewModel)
                 viewModelOf(::HomeViewModel)
+                viewModelOf(::DashboardViewModel)
+                viewModelOf(::CalendarViewModel)
+                viewModelOf(::ProfileViewModel)
             })
     }
 }
