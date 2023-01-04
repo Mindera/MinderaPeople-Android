@@ -29,7 +29,7 @@ fun NavGraph(
     val context = LocalContext.current
     val navigator = remember(controller) { AppNavigator(context, controller) }
 
-    val start = if (getAuthenticatedUserUseCase() != null) MAIN_ROUTE else MAIN_ROUTE
+    val start = if (getAuthenticatedUserUseCase() != null) MAIN_ROUTE else AUTH_ROUTE
 
     NavHost(
         navController = controller,

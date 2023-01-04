@@ -1,5 +1,6 @@
 package com.mindera.people.android.ui.bottomNavigation
 
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,16 +30,17 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     logger: Logger = getWith("MainScreen")
 ) {
-    MainScreenView()
+    MainScreenView(modifier)
 }
 
 @Composable
-fun MainScreenView() {
+fun MainScreenView(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold(
+        modifier = Modifier.navigationBarsPadding(),
         bottomBar = { BottomNavigation(navController = navController) }
     ) {
-        NavigationGraph(navController = navController)
+            NavigationGraph(navController = navController, modifier = modifier)
     }
 }
 
@@ -53,7 +55,12 @@ fun BottomNavigation(navController: NavController) {
         val currentRoute = navBackStackEntry?.destination?.route
         getNavItems().forEach { item ->
             BottomNavigationItem(
-                icon = { Icon(painterResource(id = item.icon), contentDescription = stringResource(item.title)) },
+                icon = {
+                    Icon(
+                        painterResource(id = item.icon),
+                        contentDescription = stringResource(item.title)
+                    )
+                },
                 label = {
                     Text(
                         text = stringResource(item.title),
@@ -82,10 +89,10 @@ fun BottomNavigation(navController: NavController) {
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(navController: NavHostController, modifier: Modifier) {
     NavHost(navController, startDestination = BottomNavItem.Dashboard.screen_route) {
         composable(BottomNavItem.Dashboard.screen_route) {
-            DashboardScreen()
+            DashboardScreen(modifier= modifier)
         }
         composable(BottomNavItem.Calendar.screen_route) {
             CalendarScreen()

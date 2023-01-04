@@ -7,5 +7,7 @@ val timeOffModule = module {
     single<TimeOffService> { TimeOffServiceImpl(get()) }
 
     factory { GetTimeOffUseCase(get()) }
+    factory { GetTimeOffSummaryUseCase(get()) }
     factory { GetTimeOffCalendarUseCase(get()) }
+    factory { DeleteTimeOffUseCase(get()) }
 }

@@ -5,8 +5,17 @@ import com.mindera.people.people.TeamTimeOff
 import com.mindera.people.people.TeamTimeOffList
 import com.mindera.people.settings.policy.toPolicy
 import com.mindera.people.api.model.PersonTimeOff as ApiPersonTimeOff
+import com.mindera.people.api.model.SummaryList as ApiSummaryList
 import com.mindera.people.api.model.TeamTimeOff as ApiTeamTimeOff
 import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
+
+internal fun List<ApiSummaryList>.toSummary(): Summary =
+    first { isVacationSummary(id = it.id) }.summary?.run {
+        Summary(
+            allowedAllowance = allowedAllowance.toString(),
+            used = used.toString()
+        )
+    } ?: kotlin.run { Summary() }
 
 
 internal fun ApiTeamTimeOffList.toTeamTimeOffList(): TeamTimeOffList =
@@ -24,6 +33,8 @@ internal fun ApiTeamTimeOff.toTeamTimeOff(): TeamTimeOff =
         data = this.data.toPersonTimeOff()
     )
 
+internal fun List<ApiPersonTimeOff>.toPersonTimeOffList(): List<PersonTimeOff> =
+    map { it.toPersonTimeOff() }
 
 internal fun ApiPersonTimeOff.toPersonTimeOff(): PersonTimeOff =
     PersonTimeOff(
@@ -35,8 +46,8 @@ internal fun ApiPersonTimeOff.toPersonTimeOff(): PersonTimeOff =
         details = this.details ?: "",
         type = TimeOffTypes.mapperEnum(type),
         status = TimeOffStatus.mapperEnum(status),
-        hours = this.hours ?: "",
+        hours = this.hours ?: 0,
         timeOffPolicy = this.timeOffPolicy?.toPolicy(),
-        modifiedBy = this.modifiedBy ?: "",
-        modifiedAt = this.modifiedAt ?: ""
     )
+
+private fun isVacationSummary(id: Int?) = id == 5279

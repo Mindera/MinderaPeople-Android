@@ -80,7 +80,7 @@ data class PersonTimeOff(
     @SerialName("details") val details: String? = null,
     @SerialName("type") val type: String? = null,
     @SerialName("status") val status: String? = null,
-    @SerialName("hours") val hours: String? = null,
+    @SerialName("hours") val hours: Int? = null,
     @SerialName("timeOffPolicy") val timeOffPolicy: Policy? = null,
     @SerialName("modified_by") val modifiedBy: String? = null,
     @SerialName("modified_at") val modifiedAt: String? = null

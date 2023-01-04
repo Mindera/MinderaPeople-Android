@@ -30,6 +30,9 @@ private fun getNavigator(hasBackStack: Boolean): Navigator =
         override fun navigateToAuthentication() {/* no-op */
         }
 
+        override fun navigateToMainScreen() {/* no-op */
+        }
+
         override fun openSystemAppSettings() {/* no-op */
         }
     }

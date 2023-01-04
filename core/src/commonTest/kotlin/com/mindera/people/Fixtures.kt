@@ -1,5 +1,6 @@
 package com.mindera.people
 
+import com.mindera.people.api.model.SummaryList
 import com.mindera.people.auth.User
 import com.mindera.people.people.Person
 import com.mindera.people.people.PersonAddress
@@ -12,6 +13,7 @@ import com.mindera.people.settings.office.Office
 import com.mindera.people.settings.policy.Policy
 import com.mindera.people.settings.role.Role
 import com.mindera.people.settings.skill.Skill
+import com.mindera.people.timeoff.Summary
 import com.mindera.people.timeoff.TimeOffStatus
 import com.mindera.people.timeoff.TimeOffTypes
 import com.mindera.people.api.model.Country as ApiCountry
@@ -25,6 +27,8 @@ import com.mindera.people.api.model.Role as ApiRole
 import com.mindera.people.api.model.Skill as ApiSkill
 import com.mindera.people.api.model.TeamTimeOff as ApiTeamTimeOff
 import com.mindera.people.api.model.TeamTimeOffList as ApiTeamTimeOffList
+import com.mindera.people.api.model.SummaryList as ApiSummaryList
+import com.mindera.people.api.model.Summary as ApiSummary
 
 // region Policy
 val defaultPolicy = Policy(
@@ -155,10 +159,8 @@ val defaultPersonTimeOff = PersonTimeOff(
     details = "",
     type = TimeOffTypes.FULL_DAY,
     status = TimeOffStatus.APPROVED,
-    hours = "",
-    timeOffPolicy = defaultPolicy,
-    modifiedBy = "",
-    modifiedAt = ""
+    hours = 0,
+    timeOffPolicy = defaultPolicy
 )
 
 val defaultApiPersonTimeOff = ApiPersonTimeOff(
@@ -170,7 +172,7 @@ val defaultApiPersonTimeOff = ApiPersonTimeOff(
     details = "",
     type = "FULL_DAY",
     status = "APPROVED",
-    hours = "",
+    hours = 0,
     timeOffPolicy = defaultApiPolicy,
     modifiedBy = "",
     modifiedAt = ""
@@ -199,13 +201,15 @@ val defaultApiTeamTimeOff = ApiTeamTimeOff(
 
 val defaultTeamTimeOffList = TeamTimeOffList(
     parent = 123,
-    data = listOf(TeamTimeOff(
-        id = 123,
-        client = "mindera",
-        parent = 123,
-        isOpen = false,
-        data = defaultPersonTimeOff
-    ))
+    data = listOf(
+        TeamTimeOff(
+            id = 123,
+            client = "mindera",
+            parent = 123,
+            isOpen = false,
+            data = defaultPersonTimeOff
+        )
+    )
 )
 
 val defaultTeamTimeOff = TeamTimeOff(
@@ -288,6 +292,20 @@ val defaultApiCountry = ApiCountry(
     value = "value",
 )
 
+val defaultApiSummaryList = listOf(
+    ApiSummaryList(
+        id = 5279,
+        summary = ApiSummary(
+            allowedAllowance = 1,
+            used = 1F
+        )
+    )
+)
+
+val defaultSummary = Summary(
+    allowedAllowance = "1",
+    used = "1.0"
+)
 
 
 // endregion

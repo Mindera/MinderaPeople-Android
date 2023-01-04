@@ -93,8 +93,6 @@ data class PersonTimeOff(
     val details: String,
     val type: TimeOffTypes,
     val status: TimeOffStatus,
-    val hours: String,
+    val hours: Int,
     val timeOffPolicy: Policy? = null,
-    val modifiedBy: String,
-    val modifiedAt: String,
 )
